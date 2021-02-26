@@ -20,7 +20,7 @@ public class TestBoard {
 	}
 	
 	public TestBoardCell getCell(int row, int col) {
-		TestBoardCell Cell = null;
+		TestBoardCell Cell = new TestBoardCell(row, col);
 		
 		return Cell;
 	}

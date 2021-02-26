@@ -29,22 +29,22 @@ public class TestBoardCell {
 	}
 	
 	//set what room the tile is in
-	void setRoom(boolean check) {
+	public void setIsRoom(boolean check) {
 		isRoom=check;
 	}
 	
 	//Check if the tile is in the room
-	boolean isRoom() {
+	public boolean isRoom() {
 		return isRoom;
 	}
 	
 	//Set if the tile is already occupied 
-	void setOccupied(boolean check) {
+	public void setOccupied(boolean check) {
 		occupied= check;
 	}
 	
 	//check if the room is occupied
-	boolean getOccupied() {
+	public boolean getOccupied() {
 		return occupied;
 	}
 	
