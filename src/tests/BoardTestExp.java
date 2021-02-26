@@ -76,6 +76,14 @@ public class BoardTestExp {
 		assertTrue(targets2.contains(board.getCell(0,3)));
 		assertTrue(targets2.contains(board.getCell(2,3)));
 		
+		TestBoardCell cell1= board.getCell(2,2);
+		board.calcTargets(cell1, 1);
+		Set<TestBoardCell> targets2 = board.getTargets();
+		assertEquals(4, targets2.size());
+		assertTrue(targets2.contains(board.getCell(1,2)));
+		assertTrue(targets2.contains(board.getCell(2,1)));
+		assertTrue(targets2.contains(board.getCell(3,2)));
+		assertTrue(targets2.contains(board.getCell(2,3)));	
 		
 		
 	}
