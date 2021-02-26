@@ -77,4 +77,19 @@ public class BoardTestExp {
 		
 		
 	}
+	
+	@Test
+	public void testTargetsMixed() {
+		//set up occupied cells
+		board.getCell(0, 2).setOccupied(true);
+		board.getCell(1, 2).setIsRoom(true);
+		TestBoardCell cell = board.getCell(0, 3);
+		board.calcTargets(cell, 3);
+		Set<TestBoardCell> targets = board.getTargets();
+		assertEquals(3, targets.size());
+		assertTrue(targets.contains(board.getCell(1, 2)));
+		assertTrue(targets.contains(board.getCell(2, 2)));
+		assertTrue(targets.contains(board.getCell(3, 3)));
+		
+	}
 }
