@@ -1,0 +1,79 @@
+commit 6a00af2b7627dcb7814b7e2730077963fcfbab13
+Author: eebag <gabehohman@hotmail.com>
+Date:   Fri Feb 26 19:16:40 2021 -0700
+
+    "Finished tests"
+
+commit bab3bc97b9603de902ba0240f24b2da9af4a914d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 21:45:43 2021 -0700
+
+    forgot to save file
+
+commit e35d1a0c01671cca195618f73de15c2d46b9176d
+Merge: ffc2169 ce6cf53
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 21:38:50 2021 -0700
+
+    Merge branch 'master' of https://github.com/eebag/Clue
+
+commit ffc21694f84752701dd415bbf03009c388f7012d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 21:38:28 2021 -0700
+
+    Added 2 test cases to the junit test
+
+commit ce6cf53e32640546849cc086eed658bfcc202caf
+Merge: f6d9b7d 930d7c9
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Feb 25 19:13:13 2021 -0700
+
+    Merge branch 'master' of https://github.com/eebag/Clue into master
+
+commit f6d9b7db7d3ed9eb860d2e4df77362f05ef6af4b
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Feb 25 19:12:13 2021 -0700
+
+    More work on test cases
+
+commit 930d7c91eedbdfa5311403f79cda91c78bd1795d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 19:10:14 2021 -0700
+
+    Worked on board test exp. added a test for cell 2,1 with 6 moves
+
+commit 8a00ffbfca6420c42886e12a4c429843c49760c0
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 19:04:17 2021 -0700
+
+    Edited boardtestexp for adjacency tests
+
+commit e1b19405722e3ae5df6855ddc8a5a07c4046fa82
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 18:43:56 2021 -0700
+
+    Lost some commits due to a error using git. Renamed test board cell file and added variables
+
+commit 289dc0a5a2ee088c1a8668f7c301c1db0ab05739
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Feb 25 18:25:18 2021 -0700
+
+    Began work on test classes
+
+commit b1ffa62aa126427b218a2bd3fa4dae1d57de9268
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 17:52:54 2021 -0700
+
+    renamed board cell file to be all caps
+
+commit ec285d4c8d3cb9d43d27d3a1641d8832a5621143
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 17:51:22 2021 -0700
+
+    rename of info
+
+commit 4eea5f1527129379a0cf08b92dd7bc30363fefa7
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 17:45:33 2021 -0700
+
+    Redid git structure
