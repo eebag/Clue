@@ -1,5 +1,10 @@
+/*@Authors
+ * Gabe Hohman and Olivia Jackson
+ */
+
 package experiment;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoardCell {
@@ -16,6 +21,7 @@ public class TestBoardCell {
 		super();
 		this.row = row;
 		this.column = column;
+		adjacencyList = new HashSet<TestBoardCell>();
 	}
 	
 	//Add adjacent tiles to the adjacency board

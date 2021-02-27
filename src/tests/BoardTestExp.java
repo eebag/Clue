@@ -1,19 +1,28 @@
+/*@Authors
+ * Gabe Hohman and Olivia Jackson
+ */
+
 package tests;
 
 import java.util.Set;
 import static org.junit.Assert.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import experiment.TestBoard;
 import experiment.TestBoardCell;
 
 public class BoardTestExp {
 	TestBoard board;
 	
+	@BeforeEach
 	public void setUp() {
 		//setup adjacency lists and such
 		board = new TestBoard();
+		System.out.println("hi mom");
 	}
 	
+	@Test
 	public void testAdjacency() {
 		//Tests top left
 		TestBoardCell cell0 = board.getCell(0,0);
@@ -52,7 +61,7 @@ public class BoardTestExp {
 	
 	@Test
 	public void testTargetsNormal() {
-		TestBoardCell cell0= board.getCell(0,0);
+		TestBoardCell cell0 = board.getCell(0,0);
 		board.calcTargets(cell0, 3);
 		Set<TestBoardCell> targets = board.getTargets();
 		assertEquals(6, targets.size());
