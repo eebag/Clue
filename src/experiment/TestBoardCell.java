@@ -11,7 +11,7 @@ public class TestBoardCell {
 	//Create class variables
 	private int row;
 	private int column;
-	private Set<TestBoardCell> adjacencyList; //List of adjacent tiles
+	private Set<TestBoardCell> adjacencyList;
 	private boolean occupied;
 	private boolean isRoom;
 	
@@ -21,6 +21,8 @@ public class TestBoardCell {
 		super();
 		this.row = row;
 		this.column = column;
+		occupied = false;
+		isRoom = false;
 		adjacencyList = new HashSet<TestBoardCell>();
 	}
 	
@@ -46,12 +48,27 @@ public class TestBoardCell {
 	
 	//Set if the tile is already occupied 
 	public void setOccupied(boolean check) {
-		occupied= check;
+		occupied = check;
 	}
-	
+	             
 	//check if the room is occupied
 	public boolean getOccupied() {
 		return occupied;
 	}
+	
+	//getters
+	public int getRow() {
+		return row;
+	}
+
+	public int getColumn() {
+		return column;
+	}	
+	
+	
+	public String toString() {
+		return "Cell: [" + row + "]" + " [" + column + "], Occupied: [" + occupied + "] Room: [" + isRoom + "] \n";
+	}
+	
 	
 }
