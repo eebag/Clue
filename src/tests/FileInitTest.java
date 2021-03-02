@@ -38,10 +38,11 @@ public class FileInitTest {
 	public void testRoomLabels() {
 		// To ensure data is correctly loaded, test retrieving a few rooms
 		// from the hash, including the first and last in the file and a few others
-		assertEquals("Conservatory", board.getRoom('C').getName() );
-		assertEquals("Ballroom", board.getRoom('B').getName() );
-		assertEquals("Billiard Room", board.getRoom('R').getName() );
-		assertEquals("Dining Room", board.getRoom('D').getName() );
+		//Test with our rooms
+		assertEquals("Arthur Lakes Library", board.getRoom('A').getName() );
+		assertEquals("Guggenheim", board.getRoom('G').getName() );
+		assertEquals("Hill Hall", board.getRoom('H').getName() );
+		assertEquals("Driveway", board.getRoom('D').getName() );
 		assertEquals("Walkway", board.getRoom('W').getName() );
 	}
 

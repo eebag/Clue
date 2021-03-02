@@ -1,0 +1,4 @@
+For our tests, we chose Gugenhiem for the RIGHT door(1,11), Arthur Lakes Library for UP 
+door (5,3), Coors Tech for LEFT door (15,20), and Berthod for the DOWN door (5,19).
+For the nondoors, we chose one cell that is unused (12,10) and one that is a walkway 
+(16,11). 
