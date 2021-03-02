@@ -9,8 +9,8 @@ public class BoardCell {
 	private int row;
 	private int column;
 	
-	private char initial;
-	private char secretPassage;
+	private char initial; // room initial
+	private char secretPassage; // secret passage initial (2nd initial)
 	
 	private boolean roomLabel;
 	private boolean roomCenter;

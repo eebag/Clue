@@ -83,12 +83,17 @@ public class Board {
 		return numRows;
 	}
 	
-	public int getNumCols() {
+	public int getNumColumns() {
 		return numCols;
 	}
 	
-	public Room getRoom(char r) {
-		
+	public Room getRoom(Character r) {
+		return roomMap.get(r);
+	}
+	
+	public Room getRoom(BoardCell c) {
+		Character roomKey = c.getInitial();
+		return roomMap.get(roomKey);
 	}
 	
 	public BoardCell getCell(int col, int row) {
