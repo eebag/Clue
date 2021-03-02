@@ -104,7 +104,7 @@ public class Board {
 		return roomMap.get(roomKey);**/
 	}
 	
-	public BoardCell getCell(int col, int row) {
+	public BoardCell getCell(int row, int col) {
 		return grid[col][row];
 	}
 	
