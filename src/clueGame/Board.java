@@ -33,9 +33,9 @@ public class Board {
 	
 	public void initialize() {
 		//different from last time, closer to [x,y] notation for readability
-		grid = new BoardCell[numCols][numRows];
-		for(int i = 0; i < numCols; i++) {
-			for(int j = 0; j < numRows; j++) {
+		grid = new BoardCell[numRows][numCols];
+		for(int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numCols; j++) {
 				BoardCell cell = new BoardCell(i, j);
 				grid[i][j] = cell;
 			}
@@ -45,15 +45,15 @@ public class Board {
 		
 		
 		//generate adjacencies
-		for(int i = 0; i < numCols; i++) {
-			for(int j = 0; j < numRows; j++) {
+		for(int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numCols; j++) {
 				BoardCell cell = grid[i][j];
 				
 				if(i > 0) {
 					cell.addAdjacency(grid[i-1][j]);
 				}
 				
-				if(i < numCols - 1) {
+				if(i < numRows - 1) {
 					cell.addAdjacency(grid[i+1][j]);
 				}
 				
@@ -61,7 +61,7 @@ public class Board {
 					cell.addAdjacency(grid[i][j-1]);
 				}
 				
-				if(j < numRows - 1) {
+				if(j < numCols - 1) {
 					cell.addAdjacency(grid[i][j+1]);
 				}
 			}
