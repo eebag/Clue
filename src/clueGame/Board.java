@@ -10,8 +10,9 @@ public class Board {
 	private String setupConfigFile;
 	private String layoutConfigFile;
 	
-	private int numRows = 25;
-	private int numCols = 26;
+	//Hard coded larger than test dimensions. Will change when reading in file.
+	private int numRows = 30;
+	private int numCols = 30;
 	
 	private Set<TestBoardCell> targets;	
 	private Set<TestBoardCell> visited;
