@@ -16,13 +16,12 @@ import clueGame.DoorDirection;
 import clueGame.Room;
 
 public class FileInitTest {
-	// Constants that I will use to test whether the file was loaded correctly
+	//Constants based on the board we designed
 	public static final int LEGEND_SIZE = 11;
 	public static final int NUM_ROWS = 25;
 	public static final int NUM_COLUMNS = 24;
 
-	// NOTE: I made Board static because I only want to set it up one
-	// time (using @BeforeAll), no need to do setup before each test.
+	// Create one board
 	private static Board board;
 
 	@BeforeAll
@@ -30,7 +29,7 @@ public class FileInitTest {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ClueLayout306.csv", "ClueSetup306.txt");
+		board.setConfigFiles("MapOfCampusCLUE.csv", "ClueSetup.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
 	}
