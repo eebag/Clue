@@ -2,3 +2,12 @@ For our tests, we chose Gugenhiem for the RIGHT door(1,11), Arthur Lakes Library
 door (5,3), Coors Tech for LEFT door (15,20), and Berthod for the DOWN door (5,19).
 For the nondoors, we chose one cell that is unused (12,10) and one that is a walkway 
 (16,11). 
+
+Number of doors is 12
+
+Room locations:
+	Plain: (22,7)
+	Label: (11,22)
+	Center: (4,21)
+	SP: (5,25)
+	Walkway: (17,9)
