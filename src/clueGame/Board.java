@@ -25,6 +25,7 @@ public class Board {
 	
 	private Board() {
 		super();
+		initialize();
 	}
 	
 	public static Board getInstance() {
