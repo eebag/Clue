@@ -1,10 +1,13 @@
 package clueGame;
 
+import java.util.HashSet;
 import java.util.Set;
+
+import experiment.TestBoardCell;
 
 public class BoardCell {
 	private DoorDirection doorDirection;
-	private Set<BoardCell> adjacencyList;
+	private Set<BoardCell> adjacencyList=new HashSet<BoardCell>();
 	
 	private int row;
 	private int column;

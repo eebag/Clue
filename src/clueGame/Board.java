@@ -10,8 +10,8 @@ public class Board {
 	private String setupConfigFile;
 	private String layoutConfigFile;
 	
-	private int numRows;
-	private int numCols;
+	private int numRows = 25;
+	private int numCols = 26;
 	
 	private Set<TestBoardCell> targets;	
 	private Set<TestBoardCell> visited;
@@ -25,7 +25,6 @@ public class Board {
 	
 	private Board() {
 		super();
-		initialize();
 	}
 	
 	public static Board getInstance() {
@@ -34,9 +33,11 @@ public class Board {
 	
 	public void initialize() {
 		//different from last time, closer to [x,y] notation for readability
+		grid = new BoardCell[numCols][numRows];
 		for(int i = 0; i < numCols; i++) {
 			for(int j = 0; j < numRows; j++) {
-				grid[i][j] = new BoardCell(i,j);
+				BoardCell cell = new BoardCell(i, j);
+				grid[i][j] = cell;
 			}
 		}
 		targets = new HashSet<TestBoardCell>();
@@ -88,13 +89,19 @@ public class Board {
 		return numCols;
 	}
 	
-	public Room getRoom(Character r) {
-		return roomMap.get(r);
+	public Room getRoom(Character c) {
+		Room r = new Room(null, null, null);
+		return r;
+		//for when map is properly initialized
+		//return roomMap.get(c);
 	}
 	
 	public Room getRoom(BoardCell c) {
+		Room r = new Room(null, null, null);
+		return r;
+		/**for when map is properly initialized
 		Character roomKey = c.getInitial();
-		return roomMap.get(roomKey);
+		return roomMap.get(roomKey);**/
 	}
 	
 	public BoardCell getCell(int col, int row) {
