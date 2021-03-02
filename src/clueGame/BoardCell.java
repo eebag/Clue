@@ -40,7 +40,7 @@ public class BoardCell {
 		this.occupied = occupied;
 	}
 	
-	public boolean isRoomLabel() {
+	public boolean isLabel() {
 		return roomLabel;
 	}
 	
@@ -98,6 +98,11 @@ public class BoardCell {
 	
 	public void addAdjacency(BoardCell c) {
 		adjacencyList.add(c);
+	}
+
+	public boolean isDoorway() {
+		// TODO fill this out somehow
+		return false;
 	}
 	
 	
