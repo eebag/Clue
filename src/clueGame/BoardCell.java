@@ -17,7 +17,7 @@ public class BoardCell {
 	private boolean room;
 	private boolean occupied;
 	
-	public BoardCell(int row, int col) {
+	public BoardCell(int col, int row) {
 		super();
 		this.row = row;
 		column = col;
@@ -94,6 +94,10 @@ public class BoardCell {
 
 	public void setSecretPassage(char secretPassage) {
 		this.secretPassage = secretPassage;
+	}
+	
+	public void addAdjacency(BoardCell c) {
+		adjacencyList.add(c);
 	}
 	
 	
