@@ -60,6 +60,7 @@ public class BoardTestExp {
 	
 	@Test
 	public void testTargetsNormal1() {
+		//Test (0,0) cell w 3 steps
 		TestBoardCell cell0 = board.getCell(0,0);
 		board.calcTargets(cell0, 3);
 		Set<TestBoardCell> targets = board.getTargets();
@@ -74,6 +75,7 @@ public class BoardTestExp {
 	
 	@Test
 	public void testTargetsNormal2() {
+		//Tests at (2,1) w 6 steps
 		TestBoardCell cell = board.getCell(2,1);
 		board.calcTargets(cell, 6);
 		Set<TestBoardCell> targets = board.getTargets();
@@ -89,6 +91,7 @@ public class BoardTestExp {
 	
 	@Test
 	public void testTargetsNormal3() {
+		//Test (2,2) w 1 step
 		TestBoardCell cell = board.getCell(2,2);
 		board.calcTargets(cell, 1);
 		Set<TestBoardCell> targets = board.getTargets();
@@ -103,6 +106,7 @@ public class BoardTestExp {
 	
 	@Test
 	public void testTargetsNormal4() {
+		//Test (3,0) w 3 steps
 		TestBoardCell cell = board.getCell(3, 0);
 		board.calcTargets(cell, 3);
 		Set<TestBoardCell> targets = board.getTargets();
@@ -118,6 +122,7 @@ public class BoardTestExp {
 	
 	@Test
 	public void testTargetsMixed() {
+		//Test (3,0) w 3 steps and w occupied cells
 		//set up occupied cells
 		board.getCell(0, 2).setOccupied(true);
 		board.getCell(1, 2).setIsRoom(true);
@@ -135,6 +140,7 @@ public class BoardTestExp {
 	
 	@Test
 	public void testTargetsMixed2() {
+		//Test (3,3) with ocupied cells
 		board.getCell(0, 2).setOccupied(true);
 		board.getCell(1, 2).setIsRoom(true);
 		TestBoardCell cell2 = board.getCell(3, 3);
