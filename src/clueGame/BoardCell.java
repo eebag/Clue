@@ -2,8 +2,6 @@ package clueGame;
 
 import java.util.Set;
 
-import experiment.TestBoardCell;
-
 public class BoardCell {
 	private DoorDirection doorDirection;
 	private Set<BoardCell> adjacencyList;
