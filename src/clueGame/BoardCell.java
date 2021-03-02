@@ -20,7 +20,7 @@ public class BoardCell {
 	private boolean room;
 	private boolean occupied;
 	
-	public BoardCell(int col, int row) {
+	public BoardCell(int row, int col) {
 		super();
 		this.row = row;
 		column = col;
