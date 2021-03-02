@@ -100,4 +100,19 @@ public class Board {
 		return grid[col][row];
 	}
 	
+	
+	//Config file stuff
+	
+	public void loadConfigFiles() { // idk lol
+		//TODO: code
+	}
+	
+	public void loadSetupConfig() { // map the characters to rooms
+		//TODO: code
+	}
+	
+	public void loadLayoutConfig() { // actual map?
+		//TODO: code
+	}
+	
 }
