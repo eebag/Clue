@@ -5,7 +5,7 @@ package tests;
  * @Author: Gabe Hohman
  */
 
-// neccessary imports
+// Necessary imports for junit and board
 import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
