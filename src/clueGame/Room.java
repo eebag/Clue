@@ -7,11 +7,9 @@ public class Room {
 	private BoardCell labelCell;
 	
 	//Room constructor 
-	public Room(String name, BoardCell centerCell, BoardCell labelCell) {
+	public Room(String name) {
 		super();
 		this.name = name;
-		this.centerCell = centerCell;
-		this.labelCell = labelCell;
 	}
 
 	//Getters and setters below

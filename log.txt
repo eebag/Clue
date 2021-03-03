@@ -1,3 +1,167 @@
+commit 841d33e44ec2996c17ceba2ae6610863254c00fe
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 21:17:13 2021 -0700
+
+    Set cols and rows variables to numbers larger than the test cases
+
+commit f2281e053dd54157138f8380d3dacbc660059b6f
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 21:12:32 2021 -0700
+
+    flipped row and col in get cell function
+
+commit 9a4cd3f9a14e3cdd6c8335a9d464e99362f4c2cf
+Merge: def33b2 29c2eaf
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 21:08:36 2021 -0700
+
+    Merge branch 'master' of https://github.com/eebag/Clue
+
+commit 29c2eafd9f33d1512eaf5a1a023da486ed12d7bc
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 21:08:30 2021 -0700
+
+    Fixed BoardCell.java and Board.java
+
+commit def33b254ca1d2114ee5c0eab932a4f354936b6e
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 21:08:25 2021 -0700
+
+    Edited order of coordinates in junit tests
+
+commit 5c30bfd0c8f5603b65c885fdd0f553599c8f1de6
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 21:04:39 2021 -0700
+
+    Fixed 2 errors in junit
+
+commit 46d7f8b4b9c7e894d0b10f4f190026507a106803
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 20:29:22 2021 -0700
+
+    Fixed Board contsructor
+
+commit 7614fcf3808cb8b009f2cbc7c394a925e61ecbec
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 20:28:40 2021 -0700
+
+    Added comments to door enum and room class files
+
+commit 504953fd1b960b28408be4144dda83efd97ec95a
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 20:25:33 2021 -0700
+
+    Edit juint Room label test
+
+commit 0a6b31f8be4fd76499d4fd50f95929e232f9e237
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 20:22:43 2021 -0700
+
+    Set up loader methods for files in Board.java
+
+commit 209360dadf39804660facdb70d3bdac672f65683
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 20:07:39 2021 -0700
+
+    Updated BoardCell.java method names
+
+commit ef29111990e946c681fbdbdc36ddaf1f75ca5994
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 20:05:33 2021 -0700
+
+    Finished writing jUnits, need to fix errors
+
+commit 0853092cf362283156e4566ea5a6b8348eb7f665
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 20:00:35 2021 -0700
+
+    More work on Board.java and BoardCell.java
+
+commit 1b4ef78a6a4cfbcb063dfccd39605c3c383c57b1
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 19:50:29 2021 -0700
+
+    Continued work on Board.java and BoardCell.java
+
+commit 922190495fa2e6f43552be62f3237ea7a6963ea2
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:44:45 2021 -0700
+
+    Edited the map to include a down door. Added to the OurTest file
+
+commit 5bc01f6e0f4e356fcdf0fb38240e303077dece2e
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:29:23 2021 -0700
+
+    Renamed files
+
+commit bb9d3d24b754f8b08797cd29f0ad7363f881aeae
+Merge: 58dfa26 8485e74
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:27:42 2021 -0700
+
+    Merge branch 'master' of https://github.com/eebag/Clue
+
+commit 58dfa26ffcb230bb562d136600f07513fac0d484
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:27:38 2021 -0700
+
+    Moved files around and began the FileInitTest
+
+commit 8485e747bb03fcf5a627015a049d12640d3c328a
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 19:17:28 2021 -0700
+
+    Fixed a typo
+
+commit 8baf3b27d47a4cd7328ab85d59dd206741153d2e
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 19:15:03 2021 -0700
+
+    Work on Board.java and BoardCell.java
+
+commit ced2d9d4b3d090a19979bb9e385def62ca40e6b4
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:13:11 2021 -0700
+
+    Wrote door direction enum
+
+commit 576eebd32a7428e1ccb2e2b36dc96af3b0a798c8
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:08:19 2021 -0700
+
+    Edited exception test and added room constructors, getters and setters. Can remove unneccesary getters and setters in the future
+
+commit 479d56f23c659cc94228b741d05a2fac4410cc25
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 18:53:50 2021 -0700
+
+    Added needed classes
+
+commit f7e9b7390f796075d073a11a25bf72f97a81f50a
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 18:50:55 2021 -0700
+
+    Fixed file move
+
+commit 6bf3322e5a10d73919ccfc458be74c1a092c5c61
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 18:47:52 2021 -0700
+
+    Moved files into data folder
+
+commit 921f9c8e4f65cf2fd06a925749b8fc08bda0946d
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 18:46:48 2021 -0700
+
+    Board.java added
+
+commit e1e56796891a4d9a198b57225d429531edf576f7
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 18:42:35 2021 -0700
+
+    Files from ClueInitFiles.zip added
+
 commit 120360995363c2328fdea8fd09ef35fbb4779d84
 Author: OJackson <oliviajackson@mymail.mines.edu>
 Date:   Mon Mar 1 18:31:26 2021 -0700

@@ -3,6 +3,7 @@ package clueGame;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,14 +15,14 @@ public class Board {
 	private String setupConfigFile;
 	private String layoutConfigFile;
 	
-	//Hard coded larger than test dimensions. Will change when reading in file.
-	private int numRows = 30;
-	private int numCols = 30;
 	
-	private Set<TestBoardCell> targets;	
-	private Set<TestBoardCell> visited;
+	private int numRows;
+	private int numCols;
 	
-	private Map<Character, Room> roomMap;
+	private Set<TestBoardCell> targets = new HashSet<TestBoardCell>();	
+	private Set<TestBoardCell> visited = new HashSet<TestBoardCell>();
+	
+	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
 	
 	private BoardCell[][] grid;
 	
@@ -38,8 +39,14 @@ public class Board {
 	
 	public void initialize() {
 		//Load the configurations for layout and setup
-		loadLayoutConfig();
-		loadSetupConfig();
+		try {
+			loadLayoutConfig();
+			loadSetupConfig();
+		}catch(FileNotFoundException e){
+			//TODO: add to log
+		}catch(BadConfigFormatException e) {
+			//TODO: add to log
+		}
 		
 		//different from last time, closer to [x,y] notation for readability
 		grid = new BoardCell[numRows][numCols];
@@ -49,10 +56,7 @@ public class Board {
 				BoardCell cell = new BoardCell(i, j);
 				grid[i][j] = cell;
 			}
-		}
-		targets = new HashSet<TestBoardCell>();
-		visited = new HashSet<TestBoardCell>();
-		
+		}		
 		
 		//generate adjacencies
 		for(int i = 0; i < numRows; i++) {
@@ -100,14 +104,14 @@ public class Board {
 	}
 	
 	public Room getRoom(Character c) {
-		Room r = new Room(null, null, null);
+		Room r = new Room(null);
 		return r;
 		//for when map is properly initialized
 		//return roomMap.get(c);
 	}
 	
 	public Room getRoom(BoardCell c) {
-		Room r = new Room(null, null, null);
+		Room r = new Room(null);
 		return r;
 		/**for when map is properly initialized
 		Character roomKey = c.getInitial();
@@ -118,8 +122,44 @@ public class Board {
 		return grid[col][row];
 	}
 	
-	public void loadSetupConfig() throws FileNotFoundException{ // map the characters to rooms
-		
+	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException{ // map the characters to rooms
+		Scanner scanner = fileInput(setupConfigFile);
+		while(scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			
+			if(line.substring(0, 2) == "//") { // if the line is a header line (e.g. "//Rooms" skip this line)
+				continue;
+			}
+			
+			String[] split = line.split(", ");
+			
+			if (split.length != 3) {
+				throw new BadConfigFormatException();
+			}
+			
+			String type = split[0];
+			
+			String name = split[1];
+			name = name.substring(1); // get rids of space at beginning
+			
+			String symbol = split[2];
+			symbol = symbol.substring(1); // gets rid of space at beginning
+			
+			if (symbol.length() != 1) {
+				throw new BadConfigFormatException();
+			}
+			
+			Character roomSymbol = symbol.charAt(0); // get character from begining of string
+			
+			Room newRoom = new Room(name);
+			
+			roomMap.put(roomSymbol, newRoom); // insert Character,Room pair into map
+			
+			
+			//for testing
+			System.out.println(split[0] + "-" + split[1] + "-" + split[2]);
+			
+		}
 	}
 	
 	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException { // actual map?
@@ -147,7 +187,7 @@ public class Board {
 	}
 
 	private Scanner fileInput(String fileName) throws FileNotFoundException {
-		FileReader reader = new FileReader(fileName); //creates a new filein, will be passed into a scanner
+		FileReader reader = new FileReader("../../data/" + fileName); //creates a new filein, will be passed into a scanner
 		Scanner scanner = new Scanner(reader); // put into scanner
 		return scanner;
 	}
