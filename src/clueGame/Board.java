@@ -1,7 +1,11 @@
 package clueGame;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import experiment.TestBoardCell;
@@ -33,10 +37,15 @@ public class Board {
 	}
 	
 	public void initialize() {
+		//Load the configurations for layout and setup
+		loadLayoutConfig();
+		loadSetupConfig();
+		
 		//different from last time, closer to [x,y] notation for readability
 		grid = new BoardCell[numRows][numCols];
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numCols; j++) {
+				
 				BoardCell cell = new BoardCell(i, j);
 				grid[i][j] = cell;
 			}
@@ -109,19 +118,38 @@ public class Board {
 		return grid[col][row];
 	}
 	
-	
-	//Config file stuff
-	
-	public void loadConfigFiles() { // idk lol
-		//TODO: code
+	public void loadSetupConfig() throws FileNotFoundException{ // map the characters to rooms
+		
 	}
 	
-	public void loadSetupConfig() { // map the characters to rooms
-		//TODO: code
+	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException { // actual map?
+		ArrayList <ArrayList<String>> boardSymbols= new ArrayList<ArrayList<String>>(); //used to store the strings for each board cell
+		Scanner scanner = fileInput(layoutConfigFile);
+		while (scanner.hasNextLine()) {
+			String line=scanner.nextLine();//Grab line
+			ArrayList <String> symbolLine= new ArrayList<String>(); //Set up array list to hold line split up
+			String[] splitLine = line.split(","); //Split up the line
+			//Loop through array and put into array list
+			for(String s : splitLine) {
+				symbolLine.add(s);
+			}
+			//Add the line to the board arraylist
+			boardSymbols.add(symbolLine);
+		}
+		//Set number of rows and number of cols
+		numRows=boardSymbols.size();
+		numCols=boardSymbols.get(0).size();
+		for (ArrayList <String> s: boardSymbols ) {
+			if(s.size()!=numCols) {
+				throw new BadConfigFormatException();
+			}
+		}
 	}
-	
-	public void loadLayoutConfig() { // actual map?
-		//TODO: code
+
+	private Scanner fileInput(String fileName) throws FileNotFoundException {
+		FileReader reader = new FileReader(fileName); //creates a new filein, will be passed into a scanner
+		Scanner scanner = new Scanner(reader); // put into scanner
+		return scanner;
 	}
 	
 }
