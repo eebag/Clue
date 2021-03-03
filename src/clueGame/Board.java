@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import clueGame.*;
 
 import experiment.TestBoardCell;
 
@@ -21,8 +22,11 @@ public class Board {
 	
 	private Set<TestBoardCell> targets = new HashSet<TestBoardCell>();	
 	private Set<TestBoardCell> visited = new HashSet<TestBoardCell>();
+	ArrayList <ArrayList<String>> boardSymbols= new ArrayList<ArrayList<String>>(); 
+	//used to store the strings for each board cell
 	
 	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
+	private Map<Character, String> spaceMap = new HashMap<Character, String>();;
 	
 	private BoardCell[][] grid;
 	
@@ -52,8 +56,39 @@ public class Board {
 		grid = new BoardCell[numRows][numCols];
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numCols; j++) {
-				
 				BoardCell cell = new BoardCell(i, j);
+				//edit cell before adding to grid
+				String cellSymbol=boardSymbols.get(i).get(j); //The 1 or 2 char code for the cell
+				cell.setInitial(cellSymbol.charAt(0));
+				cell.setDoorDirection(DoorDirection.NONE); //Will change in if/ switch below if needed
+				cell.setRoom(roomMap.containsKey(cellSymbol.charAt(0)));
+				if(cellSymbol.length()>1) {
+					char secondSymbol= cellSymbol.charAt(1);
+					switch (secondSymbol) {
+					case '*': 
+						cell.setRoomCenter(true);
+						break;
+					case '#':
+						cell.setRoomLabel(true);
+						break;
+					case '>':
+						cell.setDoorDirection(DoorDirection.RIGHT);
+						break;
+					case '<':
+						cell.setDoorDirection(DoorDirection.LEFT);
+						break;
+					case 'v':
+						cell.setDoorDirection(DoorDirection.DOWN);
+						break;
+					case '^':
+						cell.setDoorDirection(DoorDirection.UP);
+						break;
+					default:
+						cell.setSecretPassage(secondSymbol);
+						
+					} 
+				}
+				
 				grid[i][j] = cell;
 			}
 		}		
@@ -151,19 +186,29 @@ public class Board {
 			
 			Character roomSymbol = symbol.charAt(0); // get character from begining of string
 			
-			Room newRoom = new Room(name);
-			
-			roomMap.put(roomSymbol, newRoom); // insert Character,Room pair into map
-			
+			typeClassification(type, name, roomSymbol);
 			
 			//for testing
 			System.out.println(split[0] + "-" + split[1] + "-" + split[2]);
 			
 		}
 	}
+
+	private void typeClassification(String type, String name, Character roomSymbol) throws BadConfigFormatException {
+		if(type== "Room") {
+			Room newRoom = new Room(name);
+			
+			roomMap.put(roomSymbol, newRoom); // insert Character,Room pair into map
+		}
+		else if (type== "Space") {
+			spaceMap.put(roomSymbol, name);
+		}
+		else {
+			throw new BadConfigFormatException();
+		}
+	}
 	
 	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException { // actual map?
-		ArrayList <ArrayList<String>> boardSymbols= new ArrayList<ArrayList<String>>(); //used to store the strings for each board cell
 		Scanner scanner = fileInput(layoutConfigFile);
 		while (scanner.hasNextLine()) {
 			String line=scanner.nextLine();//Grab line
@@ -172,7 +217,8 @@ public class Board {
 			//Loop through array and put into array list
 			for(String s : splitLine) {
 				symbolLine.add(s);
-			}
+				checkLayoutConfig(s);
+				}
 			//Add the line to the board arraylist
 			boardSymbols.add(symbolLine);
 		}
@@ -184,6 +230,21 @@ public class Board {
 				throw new BadConfigFormatException();
 			}
 		}
+	}
+
+	private void checkLayoutConfig(String s) throws BadConfigFormatException {
+		if(s.length()>2) {
+			throw new BadConfigFormatException();
+		}
+		else if(s.length()==2) {
+			if(!roomMap.containsKey(s.charAt(1))) {
+				throw new BadConfigFormatException();
+			}
+		}
+		else if(!roomMap.containsKey(s.charAt(0))||!spaceMap.containsKey(s.charAt(0))) {
+			throw new BadConfigFormatException();
+		}
+		
 	}
 
 	private Scanner fileInput(String fileName) throws FileNotFoundException {
