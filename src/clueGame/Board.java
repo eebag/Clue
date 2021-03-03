@@ -26,7 +26,8 @@ public class Board {
 	//used to store the strings for each board cell
 	
 	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
-	private Map<Character, String> spaceMap = new HashMap<Character, String>();;
+	
+	private String specialChars ="><^v*#";
 	
 	private BoardCell[][] grid;
 	
@@ -44,8 +45,8 @@ public class Board {
 	public void initialize() {
 		//Load the configurations for layout and setup
 		try {
-			loadLayoutConfig();
 			loadSetupConfig();
+			loadLayoutConfig();
 		}catch(FileNotFoundException e){
 			//TODO: add to log
 		}catch(BadConfigFormatException e) {
@@ -59,34 +60,41 @@ public class Board {
 				BoardCell cell = new BoardCell(i, j);
 				//edit cell before adding to grid
 				String cellSymbol=boardSymbols.get(i).get(j); //The 1 or 2 char code for the cell
-				cell.setInitial(cellSymbol.charAt(0));
+				char firstSymbol = cellSymbol.charAt(0);
+				cell.setInitial(firstSymbol);
 				cell.setDoorDirection(DoorDirection.NONE); //Will change in if/ switch below if needed
-				cell.setRoom(roomMap.containsKey(cellSymbol.charAt(0)));
 				if(cellSymbol.length()>1) {
 					char secondSymbol= cellSymbol.charAt(1);
 					switch (secondSymbol) {
 					case '*': 
 						cell.setRoomCenter(true);
+						roomMap.get(firstSymbol).setCenterCell(cell);
 						break;
 					case '#':
 						cell.setRoomLabel(true);
+						roomMap.get(firstSymbol).setLabelCell(cell);
 						break;
 					case '>':
 						cell.setDoorDirection(DoorDirection.RIGHT);
+						cell.setDoor(true);
 						break;
 					case '<':
 						cell.setDoorDirection(DoorDirection.LEFT);
+						cell.setDoor(true);
 						break;
 					case 'v':
 						cell.setDoorDirection(DoorDirection.DOWN);
+						cell.setDoor(true);
 						break;
 					case '^':
 						cell.setDoorDirection(DoorDirection.UP);
+						cell.setDoor(true);
 						break;
 					default:
 						cell.setSecretPassage(secondSymbol);
 						
 					} 
+					cell.setRoom(roomMap.containsKey(firstSymbol));
 				}
 				
 				grid[i][j] = cell;
@@ -139,14 +147,14 @@ public class Board {
 	}
 	
 	public Room getRoom(Character c) {
-		Room r = new Room(null);
+		Room r = roomMap.get(c);
 		return r;
 		//for when map is properly initialized
 		//return roomMap.get(c);
 	}
 	
 	public Room getRoom(BoardCell c) {
-		Room r = new Room(null);
+		Room r = roomMap.get(c.getInitial());
 		return r;
 		/**for when map is properly initialized
 		Character roomKey = c.getInitial();
@@ -154,19 +162,19 @@ public class Board {
 	}
 	
 	public BoardCell getCell(int row, int col) {
-		return grid[col][row];
+		return grid[row][col];
 	}
 	
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException{ // map the characters to rooms
 		Scanner scanner = fileInput(setupConfigFile);
 		while(scanner.hasNextLine()) {
 			String line = scanner.nextLine();
+			String commentCheck=line.substring(0, 2);
 			
-			if(line.substring(0, 2) == "//") { // if the line is a header line (e.g. "//Rooms" skip this line)
+			if(commentCheck.equals( "//")) { // if the line is a header line (e.g. "//Rooms" skip this line)
 				continue;
 			}
-			
-			String[] split = line.split(", ");
+			String[] split = line.split(",");
 			
 			if (split.length != 3) {
 				throw new BadConfigFormatException();
@@ -189,21 +197,19 @@ public class Board {
 			typeClassification(type, name, roomSymbol);
 			
 			//for testing
-			System.out.println(split[0] + "-" + split[1] + "-" + split[2]);
+			//System.out.println(split[0] + "-" + split[1] + "-" + split[2]);
 			
 		}
 	}
 
 	private void typeClassification(String type, String name, Character roomSymbol) throws BadConfigFormatException {
-		if(type== "Room") {
+		if(type.equals("Room")||type.equals("Space")) {
 			Room newRoom = new Room(name);
 			
 			roomMap.put(roomSymbol, newRoom); // insert Character,Room pair into map
 		}
-		else if (type== "Space") {
-			spaceMap.put(roomSymbol, name);
-		}
 		else {
+			System.out.println("typeClassification");
 			throw new BadConfigFormatException();
 		}
 	}
@@ -216,8 +222,8 @@ public class Board {
 			String[] splitLine = line.split(","); //Split up the line
 			//Loop through array and put into array list
 			for(String s : splitLine) {
-				symbolLine.add(s);
 				checkLayoutConfig(s);
+				symbolLine.add(s);
 				}
 			//Add the line to the board arraylist
 			boardSymbols.add(symbolLine);
@@ -225,30 +231,38 @@ public class Board {
 		//Set number of rows and number of cols
 		numRows=boardSymbols.size();
 		numCols=boardSymbols.get(0).size();
+		System.out.println(numCols);
 		for (ArrayList <String> s: boardSymbols ) {
 			if(s.size()!=numCols) {
+				System.out.println("loadLayoutConfig");
 				throw new BadConfigFormatException();
 			}
 		}
 	}
 
 	private void checkLayoutConfig(String s) throws BadConfigFormatException {
+		//TODO:Find error
+		System.out.println(s);
 		if(s.length()>2) {
+			//Check for valid length
 			throw new BadConfigFormatException();
 		}
-		else if(s.length()==2) {
-			if(!roomMap.containsKey(s.charAt(1))) {
+		if(s.length()==2) {
+			//check if the second char is valid
+			if(specialChars.indexOf(s.charAt(1))==-1 && !roomMap.containsKey(s.charAt(1))) {
 				throw new BadConfigFormatException();
 			}
 		}
-		else if(!roomMap.containsKey(s.charAt(0))||!spaceMap.containsKey(s.charAt(0))) {
+		if(!roomMap.containsKey(s.charAt(0))) {
+			//check for valid room
 			throw new BadConfigFormatException();
 		}
-		
+
 	}
 
 	private Scanner fileInput(String fileName) throws FileNotFoundException {
-		FileReader reader = new FileReader("../../data/" + fileName); //creates a new filein, will be passed into a scanner
+		String file= "data/" + fileName;
+		FileReader reader = new FileReader(file); //creates a new filein, will be passed into a scanner
 		Scanner scanner = new Scanner(reader); // put into scanner
 		return scanner;
 	}

@@ -20,7 +20,13 @@ public class BoardCell {
 	private boolean roomCenter = false;
 	private boolean room = false;
 	private boolean occupied = false;
+	private boolean isDoor =false;
 	
+
+	public void setDoor(boolean isDoor) {
+		this.isDoor = isDoor;
+	}
+
 	public BoardCell(int row, int col) {
 		super();
 		this.row = row;
@@ -105,8 +111,7 @@ public class BoardCell {
 	}
 
 	public boolean isDoorway() {
-		// TODO fill this out somehow
-		return false;
+		return isDoor;
 	}
 	
 	

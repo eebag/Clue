@@ -19,8 +19,8 @@ public class FileInitTest {
 	//Constants based on the board we designed
 	private static final int NUM_DOORS = 12;
 	public static final int LEGEND_SIZE = 11;
-	public static final int NUM_ROWS = 25;
-	public static final int NUM_COLUMNS = 26;
+	public static final int NUM_ROWS = 26;
+	public static final int NUM_COLUMNS = 27;
 
 	// Create one board
 	private static Board board;
