@@ -15,10 +15,11 @@ public class BoardCell {
 	private char initial; // room initial
 	private char secretPassage; // secret passage initial (2nd initial)
 	
-	private boolean roomLabel;
-	private boolean roomCenter;
-	private boolean room;
-	private boolean occupied;
+	//Initialize to false.  Will be updated by gameboard
+	private boolean roomLabel = false;
+	private boolean roomCenter = false;
+	private boolean room = false;
+	private boolean occupied = false;
 	
 	public BoardCell(int row, int col) {
 		super();
