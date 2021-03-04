@@ -1,3 +1,33 @@
+commit 11292f97e5106223d3789c7d2fb2bb1a6190b654
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 2 21:38:08 2021 -0700
+
+    Changed getRoom functions in board and fixed the exception throws
+
+commit 670a0edfd6c51bf3cb6b7ebb83c180b2a423bf41
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 2 20:25:11 2021 -0700
+
+    Updated BadConfigFormatException and BoardCell classes
+
+commit b709ad8c80a3c7e8fce17303b2d6298385d887ab
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 2 20:23:26 2021 -0700
+
+    Added code to classify cell before adding it to the grid
+
+commit 4176e3f2850f195b754c8d29ef7aeb96122725a8
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 2 19:20:43 2021 -0700
+
+    Filled out setupConfigFile method in Board.java, fixed Room.java contstructor
+
+commit daf45daf6f5e5c45a403ce995bbabb6814bdd613
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 2 18:31:48 2021 -0700
+
+    wrote inital file input for load layout config
+
 commit 841d33e44ec2996c17ceba2ae6610863254c00fe
 Author: OJackson <oliviajackson@mymail.mines.edu>
 Date:   Mon Mar 1 21:17:13 2021 -0700
