@@ -194,23 +194,19 @@ public class Board {
 			
 			Character roomSymbol = symbol.charAt(0); // get character from begining of string
 			
-			typeClassification(type, name, roomSymbol);
+			if(type.equals("Room")||type.equals("Space")) {
+				Room newRoom = new Room(name);
+				
+				roomMap.put(roomSymbol, newRoom); // insert Character,Room pair into map
+			}
+			else {
+				System.out.println("typeClassification");
+				throw new BadConfigFormatException();
+			}
 			
 			//for testing
 			//System.out.println(split[0] + "-" + split[1] + "-" + split[2]);
 			
-		}
-	}
-
-	private void typeClassification(String type, String name, Character roomSymbol) throws BadConfigFormatException {
-		if(type.equals("Room")||type.equals("Space")) {
-			Room newRoom = new Room(name);
-			
-			roomMap.put(roomSymbol, newRoom); // insert Character,Room pair into map
-		}
-		else {
-			System.out.println("typeClassification");
-			throw new BadConfigFormatException();
 		}
 	}
 	
@@ -222,7 +218,20 @@ public class Board {
 			String[] splitLine = line.split(","); //Split up the line
 			//Loop through array and put into array list
 			for(String s : splitLine) {
-				checkLayoutConfig(s);
+				if(s.length()>2) {
+					//Check for valid length
+					throw new BadConfigFormatException();
+				}
+				if(s.length()==2) {
+					//check if the second char is valid
+					if(specialChars.indexOf(s.charAt(1))==-1 && !roomMap.containsKey(s.charAt(1))) {
+						throw new BadConfigFormatException();
+					}
+				}
+				if(!roomMap.containsKey(s.charAt(0))) {
+					//check for valid room
+					throw new BadConfigFormatException();
+				}
 				symbolLine.add(s);
 				}
 			//Add the line to the board arraylist
@@ -240,29 +249,8 @@ public class Board {
 		}
 	}
 
-	private void checkLayoutConfig(String s) throws BadConfigFormatException {
-		//TODO:Find error
-		System.out.println(s);
-		if(s.length()>2) {
-			//Check for valid length
-			throw new BadConfigFormatException();
-		}
-		if(s.length()==2) {
-			//check if the second char is valid
-			if(specialChars.indexOf(s.charAt(1))==-1 && !roomMap.containsKey(s.charAt(1))) {
-				throw new BadConfigFormatException();
-			}
-		}
-		if(!roomMap.containsKey(s.charAt(0))) {
-			//check for valid room
-			throw new BadConfigFormatException();
-		}
-
-	}
-
 	private Scanner fileInput(String fileName) throws FileNotFoundException {
-		String file= "data/" + fileName;
-		FileReader reader = new FileReader(file); //creates a new filein, will be passed into a scanner
+		FileReader reader = new FileReader("data/" + fileName); //creates a new filein, will be passed into a scanner
 		Scanner scanner = new Scanner(reader); // put into scanner
 		return scanner;
 	}
