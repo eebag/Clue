@@ -20,8 +20,8 @@ public class Board {
 	private int numRows;
 	private int numCols;
 	
-	private Set<TestBoardCell> targets = new HashSet<TestBoardCell>();	
-	private Set<TestBoardCell> visited = new HashSet<TestBoardCell>();
+	private Set<BoardCell> targets = new HashSet<BoardCell>();	
+	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	ArrayList <ArrayList<String>> boardSymbols= new ArrayList<ArrayList<String>>(); 
 	//used to store the strings for each board cell
 	
@@ -168,6 +168,7 @@ public class Board {
 	}
 	
 	public BoardCell getCell(int row, int col) {
+		System.out.println(grid[row][col]);
 		return grid[row][col];
 	}
 	
