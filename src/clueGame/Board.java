@@ -48,9 +48,9 @@ public class Board {
 			loadSetupConfig();
 			loadLayoutConfig();
 		}catch(FileNotFoundException e){
-			//TODO: add to log
+			System.out.println(e);
 		}catch(BadConfigFormatException e) {
-			//TODO: add to log
+			System.out.println(e);
 		}
 		
 		//different from last time, closer to [x,y] notation for readability
@@ -184,7 +184,7 @@ public class Board {
 			String[] split = line.split(",");
 			
 			if (split.length != 3) {
-				throw new BadConfigFormatException();
+				throw new BadConfigFormatException(setupConfigFile, "loadSetupConfig");
 			}
 			
 			String type = split[0];
@@ -196,7 +196,7 @@ public class Board {
 			symbol = symbol.substring(1); // gets rid of space at beginning
 			
 			if (symbol.length() != 1) {
-				throw new BadConfigFormatException();
+				throw new BadConfigFormatException(setupConfigFile, "loadSetupConfig");
 			}
 			
 			Character roomSymbol = symbol.charAt(0); // get character from begining of string
@@ -215,7 +215,7 @@ public class Board {
 			roomMap.put(roomSymbol, newRoom); // insert Character,Room pair into map
 		}
 		else {
-			throw new BadConfigFormatException();
+			throw new BadConfigFormatException(setupConfigFile, "typeClassification");
 		}
 	}
 	
@@ -238,7 +238,7 @@ public class Board {
 		numCols=boardSymbols.get(0).size();
 		for (ArrayList <String> s: boardSymbols ) {
 			if(s.size()!=numCols) {
-				throw new BadConfigFormatException();
+				throw new BadConfigFormatException(layoutConfigFile, "loadLayoutConfig");
 			}
 		}
 	}
@@ -246,17 +246,17 @@ public class Board {
 	private void checkLayoutFormat(String s) throws BadConfigFormatException {
 		if(s.length()>2) {
 			//Check for valid length
-			throw new BadConfigFormatException();
+			throw new BadConfigFormatException(layoutConfigFile,"checkLayoutFormat");
 		}
 		if(s.length()==2) {
 			//check if the second char is valid
 			if(specialChars.indexOf(s.charAt(1))==-1 && !roomMap.containsKey(s.charAt(1))) {
-				throw new BadConfigFormatException();
+				throw new BadConfigFormatException(layoutConfigFile,"checkLayoutFormat");
 			}
 		}
 		if(!roomMap.containsKey(s.charAt(0))) {
 			//check for valid room
-			throw new BadConfigFormatException();
+			throw new BadConfigFormatException(layoutConfigFile, "checkLayoutFormat");
 		}
 	}
 
