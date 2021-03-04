@@ -1,3 +1,9 @@
+commit 14f5fa1d6db661017bf08a30c72a810b0efe4adf
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Mar 4 15:55:34 2021 -0700
+
+    Added EC log
+
 commit cd0cc812b9ae15c6831d27f54fceebac771ace6b
 Author: OJackson <oliviajackson@mymail.mines.edu>
 Date:   Thu Mar 4 15:28:34 2021 -0700

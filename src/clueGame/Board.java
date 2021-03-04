@@ -168,7 +168,6 @@ public class Board {
 	}
 	
 	public BoardCell getCell(int row, int col) {
-		System.out.println(grid[row][col]);
 		return grid[row][col];
 	}
 	
@@ -190,6 +189,7 @@ public class Board {
 			String type = split[0];
 			
 			String name = split[1];
+			System.out.println(name);
 			name = name.substring(1); // get rids of space at beginning
 			
 			String symbol = split[2];
