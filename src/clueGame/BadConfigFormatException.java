@@ -14,7 +14,7 @@ public class BadConfigFormatException extends Exception{
 		try{
 			//Try to find/ make file. Print the exceed amount
 			PrintWriter file= new PrintWriter("logfile.txt");
-			file.append("There is a formatting error in " + filename +" in method " +mName+ ".");
+			file.println("There is a formatting error in " + filename +" in method " +mName+ ".");
 			file.close();
 		}
 		catch (FileNotFoundException e){

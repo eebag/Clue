@@ -20,12 +20,12 @@ public class Board {
 	private int numRows;
 	private int numCols;
 	
-	private Set<BoardCell> targets = new HashSet<BoardCell>();	
-	private Set<BoardCell> visited = new HashSet<BoardCell>();
-	ArrayList <ArrayList<String>> boardSymbols= new ArrayList<ArrayList<String>>(); 
+	private Set<BoardCell> targets;	
+	private Set<BoardCell> visited;
+	ArrayList <ArrayList<String>> boardSymbols; 
 	//used to store the strings for each board cell
 	
-	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
+	private Map<Character, Room> roomMap;
 	
 	private String specialChars ="><^v*#";
 	
@@ -43,6 +43,12 @@ public class Board {
 	}
 	
 	public void initialize() {
+		//(re) initialize all instance variables
+		visited = new HashSet<BoardCell>();
+		targets = new HashSet<BoardCell>();
+		boardSymbols = new ArrayList<ArrayList<String>>();
+		roomMap = new HashMap<Character, Room>();
+		
 		//Load the configurations for layout and setup
 		try {
 			loadSetupConfig();
@@ -53,10 +59,10 @@ public class Board {
 			System.out.println(e);
 		}
 		
-		//different from last time, closer to [x,y] notation for readability
+		//Initalize grid once we know values
 		grid = new BoardCell[numRows][numCols];
-		gridCreation();		
 		
+		gridCreation();		
 		generateAdjacency();
 	}
 
@@ -189,7 +195,7 @@ public class Board {
 			String type = split[0];
 			
 			String name = split[1];
-			System.out.println(name);
+			//System.out.println(name);
 			name = name.substring(1); // get rids of space at beginning
 			
 			String symbol = split[2];

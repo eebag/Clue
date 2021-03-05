@@ -1,1 +1,1 @@
-There is a formatting error in MapOfCampusCLUE.csv in method checkLayoutFormat 1.
+There is a formatting error in ClueSetupBadFormat306.txt in method typeClassification.
