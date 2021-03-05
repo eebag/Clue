@@ -272,5 +272,16 @@ public class Board {
 		Scanner scanner = new Scanner(reader); // put into scanner
 		return scanner;
 	}
+
+	public void calcTargets(BoardCell cell, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Set<BoardCell> getTargets() {
+		// TODO Auto-generated method stub
+		return targets;
+	}
+	
 	
 }
