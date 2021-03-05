@@ -113,14 +113,16 @@ public class BoardAdjTargetTest {
 		
 		// Tests out of room center, 1, 3 and 4
 		// These are LIGHT BLUE on the planning spreadsheet
+		//Continas secret passage
 		@Test
 		public void testTargetsInLibrary() {
 			// test a roll of 1
 			board.calcTargets(board.getCell(2,0), 1);
 			Set<BoardCell> targets= board.getTargets();
-			assertEquals(2, targets.size());
+			assertEquals(3, targets.size());
 			assertTrue(targets.contains(board.getCell(4,0)));
 			assertTrue(targets.contains(board.getCell(3,5)));	
+			assertTrue(targets.contains(board.getCell(3,5)));
 			
 			// test a roll of 3
 			board.calcTargets(board.getCell(2,0), 3);
