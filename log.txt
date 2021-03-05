@@ -1,3 +1,15 @@
+commit 29661f49b8750d29a4a4b4905a81813f0e2a74a2
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Mar 4 17:47:58 2021 -0700
+
+    Fixed JUnit tests, made BadConfigFormatException overwrite instead of append
+
+commit 5ac3d50ce3c24bc505b9540dcbe720d458f12256
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Mar 4 16:18:33 2021 -0700
+
+    Editied our jUnit test file that contained incorrect information
+
 commit 14f5fa1d6db661017bf08a30c72a810b0efe4adf
 Author: OJackson <oliviajackson@mymail.mines.edu>
 Date:   Thu Mar 4 15:55:34 2021 -0700
