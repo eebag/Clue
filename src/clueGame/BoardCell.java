@@ -114,6 +114,9 @@ public class BoardCell {
 		return isDoor;
 	}
 	
+	public Set<BoardCell> getAdjList (){
+		return adjacencyList;
+	}
 	
 	
 }
