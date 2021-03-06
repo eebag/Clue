@@ -22,7 +22,7 @@ public class BoardAdjTargetTest {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
+		board.setConfigFiles("MapOfCampusCLUE.csv", "ClueSetup.txt");		
 		// Initialize will load config files 
 		board.initialize();
 	}
@@ -79,33 +79,33 @@ public class BoardAdjTargetTest {
 		assertTrue(testList.contains(board.getCell(24, 7)));
 
 		// Test on left edge of board near a room
-		Set<BoardCell> testList = board.getAdjList(9, 0);
+		testList = board.getAdjList(9, 0);
 		assertEquals(2, testList.size());
 		assertTrue(testList.contains(board.getCell(8, 0)));
 		assertTrue(testList.contains(board.getCell(9, 1)));
 		assertTrue(testList.contains(board.getCell(10, 0)));
 
 		// Test on top edge of board near a room
-		Set<BoardCell> testList = board.getAdjList(0, 7);
+		testList = board.getAdjList(0, 7);
 		assertEquals(2, testList.size());
 		assertTrue(testList.contains(board.getCell(0, 6)));
 		assertTrue(testList.contains(board.getCell(1, 7)));
 
 		// Test top edge near unused space
-		Set<BoardCell> testList = board.getAdjList(0, 16);
+		testList = board.getAdjList(0, 16);
 		assertEquals(2, testList.size());
 		assertTrue(testList.contains(board.getCell(0, 15)));
 		assertTrue(testList.contains(board.getCell(1, 16)));
 
 		// Test on right edge of board near a room
-		Set<BoardCell> testList = board.getAdjList(15, 26);
+		testList = board.getAdjList(15, 26);
 		assertEquals(2, testList.size());
 		assertTrue(testList.contains(board.getCell(15, 25)));
 		assertTrue(testList.contains(board.getCell(16, 26)));
 
 
 		// Test in the open
-		Set<BoardCell> testList = board.getAdjList(12,15);
+		testList = board.getAdjList(12,15);
 		assertEquals(4, testList.size());
 		assertTrue(testList.contains(board.getCell(12, 16)));
 		assertTrue(testList.contains(board.getCell(12, 14)));

@@ -15,40 +15,40 @@ import experiment.TestBoardCell;
 public class Board {
 	private String setupConfigFile;
 	private String layoutConfigFile;
-	
-	
+
+
 	private int numRows;
 	private int numCols;
-	
+
 	private Set<BoardCell> targets;	
 	private Set<BoardCell> visited;
 	ArrayList <ArrayList<String>> boardSymbols; 
 	//used to store the strings for each board cell
-	
+
 	private Map<Character, Room> roomMap;
-	
+
 	private String specialChars ="><^v*#";
-	
+
 	private BoardCell[][] grid;
-	
+
 	public static Board boardInstance = new Board();
-	
-	
+
+
 	private Board() {
 		super();
 	}
-	
+
 	public static Board getInstance() {
 		return boardInstance;
 	}
-	
+
 	public void initialize() {
 		//(re) initialize all instance variables
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
 		boardSymbols = new ArrayList<ArrayList<String>>();
 		roomMap = new HashMap<Character, Room>();
-		
+
 		//Load the configurations for layout and setup
 		try {
 			loadSetupConfig();
@@ -58,10 +58,10 @@ public class Board {
 		}catch(BadConfigFormatException e) {
 			System.out.println(e);
 		}
-		
+
 		//Initalize grid once we know values
 		grid = new BoardCell[numRows][numCols];
-		
+
 		gridCreation();		
 		generateAdjacency();
 	}
@@ -71,19 +71,19 @@ public class Board {
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numCols; j++) {
 				BoardCell cell = grid[i][j];
-				
+
 				if(i > 0) {
 					cell.addAdjacency(grid[i-1][j]);
 				}
-				
+
 				if(i < numRows - 1) {
 					cell.addAdjacency(grid[i+1][j]);
 				}
-				
+
 				if(j > 0) {
 					cell.addAdjacency(grid[i][j-1]);
 				}
-				
+
 				if(j < numCols - 1) {
 					cell.addAdjacency(grid[i][j+1]);
 				}
@@ -137,78 +137,78 @@ public class Board {
 				break;
 			default:
 				cell.setSecretPassage(secondSymbol);
-				
+
 			} 
 		}
 	}
-	
+
 	public void setConfigFiles(String csv, String txt) {
 		setupConfigFile = txt;
 		layoutConfigFile = csv;
 	}
-	
+
 	public void setNumRows(int r) {
 		numRows = r;
 	}
-	
+
 	public void setNumCols(int c) {
 		numCols = c;
 	}
-	
+
 	public int getNumRows() {
 		return numRows;
 	}
-	
+
 	public int getNumColumns() {
 		return numCols;
 	}
-	
+
 	public Room getRoom(Character c) {
 		Room r = roomMap.get(c);
 		return r;
 	}
-	
+
 	public Room getRoom(BoardCell c) {
 		Room r = roomMap.get(c.getInitial());
 		return r;
 	}
-	
+
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col];
 	}
-	
+
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException{ // map the characters to rooms
 		Scanner scanner = fileInput(setupConfigFile);
 		while(scanner.hasNextLine()) {
 			String line = scanner.nextLine();
 			String commentCheck=line.substring(0, 2);
-			
+
 			if(commentCheck.equals( "//")) { // if the line is a header line (e.g. "//Rooms" skip this line)
 				continue;
 			}
 			String[] split = line.split(",");
-			
+
 			if (split.length != 3) {
 				throw new BadConfigFormatException(setupConfigFile, "loadSetupConfig");
 			}
-			
+
 			String type = split[0];
-			
+
 			String name = split[1];
 			//System.out.println(name);
 			name = name.substring(1); // get rids of space at beginning
-			
+
 			String symbol = split[2];
 			symbol = symbol.substring(1); // gets rid of space at beginning
-			
+
 			if (symbol.length() != 1) {
 				throw new BadConfigFormatException(setupConfigFile, "loadSetupConfig");
 			}
-			
+
 			Character roomSymbol = symbol.charAt(0); // get character from begining of string
-			
+
 			typeClassification(type, name, roomSymbol);
-			
+
 			//for testing
 			//System.out.println(split[0] + "-" + split[1] + "-" + split[2]);	
 		}
@@ -217,14 +217,14 @@ public class Board {
 	private void typeClassification(String type, String name, Character roomSymbol) throws BadConfigFormatException {
 		if(type.equals("Room")||type.equals("Space")) {
 			Room newRoom = new Room(name);
-			
+
 			roomMap.put(roomSymbol, newRoom); // insert Character,Room pair into map
 		}
 		else {
 			throw new BadConfigFormatException(setupConfigFile, "typeClassification");
 		}
 	}
-	
+
 	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException { // actual map?
 		Scanner scanner = fileInput(layoutConfigFile);
 		while (scanner.hasNextLine()) {
@@ -235,7 +235,7 @@ public class Board {
 			for(String s : splitLine) {
 				checkLayoutFormat(s);
 				symbolLine.add(s);
-				}
+			}
 			//Add the line to the board arraylist
 			boardSymbols.add(symbolLine);
 		}
@@ -275,17 +275,15 @@ public class Board {
 
 	public void calcTargets(BoardCell cell, int i) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public Set<BoardCell> getTargets() {
 		// TODO Auto-generated method stub
 		return targets;
 	}
-	
+
 	public Set<BoardCell> getAdjList(int row, int col){
 		return grid[row][col].getAdjList();
 	}
-	}
-	
 }

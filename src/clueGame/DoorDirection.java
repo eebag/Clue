@@ -1,5 +1,6 @@
 package clueGame;
 
+
 //Enum of the door directions
 public enum DoorDirection{
 	UP,
