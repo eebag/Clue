@@ -26,6 +26,7 @@ public class Board {
 	//used to store the strings for each board cell
 
 	private Map<Character, Room> roomMap;
+	private Map<Character, Character> passageMap;
 
 	private String specialChars ="><^v*#";
 
@@ -48,6 +49,7 @@ public class Board {
 		targets = new HashSet<BoardCell>();
 		boardSymbols = new ArrayList<ArrayList<String>>();
 		roomMap = new HashMap<Character, Room>();
+		passageMap = new HashMap<Character, Character>();
 
 		//Load the configurations for layout and setup
 		try {
@@ -71,24 +73,106 @@ public class Board {
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numCols; j++) {
 				BoardCell cell = grid[i][j];
-
-				if(i > 0) {
-					cell.addAdjacency(grid[i-1][j]);
+				//Room cells that aren't centers have no adjacecny
+				if(!cell.isRoomCenter() && cell.isRoom()) {
+					continue;
 				}
-
-				if(i < numRows - 1) {
-					cell.addAdjacency(grid[i+1][j]);
+				//If the tile is unused, it has no adjacecny
+				String cellRoomName = roomMap.get(cell.getInitial()).getName();
+				if (cellRoomName.equals("Unused")) {
+					continue;
 				}
-
-				if(j > 0) {
-					cell.addAdjacency(grid[i][j-1]);
+				//Generate adj for doorway walkway or just walkways
+				if(cell.isDoorway() && cellRoomName.equals("Walkway")) {
+					//Perform normal walkway analysis
+					walkwayAdj(i,j,cell);
+					//Get door direction and get room center
+					//add door to center as well
+					findDoorAdj(i, j, cell);
 				}
-
-				if(j < numCols - 1) {
-					cell.addAdjacency(grid[i][j+1]);
+				else if(cellRoomName.equals("Walkway")) {
+					walkwayAdj(i, j, cell);
+				}
+				//Only should add secret passage, doorways added in switch above
+				if(cell.isRoomCenter()&&passageMap.containsKey(cell.getInitial())) {
+					//Grab secret cell letter
+					Character secretChar = passageMap.get(cell.getInitial());
+					BoardCell secretpass= roomMap.get(secretChar).getCenterCell();
+					cell.addAdjacency(secretpass);
 				}
 			}
 		}
+	}
+
+	private void findDoorAdj(int i, int j, BoardCell cell) {
+		//Find the cells adj to the door, then set them with setDoorAdj
+		BoardCell roomCellEntered=null;
+		switch (cell.getDoorDirection()) {
+		case UP:
+			//Get room at i+1, j and add its center to be adjacent
+			roomCellEntered= grid[i-1][j];
+			setDoorAdj(cell, roomCellEntered);
+			break;
+		case DOWN:
+			//Get room at i-1, j and add its center to be adjacent
+			roomCellEntered= grid[i+1][j];
+			setDoorAdj(cell, roomCellEntered);
+			break;
+		case LEFT:
+			//Get room at i, j-1 and add its center to be adjacent
+			roomCellEntered= grid[i][j-1];
+			setDoorAdj(cell, roomCellEntered);
+			break;
+		case RIGHT:
+			//Get room at i, j+1 and add its center to be adjacent
+			roomCellEntered= grid[i][j+1];
+			setDoorAdj(cell, roomCellEntered);
+			break;
+		case NONE:
+			//TODO: THROW ERROR LATER
+			roomCellEntered=null;
+			break;
+		}
+	}
+
+	private void setDoorAdj(BoardCell cell, BoardCell roomCellEntered) {
+		//Grab the room that the doorway is entering
+		Room roomEntered= roomMap.get(roomCellEntered.getInitial());
+		//Make them adj to eachother
+		BoardCell adjRoomCenter= roomEntered.getCenterCell();
+		cell.addAdjacency(adjRoomCenter);
+		adjRoomCenter.addAdjacency(cell);
+	}
+
+	private void walkwayAdj(int i, int j, BoardCell cell) {
+		//TODO: CHECK IF ADJ CELLS ARE VALID
+		BoardCell adjCell;
+		if(i > 0) {
+			adjCell= grid[i-1][j];
+			checkAdjWalkway(cell, adjCell);
+		}
+		if(i < numRows - 1) {
+			adjCell= grid[i+1][j];
+			checkAdjWalkway(cell, adjCell);
+		}
+
+		if(j > 0) {
+			adjCell= grid[i][j-1];
+			checkAdjWalkway(cell, adjCell);
+		}
+
+		if(j < numCols - 1) {
+			adjCell= grid[i][j+1];
+			checkAdjWalkway(cell, adjCell);
+		}
+	}
+	
+	private void checkAdjWalkway(BoardCell cell, BoardCell adjCell) {
+		//if valid add to adjacecy
+		if(roomMap.get(adjCell.getInitial()).getName().equals("Walkway")) {
+			cell.addAdjacency(adjCell);
+		}
+		//else do nothing
 	}
 
 	private void gridCreation() {
@@ -101,7 +185,11 @@ public class Board {
 				cell.setInitial(firstSymbol);
 				cell.setDoorDirection(DoorDirection.NONE); //Will change in if/ switch below if needed
 				secondSymbolClassify(cell, cellSymbol, firstSymbol);
-				cell.setRoom(roomMap.containsKey(firstSymbol));				
+				//Add only rooms (not walkways or unused)
+				String cellRoomName = roomMap.get(firstSymbol).getName();
+				if(!cellRoomName.equals("Walkway") && !cellRoomName.equals("Unused")) {
+					cell.setRoom(roomMap.containsKey(firstSymbol));
+				}
 				grid[i][j] = cell;
 			}
 		}
@@ -137,6 +225,7 @@ public class Board {
 				break;
 			default:
 				cell.setSecretPassage(secondSymbol);
+				passageMap.put(firstSymbol, secondSymbol);
 
 			} 
 		}
@@ -217,7 +306,6 @@ public class Board {
 	private void typeClassification(String type, String name, Character roomSymbol) throws BadConfigFormatException {
 		if(type.equals("Room")||type.equals("Space")) {
 			Room newRoom = new Room(name);
-
 			roomMap.put(roomSymbol, newRoom); // insert Character,Room pair into map
 		}
 		else {
@@ -279,7 +367,6 @@ public class Board {
 	}
 
 	public Set<BoardCell> getTargets() {
-		// TODO Auto-generated method stub
 		return targets;
 	}
 

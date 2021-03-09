@@ -117,6 +117,11 @@ public class BoardCell {
 	public Set<BoardCell> getAdjList (){
 		return adjacencyList;
 	}
+
+	@Override
+	public String toString() {
+		return "BoardCell [room=" + room + "] initial =" + initial + "." + "Row, col: "+ row + "," +column;
+	}
 	
 	
 }

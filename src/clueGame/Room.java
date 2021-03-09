@@ -6,6 +6,11 @@ public class Room {
 	private BoardCell centerCell;
 	private BoardCell labelCell;
 	
+	@Override
+	public String toString() {
+		return "Room [name=" + name + ", centerCell=" + centerCell + ", labelCell=" + labelCell + "]";
+	}
+
 	//Room constructor 
 	public Room(String name) {
 		super();
@@ -36,6 +41,6 @@ public class Room {
 	public void setLabelCell(BoardCell labelCell) {
 		this.labelCell = labelCell;
 	}
-	
+
 	
 }
