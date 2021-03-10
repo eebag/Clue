@@ -370,30 +370,43 @@ public class Board {
 	public void calcTargets(BoardCell startCell, int distance) {
 		
 		//Clear the old targets if there are any
-		for(BoardCell c : targets) {
-			targets.remove(c);
-		}
+		targets.clear();
 		
-		//Recusrively calculate new target list
-		calculateTargets(startCell, distance);
+		// if the original cell is a room center, call calculate targets on adjacent cells
+		if(startCell.isRoomCenter()) {
+			
+			adjLoop(startCell, distance);
+			
+		} else {
+			//Recusrively calculate new target list
+			calculateTargets(startCell, distance);
+		}
 
+	}
+
+	private void adjLoop(BoardCell startCell, int distance) {
+		visited.add(startCell);
+		
+		// continue calculating targets from each adjacent cell with 1 less distance
+		for(BoardCell c : startCell.getAdjList()) {
+			if(c.isRoom()|| !c.isOccupied()) {
+				calculateTargets(c, distance - 1);
+			}
+		}
+		visited.remove(startCell);
 	}
 	
 	//used by calcTargets to do the recursion to calculate the targets
 	private void calculateTargets(BoardCell startCell, int distance) {
-		//if the cell is a room and not a room center, it has no targets.
-		if(startCell.isRoom() && !(startCell.isRoomCenter())) {
+		
+		//previously used return
+		if(visited.contains(startCell)) {
 			return;
 		}
-		
+
 		//If a room center is found, movement should stop
 		if(startCell.isRoomCenter()) {
 			targets.add(startCell);
-			return;
-		}
-		
-		//if the cell is occupied or previously used return
-		if(startCell.isRoom() || startCell.isOccupied() || visited.contains(startCell)) {
 			return;
 		}
 		
@@ -401,14 +414,9 @@ public class Board {
 		if(distance == 0) {
 			targets.add(startCell);
 			return;
-		} else { 
-			visited.add(startCell); // add start cell to visited list so it doesn't get double counted
-			
-			for(BoardCell c : startCell.getAdjList()) { // continue calculating targets from each adjacent cell with 1 less distance
-				calcTargets(c, distance - 1);
-			}
-			
-			visited.remove(startCell); // remove start cell so it can be re-used when finding new paths to new targets (not double counted)
+		} 
+		else { 
+			adjLoop(startCell, distance);
 		}
 	}
 
