@@ -175,6 +175,7 @@ public class Board {
 		//else do nothing
 	}
 
+	//Sets up the grid using the symbols read in from the LayoutConfig file
 	private void gridCreation() {
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numCols; j++) {
@@ -194,7 +195,8 @@ public class Board {
 			}
 		}
 	}
-
+	
+	//Classifies the cell as door, roomCenter, roomLabel, or secret passage based on the second symbol given to the tile
 	private void secondSymbolClassify(BoardCell cell, String cellSymbol, char firstSymbol) {
 		if(cellSymbol.length()>1) {
 			char secondSymbol= cellSymbol.charAt(1);
@@ -231,6 +233,9 @@ public class Board {
 		}
 	}
 
+	
+	
+	
 	public void setConfigFiles(String csv, String txt) {
 		setupConfigFile = txt;
 		layoutConfigFile = csv;
@@ -360,10 +365,45 @@ public class Board {
 		Scanner scanner = new Scanner(reader); // put into scanner
 		return scanner;
 	}
+	
+	//Calculates the targets starting from a given cell recursively
+	public void calcTargets(BoardCell startCell, int distance) {
+		
+		//Clear the old targets if there are any
+		for(BoardCell c : targets) {
+			targets.remove(c);
+		}
+		
+		//Recusrively calculate new target list
+		calculateTargets(startCell, distance);
 
-	public void calcTargets(BoardCell cell, int i) {
-		// TODO Auto-generated method stub
-
+	}
+	
+	//used by calcTargets to do the recursion to calculate the targets
+	private void calculateTargets(BoardCell startCell, int distance) {
+		//if the cell is a room and not a room center, it has no targets.
+		if(startCell.isRoom() && !(startCell.isRoomCenter())) {
+			return;
+		}
+		
+		//if the cell is occupied or previously used return
+		if(startCell.isRoom() || startCell.isOccupied() || visited.contains(startCell)) {
+			return;
+		}
+		
+		//otherwise recusively add adjacent cells
+		if(distance == 0) {
+			targets.add(startCell);
+			return;
+		} else { 
+			visited.add(startCell); // add start cell to visited list so it doesn't get double counted
+			
+			for(BoardCell c : startCell.getAdjList()) { // continue calculating targets from each adjacent cell with 1 less distance
+				calcTargets(c, distance - 1);
+			}
+			
+			visited.remove(startCell); // remove start cell so it can be re-used when finding new paths to new targets (not double counted)
+		}
 	}
 
 	public Set<BoardCell> getTargets() {
