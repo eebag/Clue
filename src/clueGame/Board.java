@@ -10,7 +10,6 @@ import java.util.Scanner;
 import java.util.Set;
 import clueGame.*;
 
-import experiment.TestBoardCell;
 
 public class Board {
 	private String setupConfigFile;
@@ -129,7 +128,8 @@ public class Board {
 			setDoorAdj(cell, roomCellEntered);
 			break;
 		case NONE:
-			//TODO: THROW ERROR LATER
+			//It shouldn't enter here. If it does, break and do nothing (throw error?)
+			//TODO: Throw error?
 			roomCellEntered=null;
 			break;
 		}
@@ -383,6 +383,12 @@ public class Board {
 	private void calculateTargets(BoardCell startCell, int distance) {
 		//if the cell is a room and not a room center, it has no targets.
 		if(startCell.isRoom() && !(startCell.isRoomCenter())) {
+			return;
+		}
+		
+		//If a room center is found, movement should stop
+		if(startCell.isRoomCenter()) {
+			targets.add(startCell);
 			return;
 		}
 		

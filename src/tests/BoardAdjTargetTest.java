@@ -80,7 +80,7 @@ public class BoardAdjTargetTest {
 
 		// Test on left edge of board near a room
 		testList = board.getAdjList(9, 0);
-		assertEquals(2, testList.size());
+		assertEquals(3, testList.size());
 		assertTrue(testList.contains(board.getCell(8, 0)));
 		assertTrue(testList.contains(board.getCell(9, 1)));
 		assertTrue(testList.contains(board.getCell(10, 0)));
