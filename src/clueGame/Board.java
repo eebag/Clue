@@ -145,7 +145,6 @@ public class Board {
 	}
 
 	private void walkwayAdj(int i, int j, BoardCell cell) {
-		//TODO: CHECK IF ADJ CELLS ARE VALID
 		BoardCell adjCell;
 		if(i > 0) {
 			adjCell= grid[i-1][j];

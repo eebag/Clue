@@ -1,0 +1,83 @@
+We talked to Nicholas Karst and couldn't find much to change. A majority of our changes were moving functions and changing variable names.
+
+
+Most Significant code change: 
+Before: 
+
+private void generateAdjacency() {
+		//generate adjacencies
+		for(int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numCols; j++) {
+				BoardCell cell = grid[i][j];
+				//Room cells that aren't centers have no adjacecny
+				if(!cell.isRoomCenter() && cell.isRoom()) {
+					continue;
+				}
+				//If the tile is unused, it has no adjacecny
+				String cellRoomName = roomMap.get(cell.getInitial()).getName();
+				if (cellRoomName.equals("Unused")) {
+					continue;
+				}
+				//Generate adj for doorway walkway or just walkways
+				if(cell.isDoorway() && cellRoomName.equals("Walkway")) {
+					//Perform normal walkway analysis
+					walkwayAdj(i,j,cell);
+					//Get door direction and get room center
+					//add door to center as well
+					findDoorAdj(i, j, cell);
+				}
+				else if(cellRoomName.equals("Walkway")) {
+					walkwayAdj(i, j, cell);
+				}
+				//Only should add secret passage, doorways added in switch above
+				if(cell.isRoomCenter()&&passageMap.containsKey(cell.getInitial())) {
+					//Grab secret cell letter
+					Character secretChar = passageMap.get(cell.getInitial());
+					BoardCell secretpass= roomMap.get(secretChar).getCenterCell();
+					cell.addAdjacency(secretpass);
+				}
+			}
+		}
+	}
+
+
+
+After:
+
+	private void generateAdjacency() {
+		//generate adjacencies
+		for(int row = 0; row < numRows; row++) {
+			for(int col = 0; col < numCols; col++) {
+				BoardCell cell = grid[row][col];
+				//Room cells that aren't centers have no adjacecny
+				if(!cell.isRoomCenter() && cell.isRoom()) {
+					continue;
+				}
+				//If the tile is unused, it has no adjacecny
+				String cellRoomName = roomMap.get(cell.getInitial()).getName();
+				if (cellRoomName.equals("Unused")) {
+					continue;
+				}
+				//Generate adj for doorway walkway or just walkways
+				if(cell.isDoorway() && cellRoomName.equals("Walkway")) {
+					//Perform normal walkway analysis
+					walkwayAdj(row,col,cell);
+					//Get door direction and get room center
+					//add door to center as well
+					findDoorAdj(row, col, cell);
+				}
+				else if(cellRoomName.equals("Walkway")) {
+					walkwayAdj(row, col, cell);
+				}
+				//Only should add secret passage, doorways added in switch above
+				if(cell.isRoomCenter()&&passageMap.containsKey(cell.getInitial())) {
+					//Grab secret cell letter
+					Character secretChar = passageMap.get(cell.getInitial());
+					BoardCell secretpass= roomMap.get(secretChar).getCenterCell();
+					cell.addAdjacency(secretpass);
+				}
+			}
+		}
+	}
+
+
