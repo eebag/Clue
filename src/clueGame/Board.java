@@ -11,8 +11,14 @@ import java.util.Set;
 
 
 public class Board {
+	//Identifier constants
 	private static final String UNUSED = "Unused";
 	private static final String WALKWAY = "Walkway";
+	
+	//used to store the strings for each board cell
+	private String specialChars ="><^v*#";
+	
+	//Instance variables
 	private String setupConfigFile;
 	private String layoutConfigFile;
 
@@ -23,12 +29,9 @@ public class Board {
 	private Set<BoardCell> targets;	
 	private Set<BoardCell> visited;
 	ArrayList <ArrayList<String>> boardSymbols; 
-	//used to store the strings for each board cell
 
 	private Map<Character, Room> roomMap;
 	private Map<Character, Character> passageMap;
-
-	private String specialChars ="><^v*#";
 
 	private BoardCell[][] grid;
 
@@ -233,42 +236,6 @@ public class Board {
 		}
 	}
 
-	
-	
-	
-	public void setConfigFiles(String csv, String txt) {
-		setupConfigFile = txt;
-		layoutConfigFile = csv;
-	}
-
-	public void setNumRows(int r) {
-		numRows = r;
-	}
-
-	public void setNumCols(int c) {
-		numCols = c;
-	}
-
-	public int getNumRows() {
-		return numRows;
-	}
-
-	public int getNumColumns() {
-		return numCols;
-	}
-
-	public Room getRoom(Character c) {
-		return roomMap.get(c);
-	}
-
-	public Room getRoom(BoardCell c) {
-		return roomMap.get(c.getInitial());
-	}
-
-	public BoardCell getCell(int row, int col) {
-		return grid[row][col];
-	}
-
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException{ // map the characters to rooms
 		Scanner scanner = fileInput(setupConfigFile);
 		while(scanner.hasNextLine()) {
@@ -411,12 +378,46 @@ public class Board {
 			adjLoop(startCell, distance);
 		}
 	}
-
+	
+	//Getters and setters
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
 
 	public Set<BoardCell> getAdjList(int row, int col){
 		return grid[row][col].getAdjList();
+	}
+	
+	public void setConfigFiles(String csv, String txt) {
+		setupConfigFile = txt;
+		layoutConfigFile = csv;
+	}
+
+	public void setNumRows(int r) {
+		numRows = r;
+	}
+	
+	public int getNumRows() {
+		return numRows;
+	}
+	
+	public void setNumCols(int c) {
+		numCols = c;
+	}
+
+	public int getNumColumns() {
+		return numCols;
+	}
+
+	public Room getRoom(Character c) {
+		return roomMap.get(c);
+	}
+
+	public Room getRoom(BoardCell c) {
+		return roomMap.get(c.getInitial());
+	}
+
+	public BoardCell getCell(int row, int col) {
+		return grid[row][col];
 	}
 }

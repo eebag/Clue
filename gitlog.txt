@@ -1,3 +1,33 @@
+commit 42d64a3590b24afad5ad42be418d9dba7c54146d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Wed Mar 10 00:14:21 2021 -0700
+
+    Made all target tests pass. Edited some of the junit tests for targets
+
+commit 533f48c21e0dd632446f1ccaa6258a5bace305e4
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 9 22:38:53 2021 -0700
+
+    Minor changes to board. Need to change is occupied base case in recursive targets
+
+commit 7e424b5564fce86b52fdd37c7adf0b793f3e3bb3
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 9 21:51:37 2021 -0700
+
+    Implemented calcTargets, added and then removed a print from 306 file
+
+commit b1f39d39503f850d9144cab4141379155233495c
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 9 00:08:37 2021 -0700
+
+    Wrote and passed adj tests. Written with Gabe at 1 comp.
+
+commit 5b14d8133cc9e813a96eefe34ab693b6f65d557a
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 8 22:20:35 2021 -0700
+
+    Git log stuff
+
 commit 27d06888f4946f2574def345faa755a49182927a
 Author: OJackson <oliviajackson@mymail.mines.edu>
 Date:   Fri Mar 5 22:19:45 2021 -0700
