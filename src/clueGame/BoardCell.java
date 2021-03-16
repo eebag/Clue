@@ -33,33 +33,44 @@ public class BoardCell {
 		column = col;
 	}
 	
-	//getters
-	public boolean isRoom() {
-		return room;
+	
+	public void addAdjacency(BoardCell c) {
+		adjacencyList.add(c);
 	}
 	
-	public void setRoom(boolean room) {
-		this.room = room;
+	//is methods
+	public boolean isRoom() {
+		return room;
 	}
 	
 	public boolean isOccupied() {
 		return occupied;
 	}
 	
-	public void setOccupied(boolean occupied) {
-		this.occupied = occupied;
+	public boolean isRoomCenter() {
+		return roomCenter;
 	}
 	
 	public boolean isLabel() {
 		return roomLabel;
 	}
 	
-	public void setRoomLabel(boolean roomLabel) {
-		this.roomLabel = roomLabel;
+	public boolean isDoorway() {
+		return isDoor;
 	}
 	
-	public boolean isRoomCenter() {
-		return roomCenter;
+	//getters and setters	
+	public void setRoom(boolean room) {
+		this.room = room;
+	}
+	
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
+	}
+	
+	
+	public void setRoomLabel(boolean roomLabel) {
+		this.roomLabel = roomLabel;
 	}
 
 	public void setRoomCenter(boolean roomCenter) {
@@ -104,14 +115,6 @@ public class BoardCell {
 
 	public void setSecretPassage(char secretPassage) {
 		this.secretPassage = secretPassage;
-	}
-	
-	public void addAdjacency(BoardCell c) {
-		adjacencyList.add(c);
-	}
-
-	public boolean isDoorway() {
-		return isDoor;
 	}
 	
 	public Set<BoardCell> getAdjList (){
