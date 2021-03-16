@@ -16,7 +16,7 @@ public class Board {
 	private static final String WALKWAY = "Walkway";
 	
 	//used to store the strings for each board cell
-	private String specialChars ="><^v*#";
+	private static final String specialChars ="><^v*#";
 	
 	//Instance variables
 	private String setupConfigFile;
