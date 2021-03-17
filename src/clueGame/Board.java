@@ -8,10 +8,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import clueGame.*;
 
 
 public class Board {
+	private static final String UNUSED = "Unused";
+	private static final String WALKWAY = "Walkway";
 	private String setupConfigFile;
 	private String layoutConfigFile;
 
@@ -50,11 +51,10 @@ public class Board {
 		try {
 			loadSetupConfig();
 			loadLayoutConfig();
-		}catch(FileNotFoundException e){
-			System.out.println(e);
-		}catch(BadConfigFormatException e) {
-			System.out.println(e);
-		}
+		}catch(BadConfigFormatException | FileNotFoundException e){
+			System.err.println(e);
+			}
+
 
 		//Initalize grid once we know values
 		grid = new BoardCell[numRows][numCols];
@@ -65,11 +65,11 @@ public class Board {
 
 	//Create the instace variables for this
 	private void createInstance() {
-		visited = new HashSet<BoardCell>();
-		targets = new HashSet<BoardCell>();
-		boardSymbols = new ArrayList<ArrayList<String>>();
-		roomMap = new HashMap<Character, Room>();
-		passageMap = new HashMap<Character, Character>();
+		visited = new HashSet<>();
+		targets = new HashSet<>();
+		boardSymbols = new ArrayList<>();
+		roomMap = new HashMap<>();
+		passageMap = new HashMap<>();
 	}
 
 	private void generateAdjacency() {
@@ -77,24 +77,21 @@ public class Board {
 		for(int row = 0; row < numRows; row++) {
 			for(int col = 0; col < numCols; col++) {
 				BoardCell cell = grid[row][col];
-				//Room cells that aren't centers have no adjacecny
-				if(!cell.isRoomCenter() && cell.isRoom()) {
-					continue;
-				}
 				//If the tile is unused, it has no adjacecny
 				String cellRoomName = roomMap.get(cell.getInitial()).getName();
-				if (cellRoomName.equals("Unused")) {
+				//Room cells that aren't centers have no adjacecny
+				if((!cell.isRoomCenter() && cell.isRoom())|| cellRoomName.equals(UNUSED)) {
 					continue;
 				}
 				//Generate adj for doorway walkway or just walkways
-				if(cell.isDoorway() && cellRoomName.equals("Walkway")) {
+				if(cell.isDoorway() && cellRoomName.equals(WALKWAY)) {
 					//Perform normal walkway analysis
 					walkwayAdj(row,col,cell);
 					//Get door direction and get room center
 					//add door to center as well
 					findDoorAdj(row, col, cell);
 				}
-				else if(cellRoomName.equals("Walkway")) {
+				else if(cellRoomName.equals(WALKWAY)) {
 					walkwayAdj(row, col, cell);
 				}
 				//Only should add secret passage, doorways added in switch above
@@ -135,7 +132,6 @@ public class Board {
 		case NONE:
 			//It shouldn't enter here. If it does, break and do nothing (throw error?)
 			//TODO: Throw error?
-			roomCellEntered=null;
 			break;
 		}
 	}
@@ -173,7 +169,7 @@ public class Board {
 	
 	private void checkAdjWalkway(BoardCell cell, BoardCell adjCell) {
 		//if valid add to adjacecy
-		if(roomMap.get(adjCell.getInitial()).getName().equals("Walkway")) {
+		if(roomMap.get(adjCell.getInitial()).getName().equals(WALKWAY)) {
 			cell.addAdjacency(adjCell);
 		}
 		//else do nothing
@@ -192,7 +188,7 @@ public class Board {
 				secondSymbolClassify(cell, cellSymbol, firstSymbol);
 				//Add only rooms (not walkways or unused)
 				String cellRoomName = roomMap.get(firstSymbol).getName();
-				if(!cellRoomName.equals("Walkway") && !cellRoomName.equals("Unused")) {
+				if(!cellRoomName.equals(WALKWAY) && !cellRoomName.equals(UNUSED)) {
 					cell.setRoom(roomMap.containsKey(firstSymbol));
 				}
 				grid[row][col] = cell;
@@ -262,13 +258,11 @@ public class Board {
 	}
 
 	public Room getRoom(Character c) {
-		Room r = roomMap.get(c);
-		return r;
+		return roomMap.get(c);
 	}
 
 	public Room getRoom(BoardCell c) {
-		Room r = roomMap.get(c.getInitial());
-		return r;
+		return roomMap.get(c.getInitial());
 	}
 
 	public BoardCell getCell(int row, int col) {
@@ -293,7 +287,6 @@ public class Board {
 			String type = split[0];
 
 			String name = split[1];
-			//System.out.println(name);
 			name = name.substring(1); // get rids of space at beginning
 
 			String symbol = split[2];
@@ -307,8 +300,6 @@ public class Board {
 
 			typeClassification(type, name, roomSymbol);
 
-			//for testing
-			//System.out.println(split[0] + "-" + split[1] + "-" + split[2]);	
 		}
 	}
 
@@ -326,7 +317,7 @@ public class Board {
 		Scanner scanner = fileInput(layoutConfigFile);
 		while (scanner.hasNextLine()) {
 			String line=scanner.nextLine();//Grab line
-			ArrayList <String> symbolLine= new ArrayList<String>(); //Set up array list to hold line split up
+			ArrayList <String> symbolLine= new ArrayList<>(); //Set up array list to hold line split up
 			String[] splitLine = line.split(","); //Split up the line
 			//Loop through array and put into array list
 			for(String s : splitLine) {
@@ -349,25 +340,23 @@ public class Board {
 	private void checkLayoutFormat(String s) throws BadConfigFormatException {
 		if(s.length()>2) {
 			//Check for valid length
-			throw new BadConfigFormatException(layoutConfigFile,"checkLayoutFormat");
+			throw new BadConfigFormatException(layoutConfigFile,"checkLayoutFormat-1");
 		}
-		if(s.length()==2) {
+		if(s.length()==2 &&specialChars.indexOf(s.charAt(1))==-1 && !roomMap.containsKey(s.charAt(1))) {
 			//check if the second char is valid
-			if(specialChars.indexOf(s.charAt(1))==-1 && !roomMap.containsKey(s.charAt(1))) {
-				throw new BadConfigFormatException(layoutConfigFile,"checkLayoutFormat");
-			}
+				throw new BadConfigFormatException(layoutConfigFile,"checkLayoutFormat-2");
 		}
 		if(!roomMap.containsKey(s.charAt(0))) {
 			//check for valid room
-			throw new BadConfigFormatException(layoutConfigFile, "checkLayoutFormat");
+			throw new BadConfigFormatException(layoutConfigFile, "checkLayoutFormat-3");
 		}
 	}
 
 	private Scanner fileInput(String fileName) throws FileNotFoundException {
 		String file = "data/" + fileName;
 		FileReader reader = new FileReader(file); //creates a new filein, will be passed into a scanner
-		Scanner scanner = new Scanner(reader); // put into scanner
-		return scanner;
+		// put into scanner and return
+		return new Scanner(reader);
 	}
 	
 	//Calculates the targets starting from a given cell recursively
@@ -417,7 +406,6 @@ public class Board {
 		//otherwise recusively add adjacent cells
 		if(distance == 0) {
 			targets.add(startCell);
-			return;
 		} 
 		else { 
 			adjLoop(startCell, distance);
