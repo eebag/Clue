@@ -1,3 +1,51 @@
+commit 280b9fd2f5f04d4bab215579da72c3760c9272d1
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 18:26:17 2021 -0600
+
+    Capitilized constant and changed an instance variable declaration.
+
+commit 1c073adb868c4bcc0ef6a51dffa9c229af3c13e0
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 16 17:23:01 2021 -0600
+
+    Removed unused import from BoardCell
+
+commit 4b504d76296dbd8aac7f532227148592b2b82855
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 16 17:22:17 2021 -0600
+
+    Organized methods in BoardCell
+
+commit 988061d0cdd85dda869e59338056b195fc09ff53
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 16 17:19:18 2021 -0600
+
+    Made specialChars string a static final
+
+commit 84223a9187cdefb828a68a7d1dd5bdbb41f1a809
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 16 17:18:25 2021 -0600
+
+    Organized getters and setters, and organized variables
+
+commit 6c2d927d3b7229a25f565cff8a83beff4068f609
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 18:07:17 2021 -0600
+
+    Used SonarLint to fix reccomended errors. Left 6 items unchanged.
+
+commit d6df699f378c50939d0cd535fef15378610f3fd7
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 17:50:07 2021 -0600
+
+    Create a function that reinitializes instance variables when instance is called
+
+commit 1b0a80a1d0eeb62fffe384b84e47b608506b3185
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 17:43:49 2021 -0600
+
+    Changed i and j variable names on loops to row and col.
+
 commit 42d64a3590b24afad5ad42be418d9dba7c54146d
 Author: OJackson <oliviajackson@mymail.mines.edu>
 Date:   Wed Mar 10 00:14:21 2021 -0700
