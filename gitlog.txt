@@ -1,0 +1,138 @@
+We talked to Nicholas Karst and couldn't find much to change. A majority of our changes were moving functions and changing variable names.
+
+
+Most Significant code change: 
+Before: 
+
+private void generateAdjacency() {
+		//generate adjacencies
+		for(int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numCols; j++) {
+				BoardCell cell = grid[i][j];
+				//Room cells that aren't centers have no adjacecny
+				if(!cell.isRoomCenter() && cell.isRoom()) {
+					continue;
+				}
+				//If the tile is unused, it has no adjacecny
+				String cellRoomName = roomMap.get(cell.getInitial()).getName();
+				if (cellRoomName.equals("Unused")) {
+					continue;
+				}
+				//Generate adj for doorway walkway or just walkways
+				if(cell.isDoorway() && cellRoomName.equals("Walkway")) {
+					//Perform normal walkway analysis
+					walkwayAdj(i,j,cell);
+					//Get door direction and get room center
+					//add door to center as well
+					findDoorAdj(i, j, cell);
+				}
+				else if(cellRoomName.equals("Walkway")) {
+					walkwayAdj(i, j, cell);
+				}
+				//Only should add secret passage, doorways added in switch above
+				if(cell.isRoomCenter()&&passageMap.containsKey(cell.getInitial())) {
+					//Grab secret cell letter
+					Character secretChar = passageMap.get(cell.getInitial());
+					BoardCell secretpass= roomMap.get(secretChar).getCenterCell();
+					cell.addAdjacency(secretpass);
+				}
+			}
+		}
+	}
+
+
+
+After:
+
+	private void generateAdjacency() {
+		//generate adjacencies
+		for(int row = 0; row < numRows; row++) {
+			for(int col = 0; col < numCols; col++) {
+				BoardCell cell = grid[row][col];
+				//Room cells that aren't centers have no adjacecny
+				if(!cell.isRoomCenter() && cell.isRoom()) {
+					continue;
+				}
+				//If the tile is unused, it has no adjacecny
+				String cellRoomName = roomMap.get(cell.getInitial()).getName();
+				if (cellRoomName.equals("Unused")) {
+					continue;
+				}
+				//Generate adj for doorway walkway or just walkways
+				if(cell.isDoorway() && cellRoomName.equals("Walkway")) {
+					//Perform normal walkway analysis
+					walkwayAdj(row,col,cell);
+					//Get door direction and get room center
+					//add door to center as well
+					findDoorAdj(row, col, cell);
+				}
+				else if(cellRoomName.equals("Walkway")) {
+					walkwayAdj(row, col, cell);
+				}
+				//Only should add secret passage, doorways added in switch above
+				if(cell.isRoomCenter()&&passageMap.containsKey(cell.getInitial())) {
+					//Grab secret cell letter
+					Character secretChar = passageMap.get(cell.getInitial());
+					BoardCell secretpass= roomMap.get(secretChar).getCenterCell();
+					cell.addAdjacency(secretpass);
+				}
+			}
+		}
+	}
+
+
+Commits Below:
+
+commit 4617fb6e25e5cd6927d1c9c91dc00f5b7906220d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 18:40:43 2021 -0600
+
+    Added comments and rearanged some methods. Methods (not getters and setters) should be in the order they are called and grouped by relavance
+
+commit 280b9fd2f5f04d4bab215579da72c3760c9272d1
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 18:26:17 2021 -0600
+
+    Capitilized constant and changed an instance variable declaration.
+
+commit 1c073adb868c4bcc0ef6a51dffa9c229af3c13e0
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 16 17:23:01 2021 -0600
+
+    Removed unused import from BoardCell
+
+commit 4b504d76296dbd8aac7f532227148592b2b82855
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 16 17:22:17 2021 -0600
+
+    Organized methods in BoardCell
+
+commit 988061d0cdd85dda869e59338056b195fc09ff53
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 16 17:19:18 2021 -0600
+
+    Made specialChars string a static final
+
+commit 84223a9187cdefb828a68a7d1dd5bdbb41f1a809
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 16 17:18:25 2021 -0600
+
+    Organized getters and setters, and organized variables
+
+commit 6c2d927d3b7229a25f565cff8a83beff4068f609
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 18:07:17 2021 -0600
+
+    Used SonarLint to fix reccomended errors. Left 6 items unchanged.
+
+commit d6df699f378c50939d0cd535fef15378610f3fd7
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 17:50:07 2021 -0600
+
+    Create a function that reinitializes instance variables when instance is called
+
+commit 1b0a80a1d0eeb62fffe384b84e47b608506b3185
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 17:43:49 2021 -0600
+
+    Changed i and j variable names on loops to row and col.
