@@ -14,9 +14,9 @@ public class Board {
 	//Identifier constants
 	private static final String UNUSED = "Unused";
 	private static final String WALKWAY = "Walkway";
-	
 	//used to store the strings for each board cell
-	private static final String specialChars ="><^v*#";
+	private static final String SPECIALCHARS ="><^v*#";
+	
 	
 	//Instance variables
 	private String setupConfigFile;
@@ -309,7 +309,7 @@ public class Board {
 			//Check for valid length
 			throw new BadConfigFormatException(layoutConfigFile,"checkLayoutFormat-1");
 		}
-		if(s.length()==2 &&specialChars.indexOf(s.charAt(1))==-1 && !roomMap.containsKey(s.charAt(1))) {
+		if(s.length()==2 &&SPECIALCHARS.indexOf(s.charAt(1))==-1 && !roomMap.containsKey(s.charAt(1))) {
 			//check if the second char is valid
 				throw new BadConfigFormatException(layoutConfigFile,"checkLayoutFormat-2");
 		}

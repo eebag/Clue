@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class BoardCell {
 	private DoorDirection doorDirection;
-	private Set<BoardCell> adjacencyList=new HashSet<BoardCell>();
+	private Set<BoardCell> adjacencyList=new HashSet<>();
 	
 	private int row;
 	private int column;
@@ -13,7 +13,7 @@ public class BoardCell {
 	private char initial; // room initial
 	private char secretPassage; // secret passage initial (2nd initial)
 	
-	//Initialize to false.  Will be updated by gameboard
+	//Initialize to false.  Will be updated by game board
 	private boolean roomLabel = false;
 	private boolean roomCenter = false;
 	private boolean room = false;
