@@ -1,3 +1,9 @@
+commit 4617fb6e25e5cd6927d1c9c91dc00f5b7906220d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 18:40:43 2021 -0600
+
+    Added comments and rearanged some methods. Methods (not getters and setters) should be in the order they are called and grouped by relavance
+
 commit 280b9fd2f5f04d4bab215579da72c3760c9272d1
 Author: OJackson <oliviajackson@mymail.mines.edu>
 Date:   Tue Mar 16 18:26:17 2021 -0600
