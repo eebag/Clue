@@ -20,7 +20,7 @@ public class PlayerTest {
 		private static Board board;
 
 		@BeforeEach
-		public static void setUp() {
+		public void setUp() {
 			// Board is singleton, get the only instance
 			board = Board.getInstance();
 			// set the file names to use my config files
