@@ -17,7 +17,7 @@ public class BoardAdjTargetTest {
 	// then do all the tests. 
 	private static Board board;
 
-	@BeforeAll
+	//@BeforeAll
 	public static void setUp() {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();

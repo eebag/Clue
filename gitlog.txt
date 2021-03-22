@@ -1,7 +1,12 @@
+Olivia Jackson
+Gabe Hohman
+
 We talked to Nicholas Karst and couldn't find much to change. A majority of our changes were moving functions and changing variable names.
 
 
 Most Significant code change: 
+Changed i to row and j to col to be more descriptive and easier to read. 
+
 Before: 
 
 private void generateAdjacency() {
