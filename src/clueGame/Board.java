@@ -313,6 +313,8 @@ public class Board {
 			//Do nothing
 		}
 		else {
+			System.out.println(type);
+			System.out.println(symbol);
 			throw new BadConfigFormatException(setupConfigFile, "typeClassification");
 		}
 		//Weapons only get added to deck

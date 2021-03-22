@@ -23,5 +23,5 @@ Weapon, Dynamite, D
 Weapon, Text Book, T
 Weapon, Chemical X, X
 Weapon, Pencil, P
-Weapon, X-Box Chord, C
+Weapon, X-Box Cord, C
 Weapon, Mug, M
