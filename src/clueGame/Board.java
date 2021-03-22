@@ -309,6 +309,9 @@ public class Board {
 				players.add(newPlayer);
 			}
 		}
+		else if(type.equals("Weapon")){
+			//Do nothing
+		}
 		else {
 			throw new BadConfigFormatException(setupConfigFile, "typeClassification");
 		}

@@ -26,7 +26,7 @@ public class PlayerTest {
 		// then do all the tests. 
 		private static Board board;
 
-		@BeforeAll
+		@BeforeEach
 		public static void setUp() {
 			// Board is singleton, get the only instance
 			board = Board.getInstance();
