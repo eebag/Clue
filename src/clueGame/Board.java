@@ -29,7 +29,7 @@ public class Board {
 	private Set<BoardCell> targets;	
 	private Set<BoardCell> visited;
 	
-	//Player and gamepiece variables
+	//Player and game piece variables
 	private ArrayList<Player> players;
 	private Solution theAnswer;
 	
@@ -290,6 +290,17 @@ public class Board {
 		if(type.equals("Room")||type.equals("Space")) {
 			Room newRoom = new Room(name);
 			roomMap.put(roomSymbol, newRoom); // insert Character,Room pair into map
+		}
+		else if(type.equals("Player")) {
+			if(players.size()==0) {
+				Player newPlayer= new humanPlayer(name, roomSymbol);
+			}
+			else {
+				Player newPlayer= new ComputerPlayer(name, roomSymbol);
+			}
+		}
+		else if(type.equals("Weapon")) {
+			
 		}
 		else {
 			throw new BadConfigFormatException(setupConfigFile, "typeClassification");

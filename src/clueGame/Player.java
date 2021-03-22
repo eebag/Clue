@@ -19,6 +19,14 @@ public abstract class Player {
 	protected int row, col;
 	
 	
+	
+	
+	public Player(String name, Color color) {
+		super();
+		this.name = name;
+		this.color = color;
+	}
+
 	public void updateHand(Card C) {
 		hand.add(C);
 	}
