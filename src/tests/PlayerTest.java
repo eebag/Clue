@@ -76,7 +76,7 @@ public class PlayerTest {
 		@Test
 		public void checkHandSize() {
 			int numPlayers = board.getNumPlayers();
-			int cardsRemaining = 1; // TODO: actually get a value for this
+			int cardsRemaining = 18; // TODO: actually get a value for this
 			int handSize = cardsRemaining / numPlayers;
 			for(Player p : board.getPlayers()) {
 				Set<Card> hand = p.getHand();

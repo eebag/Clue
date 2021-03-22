@@ -81,6 +81,9 @@ public class Board {
 		boardSymbols = new ArrayList<>();
 		roomMap = new HashMap<>();
 		passageMap = new HashMap<>();
+		players= new ArrayList<Player>();
+		theAnswer= new Solution();
+		deck= new HashSet<Card>();
 	}
 	
 
@@ -306,12 +309,12 @@ public class Board {
 				players.add(newPlayer);
 			}
 		}
-		else if(type.equals("Weapon")) {
-			//Add to deck
-		}
 		else {
 			throw new BadConfigFormatException(setupConfigFile, "typeClassification");
 		}
+		//Weapons only get added to deck
+		Card newCard= new Card(name);
+		deck.add(newCard);
 	}
 	
 	private Color symbolToColor(Character symbol) {
