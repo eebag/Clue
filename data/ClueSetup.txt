@@ -18,3 +18,10 @@ Player, Mark Baldwin, M
 Player, PCJ, O
 Player, Tracy Camp, P
 Player, CPW, Y
+//Weapon
+Weapon, Dynamite, D
+Weapon, Text Book, T
+Weapon, Chemical X, X
+Weapon, Pencil, P
+Weapon, X-Box Chord, C
+Weapon, Mug, M

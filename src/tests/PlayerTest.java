@@ -46,9 +46,9 @@ public class PlayerTest {
 			assertEquals(Color.orange, testPlayers.get(3).getColor()); //PCJ
 			assertEquals(Color.yellow, testPlayers.get(5).getColor()); //CPW
 			//Make sure names are correct
-			assertEquals("Marvin the Miner", testPlayers.get(0).getName()); //Marvin
-			assertEquals("Mark Baldwin", testPlayers.get(2).getColor()); //PCJ
-			assertEquals("Tracy Camp", testPlayers.get(4).getColor()); //CPW
+			assertEquals("Marvin the Miner", testPlayers.get(0).getName());
+			assertEquals("Mark Baldwin", testPlayers.get(2).getColor()); 
+			assertEquals("Tracy Camp", testPlayers.get(4).getColor()); 
 		}
 		
 		//Makes sure deck is loaded
