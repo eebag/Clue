@@ -33,6 +33,7 @@ public class Board {
 	//Player and game piece variables
 	private ArrayList<Player> players;
 	private Solution theAnswer;
+	private Set<Card> deck;
 	
 	//Board layout variables
 	private ArrayList <ArrayList<String>> boardSymbols; 
@@ -467,14 +468,18 @@ public class Board {
 	}
 	
 	public ArrayList<Player> getPlayers(){
-		return Players;
+		return players;
 	}
 	
 	public int getNumPlayers() {
-		return Players.size();
+		return players.size();
 	}
 	
 	public Solution getAnswer() {
 		return theAnswer;
+	}
+	
+	public Set<Card> getDeck(){
+		return deck;
 	}
 }

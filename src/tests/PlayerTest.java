@@ -12,6 +12,7 @@ import clueGame.Board;
 import clueGame.Player;
 import clueGame.Solution;
 import clueGame.Card;
+import clueGame.CardType;
 
 /**
  * Tests for all things related to the implementation of the Player class
@@ -39,7 +40,7 @@ public class PlayerTest {
 		@Test
 		public void peopleLoaded() {
 			// Check that player array has correct # of people
-			ArrayList<Player> testPlayers= getPlayers();
+			ArrayList<Player> testPlayers= board.getPlayers();
 			assertEquals(6, testPlayers.size());
 			//Make sure they have expected colors
 			assertEquals(Color.red, testPlayers.get(0).getColor()); //Marvin
@@ -54,17 +55,21 @@ public class PlayerTest {
 		//Makes sure deck is loaded
 		@Test
 		public void deckCheck() {
-			//Make sure deck has right number of cards (doesn't include starting hands or solution)
-			//Make sure deck does not contain cards that are also in player's hands (just test with one player)
-			//Make sure deck does not contain solution
+			Set<Card> deck = board.getDeck();
+			assertEquals(deck.size(), 21);
 		}
 		
-		//Makes sure solution is dealt
+		//Makes sure solution is properly constructed
 		@Test
 		public void checkSolution() {
 			Solution answer = board.getAnswer();
-			//Size of answer = 3
-			//answer contains 1 room, person, and weapon
+			Card person = answer.getPerson();
+			Card weapon = answer.getWeapon();
+			Card room = answer.getRoom();
+			
+			assertEquals(person.getType(), CardType.PERSON);
+			assertEquals(weapon.getType(), CardType.WEAPON);
+			assertEquals(room.getType(), CardType.ROOM);
 		}
 		
 		//Makes sure players start with the correct number of cards in their hand
