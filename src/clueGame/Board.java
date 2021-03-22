@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -286,25 +287,36 @@ public class Board {
 	}
 
 	//Check if its a room or space. If not throw error
-	private void typeClassification(String type, String name, Character roomSymbol) throws BadConfigFormatException {
+	private void typeClassification(String type, String name, Character symbol) throws BadConfigFormatException {
 		if(type.equals("Room")||type.equals("Space")) {
 			Room newRoom = new Room(name);
-			roomMap.put(roomSymbol, newRoom); // insert Character,Room pair into map
+			roomMap.put(symbol, newRoom); // insert Character,Room pair into map
 		}
 		else if(type.equals("Player")) {
-			if(players.size()==0) {
-				Player newPlayer= new humanPlayer(name, roomSymbol);
+			Color color=symbolToColor(symbol);
+			if(players.isEmpty()) {
+				//If no players have been added yet, add a human
+				Player newPlayer= new HumanPlayer(name, color);
+				players.add(newPlayer);
 			}
 			else {
-				Player newPlayer= new ComputerPlayer(name, roomSymbol);
+				//If players have been added, add a new computer player
+				Player newPlayer= new ComputerPlayer(name, color);
+				players.add(newPlayer);
 			}
 		}
 		else if(type.equals("Weapon")) {
-			
+			//Add to deck
 		}
 		else {
 			throw new BadConfigFormatException(setupConfigFile, "typeClassification");
 		}
+	}
+	
+	private Color symbolToColor(Character symbol) {
+		//Create a switch statement to find correct color
+		//return the color
+		return Color.black;
 	}
 
 	//Load layout config to setup board and check board validity
