@@ -22,14 +22,18 @@ public class Board {
 	private String setupConfigFile;
 	private String layoutConfigFile;
 
-
 	private int numRows;
 	private int numCols;
-
+	
+	//Variables for calculating targets
 	private Set<BoardCell> targets;	
 	private Set<BoardCell> visited;
-	ArrayList <ArrayList<String>> boardSymbols; 
-
+	
+	//Player variables
+	private ArrayList<Player> Players;
+	
+	//Board layout variables
+	private ArrayList <ArrayList<String>> boardSymbols; 
 	private Map<Character, Room> roomMap;
 	private Map<Character, Character> passageMap;
 
