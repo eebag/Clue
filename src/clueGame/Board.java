@@ -83,7 +83,7 @@ public class Board {
 		passageMap = new HashMap<>();
 		players= new ArrayList<Player>();
 		theAnswer= new Solution();
-		deck= new HashSet<Card>();
+		deck= new HashSet<>();
 	}
 	
 
@@ -313,8 +313,6 @@ public class Board {
 			//Do nothing
 		}
 		else {
-			System.out.println(type);
-			System.out.println(symbol);
 			throw new BadConfigFormatException(setupConfigFile, "typeClassification");
 		}
 		//Weapons only get added to deck

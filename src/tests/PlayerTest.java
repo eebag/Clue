@@ -1,18 +1,11 @@
 package tests;
-import static org.junit.Assert.*;
 
 import java.awt.Color;
+import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import clueGame.*;
 import java.util.ArrayList;
 import java.util.Set;
-
-import org.junit.Test;
-import org.junit.jupiter.api.*;
-
-import clueGame.Board;
-import clueGame.Player;
-import clueGame.Solution;
-import clueGame.Card;
-import clueGame.CardType;
 
 /**
  * Tests for all things related to the implementation of the Player class
