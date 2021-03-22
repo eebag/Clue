@@ -11,3 +11,10 @@ Room, Driveway, D
 // other spaces on the board
 Space, Walkway, W
 Space, Unused, X
+//Players
+Player, Marvin The Miner, R
+Player, Blaster The Burro, B
+Player, Mark Baldwin, M
+Player, PCJ, O
+Player, Tracy Camp, P
+Player, CPW, Y

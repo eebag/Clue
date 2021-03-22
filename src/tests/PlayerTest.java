@@ -1,6 +1,8 @@
 package tests;
 import static org.junit.Assert.*;
 
+import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.junit.Test;
@@ -36,9 +38,17 @@ public class PlayerTest {
 		//Makes sure all players are properlly loaded
 		@Test
 		public void peopleLoaded() {
-			//Make sure each player has a starting hand that is the right size
-			//Make sure they have valid starting positions that are different from the others
-			//Make sure they have different colors
+			// Check that player array has correct # of people
+			ArrayList<Player> testPlayers= getPlayers();
+			assertEquals(6, testPlayers.size());
+			//Make sure they have expected colors
+			assertEquals(Color.red, testPlayers.get(0).getColor()); //Marvin
+			assertEquals(Color.orange, testPlayers.get(3).getColor()); //PCJ
+			assertEquals(Color.yellow, testPlayers.get(5).getColor()); //CPW
+			//Make sure names are correct
+			assertEquals("Marvin the Miner", testPlayers.get(0).getName()); //Marvin
+			assertEquals("Mark Baldwin", testPlayers.get(2).getColor()); //PCJ
+			assertEquals("Tracy Camp", testPlayers.get(4).getColor()); //CPW
 		}
 		
 		//Makes sure deck is loaded

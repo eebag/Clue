@@ -30,7 +30,7 @@ public class Board {
 	private Set<BoardCell> visited;
 	
 	//Player and gamepiece variables
-	private ArrayList<Player> Players;
+	private ArrayList<Player> players;
 	private Solution theAnswer;
 	
 	//Board layout variables
