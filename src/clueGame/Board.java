@@ -29,8 +29,9 @@ public class Board {
 	private Set<BoardCell> targets;	
 	private Set<BoardCell> visited;
 	
-	//Player variables
+	//Player and gamepiece variables
 	private ArrayList<Player> Players;
+	private Solution theAnswer;
 	
 	//Board layout variables
 	private ArrayList <ArrayList<String>> boardSymbols; 
@@ -440,5 +441,17 @@ public class Board {
 
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col];
+	}
+	
+	public ArrayList<Player> getPlayers(){
+		return Players;
+	}
+	
+	public int getNumPlayers() {
+		return Players.size();
+	}
+	
+	public Solution getAnswer() {
+		return theAnswer;
 	}
 }

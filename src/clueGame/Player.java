@@ -24,6 +24,10 @@ public abstract class Player {
 	}
 	
 	//getters and setters
+	public Set<Card> getHand(){
+		return hand;
+	}
+	
 	public void setColor(Color c) {
 		color = c;
 	}
