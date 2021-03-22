@@ -7,7 +7,11 @@ package clueGame;
  * @author Olivia Jackson
  *
  */
+import java.awt.Color;
 
 public class HumanPlayer extends Player {
-
+	
+	public HumanPlayer(String name, Color c) {
+		super(name, c);
+	}
 }
