@@ -293,6 +293,9 @@ public class Board {
 		Random randNum = new Random();
 		randNum.setSeed(System.currentTimeMillis()); // set seed to current time in millisec
 		int sizeDeck = deck.size();
+		if(players.size()==0) {
+			return;
+		}
 		int cardsInHand = sizeDeck / players.size();
 		int cardIndex = randNum.nextInt(sizeDeck);
 		Collections.shuffle(deck);
