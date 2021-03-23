@@ -40,7 +40,7 @@ public class PlayerTest {
 			assertEquals(Color.orange, testPlayers.get(3).getColor()); //PCJ
 			assertEquals(Color.yellow, testPlayers.get(5).getColor()); //CPW
 			//Make sure names are correct
-			assertEquals("Marvin the Miner", testPlayers.get(0).getName());
+			assertEquals("Marvin The Miner", testPlayers.get(0).getName());
 			assertEquals("Mark Baldwin", testPlayers.get(2).getName()); 
 			assertEquals("Tracy Camp", testPlayers.get(4).getName()); 
 		}
@@ -48,7 +48,7 @@ public class PlayerTest {
 		//Makes sure deck is loaded
 		@Test
 		public void deckCheck() {
-			Set<Card> deck = board.getDeck();
+			ArrayList<Card> deck = board.getDeck();
 			assertEquals(deck.size(), 21);
 		}
 		

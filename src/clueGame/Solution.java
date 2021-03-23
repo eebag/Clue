@@ -22,5 +22,8 @@ public class Solution {
 	public Card getWeapon() {
 		return weapon;
 	}
-		
+	
+	public String toString() {
+		return ("Solution: [" + person + ", " + room + ", " + weapon +"]");
+	}
 }

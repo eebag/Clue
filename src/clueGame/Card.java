@@ -26,4 +26,8 @@ public class Card {
 		return type;
 	}
 	
+	public String toString() {
+		return cardName + ": " + type;
+	}
+	
 }

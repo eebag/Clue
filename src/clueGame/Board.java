@@ -33,7 +33,7 @@ public class Board {
 	//Player and game piece variables
 	private ArrayList<Player> players;
 	private Solution theAnswer;
-	private Set<Card> deck;
+	private ArrayList<Card> deck;
 	private ArrayList<Card> personCards;
 	private ArrayList<Card> roomCards;
 	private ArrayList<Card> weaponCards;
@@ -81,6 +81,8 @@ public class Board {
 		} catch(BadConfigFormatException e){
 			System.err.println(e);
 		}
+		
+		dealHands();
 	}
 
 	//Create the instace variables for this
@@ -91,7 +93,7 @@ public class Board {
 		roomMap = new HashMap<>();
 		passageMap = new HashMap<>();
 		players= new ArrayList<Player>();
-		deck= new HashSet<>();
+		deck= new ArrayList<Card>();
 		personCards = new ArrayList<Card>();
 		weaponCards = new ArrayList<Card>();
 		roomCards = new ArrayList<Card>();
@@ -224,7 +226,7 @@ public class Board {
 	private void setDoorAdj(BoardCell cell, BoardCell roomCellEntered) {
 		//Grab the room that the doorway is entering
 		Room roomEntered= roomMap.get(roomCellEntered.getInitial());
-		//Make them adj to eachother
+		//Make them adjacent to each other
 		BoardCell adjRoomCenter= roomEntered.getCenterCell();
 		cell.addAdjacency(adjRoomCenter);
 		adjRoomCenter.addAdjacency(cell);
@@ -280,7 +282,26 @@ public class Board {
 		int personIndex = randNum.nextInt(personCards.size());
 		Card person = personCards.get(personIndex);
 		
-		theAnswer = new Solution(room, weapon, person);
+		deck.remove(room);
+		deck.remove(weapon);
+		deck.remove(person);
+		theAnswer = new Solution(person, room, weapon);
+	}
+	
+	private void dealHands() {
+		Random randNum = new Random();
+		randNum.setSeed(System.currentTimeMillis()); // set seed to current time in millisec
+		int cardsInHand = deck.size() / players.size();
+		for(Player p : players) {
+			p.hand = new HashSet<Card>(); // initialize the player's hand as a new set
+			
+			for(int i = 0; i < cardsInHand; i++) { // deal three cards
+				int cardIndex = randNum.nextInt(deck.size());
+				p.updateHand(deck.get(cardIndex));
+				deck.remove(cardIndex);
+			}
+			
+		}
 	}
 	
 	//loads the setupfile (names of rooms and symbols)
@@ -548,7 +569,7 @@ public class Board {
 		return theAnswer;
 	}
 	
-	public Set<Card> getDeck(){
+	public ArrayList<Card> getDeck(){
 		return deck;
 	}
 }
