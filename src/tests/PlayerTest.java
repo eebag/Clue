@@ -43,6 +43,12 @@ public class PlayerTest {
 			assertEquals("Marvin The Miner", testPlayers.get(0).getName());
 			assertEquals("Mark Baldwin", testPlayers.get(2).getName()); 
 			assertEquals("Tracy Camp", testPlayers.get(4).getName()); 
+			
+			//Check one human player, rest computer
+			assertTrue(testPlayers.get(0) instanceof HumanPlayer);
+			for(int i = 1; i < testPlayers.size(); i++) {
+				assertTrue(testPlayers.get(i) instanceof ComputerPlayer);
+			}
 		}
 		
 		//Makes sure deck is loaded
