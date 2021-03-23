@@ -49,7 +49,7 @@ public class PlayerTest {
 		@Test
 		public void deckCheck() {
 			ArrayList<Card> deck = board.getDeck();
-			assertEquals(deck.size(), 21);
+			assertEquals(deck.size(), 18);//18= total num cards - solution (3)
 		}
 		
 		//Makes sure solution is properly constructed

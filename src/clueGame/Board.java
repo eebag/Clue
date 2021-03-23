@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -93,10 +94,10 @@ public class Board {
 		roomMap = new HashMap<>();
 		passageMap = new HashMap<>();
 		players= new ArrayList<Player>();
-		deck= new ArrayList<Card>();
-		personCards = new ArrayList<Card>();
-		weaponCards = new ArrayList<Card>();
-		roomCards = new ArrayList<Card>();
+		deck= new ArrayList<>();
+		personCards = new ArrayList<>();
+		weaponCards = new ArrayList<>();
+		roomCards = new ArrayList<>();
 	}
 	
 
@@ -291,16 +292,18 @@ public class Board {
 	private void dealHands() {
 		Random randNum = new Random();
 		randNum.setSeed(System.currentTimeMillis()); // set seed to current time in millisec
-		int cardsInHand = deck.size() / players.size();
-		for(Player p : players) {
-			p.hand = new HashSet<Card>(); // initialize the player's hand as a new set
-			
-			for(int i = 0; i < cardsInHand; i++) { // deal three cards
-				int cardIndex = randNum.nextInt(deck.size());
-				p.updateHand(deck.get(cardIndex));
-				deck.remove(cardIndex);
+		int sizeDeck = deck.size();
+		int cardsInHand = sizeDeck / players.size();
+		int cardIndex = randNum.nextInt(sizeDeck);
+		Collections.shuffle(deck);
+		for(int i=0; i<sizeDeck; i++) {			
+			players.get(i%players.size()).updateHand(deck.get(cardIndex));
+			if(cardIndex==sizeDeck-1) {
+				cardIndex=0;
 			}
-			
+			else {
+				cardIndex++;
+			}
 		}
 	}
 	
@@ -366,11 +369,13 @@ public class Board {
 			if(players.isEmpty()) {
 				//If no players have been added yet, add a human
 				Player newPlayer= new HumanPlayer(name, color);
+				newPlayer.hand = new HashSet<Card>();
 				players.add(newPlayer);
 			}
 			else {
 				//If players have been added, add a new computer player
 				Player newPlayer= new ComputerPlayer(name, color);
+				newPlayer.hand = new HashSet<Card>();
 				players.add(newPlayer);
 			}
 			typeOfCard= CardType.PERSON;
