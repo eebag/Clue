@@ -292,9 +292,15 @@ public class Board {
 
 	//Check if its a room or space. If not throw error
 	private void typeClassification(String type, String name, Character symbol) throws BadConfigFormatException {
-		if(type.equals("Room")||type.equals("Space")) {
+		if(type.equals("Room")) {
 			Room newRoom = new Room(name);
 			roomMap.put(symbol, newRoom); // insert Character,Room pair into map
+		}
+		else if(type.equals("Space")) {
+			Room newRoom = new Room(name);
+			roomMap.put(symbol, newRoom); // insert Character,Room pair into map
+			//Return here so spaces do not become cards
+			return;
 		}
 		else if(type.equals("Player")) {
 			Color color=symbolToColor(symbol);
@@ -322,8 +328,22 @@ public class Board {
 	
 	private Color symbolToColor(Character symbol) {
 		//Create a switch statement to find correct color
-		//return the color
-		return Color.black;
+		switch(symbol) {
+		case 'R':
+			return Color.red;
+		case 'B':
+			return Color.blue;
+		case 'M':
+			return Color.magenta;
+		case 'O':
+			return Color.orange;
+		case 'P':
+			return Color.pink;
+		case 'Y':
+			return Color.yellow;
+		default:
+			return Color.black;
+		}
 	}
 
 	//Load layout config to setup board and check board validity
