@@ -5,11 +5,7 @@ public class Solution {
 	private Card room;
 	private Card weapon;
 	
-	public Solution() {
-		super();
-	}
-	
-	public void setSolution(Card person, Card room, Card weapon) {
+	public Solution(Card person, Card room, Card weapon) {
 		this.person= person;
 		this.room= room;
 		this.weapon= weapon;

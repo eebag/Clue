@@ -4,9 +4,10 @@ public class Card {
 	private String cardName;
 	private CardType type;
 	
-	public Card(String cardName) {
+	public Card(String cardName, CardType cardType) {
 		super();
 		this.cardName = cardName;
+		type = cardType;
 	}
 
 	public boolean equals(Card target) {

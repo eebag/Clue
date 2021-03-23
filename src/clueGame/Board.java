@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-
+import java.util.Random;
 
 public class Board {
 	//Identifier constants
@@ -34,6 +34,9 @@ public class Board {
 	private ArrayList<Player> players;
 	private Solution theAnswer;
 	private Set<Card> deck;
+	private ArrayList<Card> personCards;
+	private ArrayList<Card> roomCards;
+	private ArrayList<Card> weaponCards;
 	
 	//Board layout variables
 	private ArrayList <ArrayList<String>> boardSymbols; 
@@ -72,6 +75,12 @@ public class Board {
 
 		gridCreation();		
 		generateAdjacency();
+		
+		try {
+			generateSolution();
+		} catch(BadConfigFormatException e){
+			System.err.println(e);
+		}
 	}
 
 	//Create the instace variables for this
@@ -82,8 +91,10 @@ public class Board {
 		roomMap = new HashMap<>();
 		passageMap = new HashMap<>();
 		players= new ArrayList<Player>();
-		theAnswer= new Solution();
 		deck= new HashSet<>();
+		personCards = new ArrayList<Card>();
+		weaponCards = new ArrayList<Card>();
+		roomCards = new ArrayList<Card>();
 	}
 	
 
@@ -250,7 +261,28 @@ public class Board {
 		}
 		//else do nothing
 	}
-
+	
+	//Pulls a room, weapon, and person card from the deck
+	private void generateSolution() throws BadConfigFormatException {
+		Random randNum = new Random();
+		randNum.setSeed(System.currentTimeMillis()); // set seed to current time in millisec
+		
+		if((roomCards.size() <= 0) || (weaponCards.size() <= 0) || (personCards.size() <= 0) ) {
+			throw new BadConfigFormatException(setupConfigFile, "generateSolution");
+		}
+		
+		int roomIndex = randNum.nextInt(roomCards.size());
+		Card room = roomCards.get(roomIndex);
+		
+		int weaponIndex = randNum.nextInt(weaponCards.size());
+		Card weapon = weaponCards.get(weaponIndex);
+		
+		int personIndex = randNum.nextInt(personCards.size());
+		Card person = personCards.get(personIndex);
+		
+		theAnswer = new Solution(room, weapon, person);
+	}
+	
 	//loads the setupfile (names of rooms and symbols)
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException{ // map the characters to rooms
 		Scanner scanner = fileInput(setupConfigFile);
@@ -292,9 +324,15 @@ public class Board {
 
 	//Check if its a room or space. If not throw error
 	private void typeClassification(String type, String name, Character symbol) throws BadConfigFormatException {
+		CardType typeOfCard;
+		Card newCard;
+		
 		if(type.equals("Room")) {
 			Room newRoom = new Room(name);
 			roomMap.put(symbol, newRoom); // insert Character,Room pair into map
+			typeOfCard= CardType.ROOM;
+			newCard = new Card(name, typeOfCard);
+			roomCards.add(newCard); // add to room card array list
 		}
 		else if(type.equals("Space")) {
 			Room newRoom = new Room(name);
@@ -314,15 +352,20 @@ public class Board {
 				Player newPlayer= new ComputerPlayer(name, color);
 				players.add(newPlayer);
 			}
+			typeOfCard= CardType.PERSON;
+			newCard = new Card(name, typeOfCard);
+			personCards.add(newCard); // add to person card array list
 		}
 		else if(type.equals("Weapon")){
-			//Do nothing
+			typeOfCard= CardType.WEAPON;
+			newCard = new Card(name, typeOfCard);
+			weaponCards.add(newCard); // add to weapon card array list
 		}
 		else {
 			throw new BadConfigFormatException(setupConfigFile, "typeClassification");
 		}
-		//Weapons only get added to deck
-		Card newCard= new Card(name);
+		
+		
 		deck.add(newCard);
 	}
 	
