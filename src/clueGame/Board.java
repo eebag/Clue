@@ -13,43 +13,42 @@ import java.util.Set;
 import java.util.Random;
 
 public class Board {
-	//Identifier constants
+	// Identifier constants
 	private static final String UNUSED = "Unused";
 	private static final String WALKWAY = "Walkway";
-	//used to store the strings for each board cell
-	private static final String SPECIALCHARS ="><^v*#";
-	
-	
-	//Instance variables
+	// used to store the strings for each board cell
+	private static final String SPECIALCHARS = "><^v*#";
+
+	// Instance variables
 	private String setupConfigFile;
 	private String layoutConfigFile;
 
 	private int numRows;
 	private int numCols;
-	
-	//Variables for calculating targets
-	private Set<BoardCell> targets;	
+
+	// Variables for calculating targets
+	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-	
-	//Player and game piece variables
+
+	// Player and game piece variables
 	private ArrayList<Player> players;
 	private Solution theAnswer;
 	private ArrayList<Card> deck;
 	private ArrayList<Card> personCards;
 	private ArrayList<Card> roomCards;
 	private ArrayList<Card> weaponCards;
-	
-	//Board layout variables
-	private ArrayList <ArrayList<String>> boardSymbols; 
+
+	// Board layout variables
+	private ArrayList<ArrayList<String>> boardSymbols;
 	private Map<Character, Room> roomMap;
 	private Map<Character, Character> passageMap;
 
 	private BoardCell[][] grid;
 
-	//Singlton method instance of board
+	// Singlton method instance of board
 	public static Board boardInstance = new Board();
 
-	//Singlton method constructor
+	// Singlton method constructor
 	private Board() {
 		super();
 	}
@@ -59,75 +58,74 @@ public class Board {
 	}
 
 	public void initialize() {
-		//(re) initialize all instance variables
+		// (re) initialize all instance variables
 		createInstance();
 
-		//Load the configurations for layout and setup
+		// Load the configurations for layout and setup
 		try {
 			loadSetupConfig();
 			loadLayoutConfig();
-		}catch(BadConfigFormatException | FileNotFoundException e){
-			System.err.println(e);
-			}
-
-
-		//Initalize grid once we know values
-		grid = new BoardCell[numRows][numCols];
-
-		gridCreation();		
-		generateAdjacency();
-		
-		try {
-			generateSolution();
-		} catch(BadConfigFormatException e){
+		} catch (BadConfigFormatException | FileNotFoundException e) {
 			System.err.println(e);
 		}
-		
+
+		// Initalize grid once we know values
+		grid = new BoardCell[numRows][numCols];
+
+		gridCreation();
+		generateAdjacency();
+
+		try {
+			generateSolution();
+		} catch (BadConfigFormatException e) {
+			System.err.println(e);
+		}
+
 		dealHands();
 	}
 
-	//Create the instace variables for this
+	// Create the instace variables for this
 	private void createInstance() {
 		visited = new HashSet<>();
 		targets = new HashSet<>();
 		boardSymbols = new ArrayList<>();
 		roomMap = new HashMap<>();
 		passageMap = new HashMap<>();
-		players= new ArrayList<Player>();
-		deck= new ArrayList<>();
+		players = new ArrayList<Player>();
+		deck = new ArrayList<>();
 		personCards = new ArrayList<>();
 		weaponCards = new ArrayList<>();
 		roomCards = new ArrayList<>();
 	}
-	
 
-	//Sets up the grid using the symbols read in from the LayoutConfig file
+	// Sets up the grid using the symbols read in from the LayoutConfig file
 	private void gridCreation() {
-		for(int row = 0; row < numRows; row++) {
-			for(int col = 0; col < numCols; col++) {
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
 				BoardCell cell = new BoardCell(row, col);
-				//edit cell before adding to grid
-				String cellSymbol=boardSymbols.get(row).get(col); //The 1 or 2 char code for the cell
+				// edit cell before adding to grid
+				String cellSymbol = boardSymbols.get(row).get(col); // The 1 or 2 char code for the cell
 				char firstSymbol = cellSymbol.charAt(0);
 				cell.setInitial(firstSymbol);
-				cell.setDoorDirection(DoorDirection.NONE); //Will change in if/ switch below if needed
+				cell.setDoorDirection(DoorDirection.NONE); // Will change in if/ switch below if needed
 				secondSymbolClassify(cell, cellSymbol, firstSymbol);
-				//Add only rooms (not walkways or unused)
+				// Add only rooms (not walkways or unused)
 				String cellRoomName = roomMap.get(firstSymbol).getName();
-				if(!cellRoomName.equals(WALKWAY) && !cellRoomName.equals(UNUSED)) {
+				if (!cellRoomName.equals(WALKWAY) && !cellRoomName.equals(UNUSED)) {
 					cell.setRoom(roomMap.containsKey(firstSymbol));
 				}
 				grid[row][col] = cell;
 			}
 		}
 	}
-	
-	//Classifies the cell as door, roomCenter, roomLabel, or secret passage based on the second symbol given to the tile
+
+	// Classifies the cell as door, roomCenter, roomLabel, or secret passage based
+	// on the second symbol given to the tile
 	private void secondSymbolClassify(BoardCell cell, String cellSymbol, char firstSymbol) {
-		if(cellSymbol.length()>1) {
-			char secondSymbol= cellSymbol.charAt(1);
+		if (cellSymbol.length() > 1) {
+			char secondSymbol = cellSymbol.charAt(1);
 			switch (secondSymbol) {
-			case '*': 
+			case '*':
 				cell.setRoomCenter(true);
 				roomMap.get(firstSymbol).setCenterCell(cell);
 				break;
@@ -155,181 +153,180 @@ public class Board {
 				cell.setSecretPassage(secondSymbol);
 				passageMap.put(firstSymbol, secondSymbol);
 
-			} 
+			}
 		}
 	}
 
-	//generate adjacencies
+	// generate adjacencies
 	private void generateAdjacency() {
-		for(int row = 0; row < numRows; row++) {
-			for(int col = 0; col < numCols; col++) {
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
 				BoardCell cell = grid[row][col];
-				//If the tile is unused, it has no adjacecny
+				// If the tile is unused, it has no adjacecny
 				String cellRoomName = roomMap.get(cell.getInitial()).getName();
-				//Room cells that aren't centers have no adjacecny
-				if((!cell.isRoomCenter() && cell.isRoom())|| cellRoomName.equals(UNUSED)) {
+				// Room cells that aren't centers have no adjacecny
+				if ((!cell.isRoomCenter() && cell.isRoom()) || cellRoomName.equals(UNUSED)) {
 					continue;
 				}
-				//Generate adj for doorway walkway or just walkways
-				if(cell.isDoorway() && cellRoomName.equals(WALKWAY)) {
-					//Perform normal walkway analysis
-					walkwayAdj(row,col,cell);
-					//Get door direction and get room center
-					//add door to center as well
+				// Generate adj for doorway walkway or just walkways
+				if (cell.isDoorway() && cellRoomName.equals(WALKWAY)) {
+					// Perform normal walkway analysis
+					walkwayAdj(row, col, cell);
+					// Get door direction and get room center
+					// add door to center as well
 					findDoorAdj(row, col, cell);
-				}
-				else if(cellRoomName.equals(WALKWAY)) {
+				} else if (cellRoomName.equals(WALKWAY)) {
 					walkwayAdj(row, col, cell);
 				}
-				//Only should add secret passage, doorways added in switch above
-				if(cell.isRoomCenter()&&passageMap.containsKey(cell.getInitial())) {
-					//Grab secret cell letter
+				// Only should add secret passage, doorways added in switch above
+				if (cell.isRoomCenter() && passageMap.containsKey(cell.getInitial())) {
+					// Grab secret cell letter
 					Character secretChar = passageMap.get(cell.getInitial());
-					BoardCell secretpass= roomMap.get(secretChar).getCenterCell();
+					BoardCell secretpass = roomMap.get(secretChar).getCenterCell();
 					cell.addAdjacency(secretpass);
 				}
 			}
 		}
 	}
 
-	//Find the cells adj to the door, then set them with setDoorAdj
+	// Find the cells adj to the door, then set them with setDoorAdj
 	private void findDoorAdj(int row, int col, BoardCell cell) {
-		BoardCell roomCellEntered=null;
+		BoardCell roomCellEntered = null;
 		switch (cell.getDoorDirection()) {
 		case UP:
-			//Get room at i+1, j and add its center to be adjacent
-			roomCellEntered= grid[row-1][col];
+			// Get room at i+1, j and add its center to be adjacent
+			roomCellEntered = grid[row - 1][col];
 			setDoorAdj(cell, roomCellEntered);
 			break;
 		case DOWN:
-			//Get room at i-1, j and add its center to be adjacent
-			roomCellEntered= grid[row+1][col];
+			// Get room at i-1, j and add its center to be adjacent
+			roomCellEntered = grid[row + 1][col];
 			setDoorAdj(cell, roomCellEntered);
 			break;
 		case LEFT:
-			//Get room at i, j-1 and add its center to be adjacent
-			roomCellEntered= grid[row][col-1];
+			// Get room at i, j-1 and add its center to be adjacent
+			roomCellEntered = grid[row][col - 1];
 			setDoorAdj(cell, roomCellEntered);
 			break;
 		case RIGHT:
-			//Get room at i, j+1 and add its center to be adjacent
-			roomCellEntered= grid[row][col+1];
+			// Get room at i, j+1 and add its center to be adjacent
+			roomCellEntered = grid[row][col + 1];
 			setDoorAdj(cell, roomCellEntered);
 			break;
 		case NONE:
-			//It shouldn't enter here. If it does, break and do nothing (throw error?)
-			//TODO: Throw error?
+			// It shouldn't enter here. If it does, break and do nothing (throw error?)
+			// TODO: Throw error?
 			break;
 		}
 	}
 
-	//This sets adjacencies for the doors
+	// This sets adjacencies for the doors
 	private void setDoorAdj(BoardCell cell, BoardCell roomCellEntered) {
-		//Grab the room that the doorway is entering
-		Room roomEntered= roomMap.get(roomCellEntered.getInitial());
-		//Make them adjacent to each other
-		BoardCell adjRoomCenter= roomEntered.getCenterCell();
+		// Grab the room that the doorway is entering
+		Room roomEntered = roomMap.get(roomCellEntered.getInitial());
+		// Make them adjacent to each other
+		BoardCell adjRoomCenter = roomEntered.getCenterCell();
 		cell.addAdjacency(adjRoomCenter);
 		adjRoomCenter.addAdjacency(cell);
 	}
 
-	//Generate adjacencies for walkways
+	// Generate adjacencies for walkways
 	private void walkwayAdj(int row, int col, BoardCell cell) {
 		BoardCell adjCell;
-		if(row > 0) {
-			adjCell= grid[row-1][col];
+		if (row > 0) {
+			adjCell = grid[row - 1][col];
 			checkAdjWalkway(cell, adjCell);
 		}
-		if(row < numRows - 1) {
-			adjCell= grid[row+1][col];
-			checkAdjWalkway(cell, adjCell);
-		}
-
-		if(col > 0) {
-			adjCell= grid[row][col-1];
+		if (row < numRows - 1) {
+			adjCell = grid[row + 1][col];
 			checkAdjWalkway(cell, adjCell);
 		}
 
-		if(col < numCols - 1) {
-			adjCell= grid[row][col+1];
+		if (col > 0) {
+			adjCell = grid[row][col - 1];
+			checkAdjWalkway(cell, adjCell);
+		}
+
+		if (col < numCols - 1) {
+			adjCell = grid[row][col + 1];
 			checkAdjWalkway(cell, adjCell);
 		}
 	}
-	
-	//Check that adjacent cells are walkways
+
+	// Check that adjacent cells are walkways
 	private void checkAdjWalkway(BoardCell cell, BoardCell adjCell) {
-		//if valid add to adjacecy
-		if(roomMap.get(adjCell.getInitial()).getName().equals(WALKWAY)) {
+		// if valid add to adjacecy
+		if (roomMap.get(adjCell.getInitial()).getName().equals(WALKWAY)) {
 			cell.addAdjacency(adjCell);
 		}
-		//else do nothing
+		// else do nothing
 	}
-	
-	//Pulls a room, weapon, and person card from the deck
+
+	// Pulls a room, weapon, and person card from the deck
 	private void generateSolution() throws BadConfigFormatException {
 		Random randNum = new Random();
 		randNum.setSeed(System.currentTimeMillis()); // set seed to current time in millisec
-		
-		if((roomCards.size() <= 0) || (weaponCards.size() <= 0) || (personCards.size() <= 0) ) {
+
+		if ((roomCards.size() <= 0) || (weaponCards.size() <= 0) || (personCards.size() <= 0)) {
 			throw new BadConfigFormatException(setupConfigFile, "generateSolution");
 		}
-		
+
 		int roomIndex = randNum.nextInt(roomCards.size());
 		Card room = roomCards.get(roomIndex);
-		
+
 		int weaponIndex = randNum.nextInt(weaponCards.size());
 		Card weapon = weaponCards.get(weaponIndex);
-		
+
 		int personIndex = randNum.nextInt(personCards.size());
 		Card person = personCards.get(personIndex);
-		
+
 		deck.remove(room);
 		deck.remove(weapon);
 		deck.remove(person);
 		theAnswer = new Solution(person, room, weapon);
 	}
-	
-	//deals hands to all the players
+
+	// deals hands to all the players
 	private void dealHands() {
 		Random randNum = new Random();
 		randNum.setSeed(System.currentTimeMillis()); // set seed to current time in millisec
 		int sizeDeck = deck.size();
-		if(players.size()==0) {
+		if (players.size() == 0) {
 			return;
 		}
 		int cardsInHand = sizeDeck / players.size();
 		int cardIndex = randNum.nextInt(sizeDeck);
 		Collections.shuffle(deck);
-		for(int i=0; i<sizeDeck; i++) {			
-			players.get(i%players.size()).updateHand(deck.get(cardIndex));
-			if(cardIndex==sizeDeck-1) {
-				cardIndex=0;
-			}
-			else {
+		for (int i = 0; i < sizeDeck; i++) {
+			players.get(i % players.size()).updateHand(deck.get(cardIndex));
+			if (cardIndex == sizeDeck - 1) {
+				cardIndex = 0;
+			} else {
 				cardIndex++;
 			}
 		}
 	}
-	
-	//loads the setupfile (names of rooms and symbols)
-	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException{ // map the characters to rooms
-		Scanner scanner = fileInput(setupConfigFile);
-		//Loop until all lines are read
-		while(scanner.hasNextLine()) {
-			String line = scanner.nextLine();
-			String commentCheck=line.substring(0, 2);
 
-			if(commentCheck.equals( "//")) { // if the line is a header line (e.g. "//Rooms" skip this line)
+	// loads the setupfile (names of rooms and symbols)
+	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException { // map the characters to
+																							// rooms
+		Scanner scanner = fileInput(setupConfigFile);
+		// Loop until all lines are read
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			String commentCheck = line.substring(0, 2);
+
+			if (commentCheck.equals("//")) { // if the line is a header line (e.g. "//Rooms" skip this line)
 				continue;
 			}
 			String[] split = line.split(",");
 
-			//Layout should only have 3 strings per line
+			// Layout should only have 3 strings per line
 			if (split.length != 3) {
 				throw new BadConfigFormatException(setupConfigFile, "loadSetupConfig");
 			}
-			
-			//Split into symbol, name and type
+
+			// Split into symbol, name and type
 			String type = split[0];
 
 			String name = split[1];
@@ -338,7 +335,7 @@ public class Board {
 			String symbol = split[2];
 			symbol = symbol.substring(1); // gets rid of space at beginning
 
-			//Symbols should only be 1 character
+			// Symbols should only be 1 character
 			if (symbol.length() != 1) {
 				throw new BadConfigFormatException(setupConfigFile, "loadSetupConfig");
 			}
@@ -350,58 +347,52 @@ public class Board {
 		}
 	}
 
-	//Check if its a room or space. If not throw error
+	// Check if its a room or space. If not throw error
 	private void typeClassification(String type, String name, Character symbol) throws BadConfigFormatException {
 		CardType typeOfCard;
 		Card newCard;
-		
-		if(type.equals("Room")) {
+
+		if (type.equals("Room")) {
 			Room newRoom = new Room(name);
 			roomMap.put(symbol, newRoom); // insert Character,Room pair into map
-			typeOfCard= CardType.ROOM;
+			typeOfCard = CardType.ROOM;
 			newCard = new Card(name, typeOfCard);
 			roomCards.add(newCard); // add to room card array list
-		}
-		else if(type.equals("Space")) {
+		} else if (type.equals("Space")) {
 			Room newRoom = new Room(name);
 			roomMap.put(symbol, newRoom); // insert Character,Room pair into map
-			//Return here so spaces do not become cards
+			// Return here so spaces do not become cards
 			return;
-		}
-		else if(type.equals("Player")) {
-			Color color=symbolToColor(symbol);
-			if(players.isEmpty()) {
-				//If no players have been added yet, add a human
-				Player newPlayer= new HumanPlayer(name, color);
-				newPlayer.hand = new HashSet<Card>();
+		} else if (type.equals("Player")) {
+			Color color = symbolToColor(symbol);
+			if (players.isEmpty()) {
+				// If no players have been added yet, add a human
+				Player newPlayer = new HumanPlayer(name, color);
+				newPlayer.hand = new ArrayList<Card>();
+				players.add(newPlayer);
+			} else {
+				// If players have been added, add a new computer player
+				Player newPlayer = new ComputerPlayer(name, color);
+				newPlayer.hand = new ArrayList<Card>();
 				players.add(newPlayer);
 			}
-			else {
-				//If players have been added, add a new computer player
-				Player newPlayer= new ComputerPlayer(name, color);
-				newPlayer.hand = new HashSet<Card>();
-				players.add(newPlayer);
-			}
-			typeOfCard= CardType.PERSON;
+			typeOfCard = CardType.PERSON;
 			newCard = new Card(name, typeOfCard);
 			personCards.add(newCard); // add to person card array list
-		}
-		else if(type.equals("Weapon")){
-			typeOfCard= CardType.WEAPON;
+		} else if (type.equals("Weapon")) {
+			typeOfCard = CardType.WEAPON;
 			newCard = new Card(name, typeOfCard);
 			weaponCards.add(newCard); // add to weapon card array list
-		}
-		else {
+		} else {
 			throw new BadConfigFormatException(setupConfigFile, "typeClassification");
 		}
-		
-		
+
 		deck.add(newCard);
 	}
-	
+
 	private Color symbolToColor(Character symbol) {
-		//Create a switch statement to find correct color
-		switch(symbol) {
+		// Create a switch statement to find correct color
+		switch (symbol) {
 		case 'R':
 			return Color.red;
 		case 'B':
@@ -419,134 +410,184 @@ public class Board {
 		}
 	}
 
-	//Load layout config to setup board and check board validity
+	// Load layout config to setup board and check board validity
 	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException { // actual map?
 		Scanner scanner = fileInput(layoutConfigFile);
 		while (scanner.hasNextLine()) {
-			String line=scanner.nextLine();//Grab line
-			ArrayList <String> symbolLine= new ArrayList<>(); //Set up array list to hold line split up
-			String[] splitLine = line.split(","); //Split up the line
-			//Loop through array and put into array list
-			for(String s : splitLine) {
+			String line = scanner.nextLine();// Grab line
+			ArrayList<String> symbolLine = new ArrayList<>(); // Set up array list to hold line split up
+			String[] splitLine = line.split(","); // Split up the line
+			// Loop through array and put into array list
+			for (String s : splitLine) {
 				checkLayoutFormat(s);
 				symbolLine.add(s);
 			}
-			//Add the line to the board arraylist
+			// Add the line to the board arraylist
 			boardSymbols.add(symbolLine);
 		}
-		//Set number of rows and number of cols
-		numRows=boardSymbols.size();
-		numCols=boardSymbols.get(0).size();
-		
-		//Check for valid board size
-		for (ArrayList <String> s: boardSymbols ) {
-			if(s.size()!=numCols) {
+		// Set number of rows and number of cols
+		numRows = boardSymbols.size();
+		numCols = boardSymbols.get(0).size();
+
+		// Check for valid board size
+		for (ArrayList<String> s : boardSymbols) {
+			if (s.size() != numCols) {
 				throw new BadConfigFormatException(layoutConfigFile, "loadLayoutConfig");
 			}
 		}
 	}
 
-	//Checks the configuration of the map to guarentee all the entires meet requirments
+	// Checks the configuration of the map to guarentee all the entires meet
+	// requirments
 	private void checkLayoutFormat(String s) throws BadConfigFormatException {
-		if(s.length()>2) {
-			//Check for valid length
-			throw new BadConfigFormatException(layoutConfigFile,"checkLayoutFormat-1");
+		if (s.length() > 2) {
+			// Check for valid length
+			throw new BadConfigFormatException(layoutConfigFile, "checkLayoutFormat-1");
 		}
-		if(s.length()==2 &&SPECIALCHARS.indexOf(s.charAt(1))==-1 && !roomMap.containsKey(s.charAt(1))) {
-			//check if the second char is valid
-				throw new BadConfigFormatException(layoutConfigFile,"checkLayoutFormat-2");
+		if (s.length() == 2 && SPECIALCHARS.indexOf(s.charAt(1)) == -1 && !roomMap.containsKey(s.charAt(1))) {
+			// check if the second char is valid
+			throw new BadConfigFormatException(layoutConfigFile, "checkLayoutFormat-2");
 		}
-		if(!roomMap.containsKey(s.charAt(0))) {
-			//check for valid room
+		if (!roomMap.containsKey(s.charAt(0))) {
+			// check for valid room
 			throw new BadConfigFormatException(layoutConfigFile, "checkLayoutFormat-3");
 		}
 	}
 
-	//Read in file
+	// Read in file
 	private Scanner fileInput(String fileName) throws FileNotFoundException {
 		String file = "data/" + fileName;
-		FileReader reader = new FileReader(file); //creates a new filein, will be passed into a scanner
+		FileReader reader = new FileReader(file); // creates a new filein, will be passed into a scanner
 		// put into scanner and return
 		return new Scanner(reader);
 	}
-	
-	//Calculates the targets starting from a given cell recursively
+
+	// Calculates the targets starting from a given cell recursively
 	public void calcTargets(BoardCell startCell, int distance) {
-		
-		//Clear the old targets if there are any
+
+		// Clear the old targets if there are any
 		targets.clear();
-		
-		// if the original cell is a room center, call calculate targets on adjacent cells
-		if(startCell.isRoomCenter()) {
-			
+
+		// if the original cell is a room center, call calculate targets on adjacent
+		// cells
+		if (startCell.isRoomCenter()) {
+
 			adjLoop(startCell, distance);
-			
+
 		} else {
-			//Recusrively calculate new target list
+			// Recusrively calculate new target list
 			calculateTargets(startCell, distance);
 		}
 
 	}
-	
-	//used by calcTargets to do the recursion to calculate the targets
+
+	// used by calcTargets to do the recursion to calculate the targets
 	private void calculateTargets(BoardCell startCell, int distance) {
-		
-		//previously used return
-		if(visited.contains(startCell)) {
+
+		// previously used return
+		if (visited.contains(startCell)) {
 			return;
 		}
 
-		//If a room center is found, movement should stop
-		if(startCell.isRoomCenter()) {
+		// If a room center is found, movement should stop
+		if (startCell.isRoomCenter()) {
 			targets.add(startCell);
 			return;
 		}
-		
-		//otherwise recusively add adjacent cells
-		if(distance == 0) {
+
+		// otherwise recusively add adjacent cells
+		if (distance == 0) {
 			targets.add(startCell);
-		} 
-		else { 
+		} else {
 			adjLoop(startCell, distance);
 		}
 	}
-	
-	//This fills in targets by looping through adj list
+
+	// This fills in targets by looping through adj list
 	private void adjLoop(BoardCell startCell, int distance) {
 		visited.add(startCell);
-		
+
 		// continue calculating targets from each adjacent cell with 1 less distance
-		for(BoardCell c : startCell.getAdjList()) {
-			if(c.isRoom()|| !c.isOccupied()) {
+		for (BoardCell c : startCell.getAdjList()) {
+			if (c.isRoom() || !c.isOccupied()) {
 				calculateTargets(c, distance - 1);
 			}
 		}
 		visited.remove(startCell);
 	}
-	
-	
-	//Non-initialization methods
+
+	// Non-initialization methods
 	public boolean checkAccusation(Card person, Card room, Card weapon) {
-		if(theAnswer.getPerson().equals(person) && theAnswer.getRoom().equals(room) && theAnswer.getWeapon().equals(weapon)) {
+		if (theAnswer.getPerson().equals(person) && theAnswer.getRoom().equals(room)
+				&& theAnswer.getWeapon().equals(weapon)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	public Card handleSuggestion(Player suggestionMaker, Card person, Card room, Card weapon) {
+		//get index of suggestion maker in player list
+		//start at index, loop through players, then loop from begginning -> index
+		//shuffle hand for each player
+		//return first card that disproves suggestion
+		Set<Card> suggestion = new HashSet<Card>();
+		suggestion.add(person);
+		suggestion.add(room);
+		suggestion.add(weapon);
+		
+		int index = 0;
+		for(int i = 0; i < players.size(); i++) {
+			if(players.get(i).equals(suggestionMaker)) {
+				index = i;
+				break;
+			}
+		}
+		
+		for(int i = index + 1; i < players.size(); i++){ // start at next player, not at current player
+			if(players.get(i) instanceof ComputerPlayer) {
+				//call computerplayer method here
+			} else {
+				// cast to make sure only human players use this
+				return getSuggestionCard((HumanPlayer) players.get(i), suggestion);
+			}
+		}
+		
+		for(int i = 0; i < index; i++) {
+			if(players.get(i) instanceof ComputerPlayer) {
+				//call computerplayer method here
+			} else {
+				// cast to make sure only human players use this
+				return getSuggestionCard((HumanPlayer) players.get(i), suggestion);
+			}
+		}
+		
+		
 		return null;
 	}
 	
-	//Getters and setters
+	private Card getSuggestionCard(HumanPlayer p, Set<Card> suggestion) {
+		ArrayList<Card> hand = p.hand;
+		Collections.shuffle(hand);
+		
+		for(Card c : hand) {
+			if(!(suggestion.contains(c))) {
+				return c;
+			}
+		}
+		
+		return null;
+	}
+
+	// Getters and setters
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
 
-	public Set<BoardCell> getAdjList(int row, int col){
+	public Set<BoardCell> getAdjList(int row, int col) {
 		return grid[row][col].getAdjList();
 	}
-	
+
 	public void setConfigFiles(String csv, String txt) {
 		setupConfigFile = txt;
 		layoutConfigFile = csv;
@@ -555,11 +596,11 @@ public class Board {
 	public void setNumRows(int r) {
 		numRows = r;
 	}
-	
+
 	public int getNumRows() {
 		return numRows;
 	}
-	
+
 	public void setNumCols(int c) {
 		numCols = c;
 	}
@@ -579,20 +620,20 @@ public class Board {
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col];
 	}
-	
-	public ArrayList<Player> getPlayers(){
+
+	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-	
+
 	public int getNumPlayers() {
 		return players.size();
 	}
-	
+
 	public Solution getAnswer() {
 		return theAnswer;
 	}
-	
-	public ArrayList<Card> getDeck(){
+
+	public ArrayList<Card> getDeck() {
 		return deck;
 	}
 }

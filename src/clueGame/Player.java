@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.Set;
+import java.util.ArrayList;
 
 /**
  * Player abstract class (to be implemented by Human and Computer player classes)
@@ -15,7 +16,7 @@ public abstract class Player {
 	//instance variables
 	private String name;
 	private Color color;
-	protected Set<Card> hand;
+	protected ArrayList<Card> hand;
 	protected int row, col;
 	
 	
@@ -26,13 +27,23 @@ public abstract class Player {
 		this.name = name;
 		this.color = color;
 	}
-
+	
+	@Override
+	public boolean equals(Object p) {
+		if(!(p instanceof Player)) {
+			return false;
+		}
+		
+		Player compare = (Player) p;
+		return (compare.name.equals(this.name));
+	}
+	
 	public void updateHand(Card C) {
 		hand.add(C);
 	}
 	
 	//getters and setters
-	public Set<Card> getHand(){
+	public ArrayList<Card> getHand(){
 		return hand;
 	}
 	
