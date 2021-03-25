@@ -36,6 +36,10 @@ public class Card {
 		return type;
 	}
 	
+	public void setType(CardType newType) {
+		type= newType;
+	}
+	
 	public String toString() {
 		return cardName + ": " + type;
 	}
