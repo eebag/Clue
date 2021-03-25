@@ -10,8 +10,18 @@ public class Card {
 		type = cardType;
 	}
 
-	public boolean equals(Card target) {
-		return true;
+	@Override
+	public boolean equals(Object target) {
+		//Check if object is a card
+		if(!(target instanceof Card)) {
+			return false;
+		}
+		
+		//Create a local instance of card
+		Card targetCard= (Card) target;
+		
+		//Check if name and type are correct and return T if they are
+		return (targetCard.getCardName()==cardName && targetCard.getType()==type);
 	}
 
 	public String getCardName() {

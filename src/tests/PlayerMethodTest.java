@@ -28,6 +28,28 @@ public class PlayerMethodTest {
 		board.initialize();
 	}
 	
+	//Check if cards are equal
+	@Test
+	public void equalCards() {
+		String testName= "Test Name";
+		CardType testType= CardType.WEAPON;
+		Card testCard= new Card (testName, testType);
+		Card trueCard= new Card(testName, testType);
+		//True if they are the same
+		assertTrue(testCard.equals(trueCard));
+		//False tests
+		Card falseCard= new Card (testName, CardType.PERSON);
+		//Check false type
+		assertFalse(testCard.equals(falseCard));
+		//check both false
+		falseCard.setCardName("WrongName");
+		assertFalse(testCard.equals(falseCard));
+		//Check name false
+		falseCard.setType(testType);
+		assertFalse(testCard.equals(falseCard));
+		
+	}
+	
 	//tests an accusation
 	@Test
 	public void testAccusation() {
