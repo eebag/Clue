@@ -1,92 +1,165 @@
-Olivia Jackson
-Gabe Hohman
+commit 911b30f0a2eec2f59d8427d5d7bb1e0ecd2f3a3e
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 22 20:14:05 2021 -0600
 
-We talked to Nicholas Karst and couldn't find much to change. A majority of our changes were moving functions and changing variable names.
+    Updated playertest to make sure one human player exists, and hte rest are computer players
 
+commit 45c31c4fed3c069b497434b5d867431d1fe49b16
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 22 20:05:36 2021 -0600
 
-Most Significant code change: 
-Changed i to row and j to col to be more descriptive and easier to read. 
+    Fixed errors on other tests
 
-Before: 
+commit 9a71209468b8cee1bb3d4cdcb29953626af9af4a
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 22 19:55:01 2021 -0600
 
-private void generateAdjacency() {
-		//generate adjacencies
-		for(int i = 0; i < numRows; i++) {
-			for(int j = 0; j < numCols; j++) {
-				BoardCell cell = grid[i][j];
-				//Room cells that aren't centers have no adjacecny
-				if(!cell.isRoomCenter() && cell.isRoom()) {
-					continue;
-				}
-				//If the tile is unused, it has no adjacecny
-				String cellRoomName = roomMap.get(cell.getInitial()).getName();
-				if (cellRoomName.equals("Unused")) {
-					continue;
-				}
-				//Generate adj for doorway walkway or just walkways
-				if(cell.isDoorway() && cellRoomName.equals("Walkway")) {
-					//Perform normal walkway analysis
-					walkwayAdj(i,j,cell);
-					//Get door direction and get room center
-					//add door to center as well
-					findDoorAdj(i, j, cell);
-				}
-				else if(cellRoomName.equals("Walkway")) {
-					walkwayAdj(i, j, cell);
-				}
-				//Only should add secret passage, doorways added in switch above
-				if(cell.isRoomCenter()&&passageMap.containsKey(cell.getInitial())) {
-					//Grab secret cell letter
-					Character secretChar = passageMap.get(cell.getInitial());
-					BoardCell secretpass= roomMap.get(secretChar).getCenterCell();
-					cell.addAdjacency(secretpass);
-				}
-			}
-		}
-	}
+    Fixed final test
 
+commit feda7af2cbfe52832ddb08e70a00d8386d6880ed
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 22 19:39:35 2021 -0600
 
+    Worked on playertests.  Set up dealing hands, made deck an array list, added toString to solution
 
-After:
+commit 3bf4d779a2990ca6b97d000464a68cf8ff2020e9
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 22 19:01:13 2021 -0600
 
-	private void generateAdjacency() {
-		//generate adjacencies
-		for(int row = 0; row < numRows; row++) {
-			for(int col = 0; col < numCols; col++) {
-				BoardCell cell = grid[row][col];
-				//Room cells that aren't centers have no adjacecny
-				if(!cell.isRoomCenter() && cell.isRoom()) {
-					continue;
-				}
-				//If the tile is unused, it has no adjacecny
-				String cellRoomName = roomMap.get(cell.getInitial()).getName();
-				if (cellRoomName.equals("Unused")) {
-					continue;
-				}
-				//Generate adj for doorway walkway or just walkways
-				if(cell.isDoorway() && cellRoomName.equals("Walkway")) {
-					//Perform normal walkway analysis
-					walkwayAdj(row,col,cell);
-					//Get door direction and get room center
-					//add door to center as well
-					findDoorAdj(row, col, cell);
-				}
-				else if(cellRoomName.equals("Walkway")) {
-					walkwayAdj(row, col, cell);
-				}
-				//Only should add secret passage, doorways added in switch above
-				if(cell.isRoomCenter()&&passageMap.containsKey(cell.getInitial())) {
-					//Grab secret cell letter
-					Character secretChar = passageMap.get(cell.getInitial());
-					BoardCell secretpass= roomMap.get(secretChar).getCenterCell();
-					cell.addAdjacency(secretpass);
-				}
-			}
-		}
-	}
+    Worked on deck and solution initialization
 
+commit 6b418804056159db42df572731848ac7852d20a9
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 22 18:09:07 2021 -0600
 
-Commits Below:
+    Added colors to the players. Moved space out of the if so it does not become a card
+
+commit 3844b083e9219c9a00fa1f3548a36b01c5df389e
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 22 17:59:29 2021 -0600
+
+    Fixed 2 errors in playertest
+
+commit 3d4934b0418d5307bb5850a1f6713c1e063b87dc
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 22 17:58:00 2021 -0600
+
+    Trying to fix errors in tests
+
+commit 95528ff8f9cccb66cb9c0e849575943115243d9e
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 22 17:46:17 2021 -0600
+
+    odified type classification
+
+commit 066dfacd517c542329b44f330d4d7fae88675cea
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 22 17:36:14 2021 -0600
+
+    Fixed configure error
+
+commit 4f01ff3245fbf37c4ff2c1f348a079e082a1872e
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Mar 21 23:39:44 2021 -0600
+
+    Added to initialzie
+
+commit 5273dc5a2329a73a4bf6dd9d50c73e0b0441238e
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Mar 21 23:19:25 2021 -0600
+
+    Finished tests, added deck to Board, added getType to card class
+
+commit 32a2e910d76004161ca10c5551278e2118ba515e
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Mar 21 22:53:09 2021 -0600
+
+    Addded to classification in room setup
+
+commit 461b6270d80573657cc9059e099f413de855cd3b
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Mar 21 22:47:04 2021 -0600
+
+    Added constructor to Human and Computer player classes
+
+commit aaefe47896e170864d411ac82fcc79a14612ebbe
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Mar 21 22:28:52 2021 -0600
+
+    Began work on the setup section
+
+commit 52754052dbc5f797eacbc9183225302dfea3871b
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Mar 21 22:08:11 2021 -0600
+
+    Added weapons to the setup file
+
+commit a8cfd68f2039ef15891cb39869c16eff3ec4243f
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Mar 21 21:36:02 2021 -0600
+
+    Edited setup file and player test to match
+
+commit 56c9b9974865fe4b567a9db90bce636105fc597f
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Mar 21 20:58:07 2021 -0600
+
+    Added Player related methods to board class, added gethand method to player, set up and wrote out psudocode for PlayerTest class
+
+commit f47d14375109c26a6750510de6f2e79420cbad07
+Merge: a926acb 78de73c
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Mar 21 20:41:11 2021 -0600
+
+    Merge branch 'master' of https://github.com/eebag/Clue
+
+commit a926acb16dd4fd31800f352923cdd2ea7c79296b
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Mar 21 20:40:58 2021 -0600
+
+    Setup test file
+
+commit 78de73c904bef46be697808923e03fe2df212076
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Mar 21 20:36:44 2021 -0600
+
+    Added player array list to board, re-organized some variables in the board class as well with comments to know what each set of variables is used for
+
+commit 0c56fa9eac5bc81c982939a7f2600c3986b61b58
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Mar 21 20:33:31 2021 -0600
+
+    Added player classes, Player abstract class finished hopefully
+
+commit 86e0295d3f3298c0c6322931f0c276f9a8fd66b9
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Mar 21 20:30:03 2021 -0600
+
+    Added card class, solution class, cardtype enum
+
+commit 71e5b47f732ca14dbd4a21ce7b708f01130bd906
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Mar 21 20:11:40 2021 -0600
+
+    Added testing class for all things related to implementing the Player class
+
+commit 4b76b385b3c7beaca1cb18f6ef94849a17d7f48c
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Mar 21 20:05:59 2021 -0600
+
+    Edited git log
+
+commit 7ddaa07e6767b6f74fe4c1fc0052a3c720163587
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 18:46:21 2021 -0600
+
+    set up git log for submission of 17A-2
+
+commit 7dcc4ce2866ae0d9c0bf01e277f15b84f21d13da
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 16 18:43:42 2021 -0600
+
+    updated/ added log file
 
 commit 4617fb6e25e5cd6927d1c9c91dc00f5b7906220d
 Author: OJackson <oliviajackson@mymail.mines.edu>
@@ -141,3 +214,445 @@ Author: OJackson <oliviajackson@mymail.mines.edu>
 Date:   Tue Mar 16 17:43:49 2021 -0600
 
     Changed i and j variable names on loops to row and col.
+
+commit 42d64a3590b24afad5ad42be418d9dba7c54146d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Wed Mar 10 00:14:21 2021 -0700
+
+    Made all target tests pass. Edited some of the junit tests for targets
+
+commit 533f48c21e0dd632446f1ccaa6258a5bace305e4
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 9 22:38:53 2021 -0700
+
+    Minor changes to board. Need to change is occupied base case in recursive targets
+
+commit 7e424b5564fce86b52fdd37c7adf0b793f3e3bb3
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 9 21:51:37 2021 -0700
+
+    Implemented calcTargets, added and then removed a print from 306 file
+
+commit b1f39d39503f850d9144cab4141379155233495c
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 9 00:08:37 2021 -0700
+
+    Wrote and passed adj tests. Written with Gabe at 1 comp.
+
+commit 5b14d8133cc9e813a96eefe34ab693b6f65d557a
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 8 22:20:35 2021 -0700
+
+    Git log stuff
+
+commit 27d06888f4946f2574def345faa755a49182927a
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Fri Mar 5 22:19:45 2021 -0700
+
+    Fixed some misc errors
+
+commit 213d6d5bc2ca4c0b70b7da49722ddd4536760f5a
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Fri Mar 5 21:53:37 2021 -0700
+
+    Added target tests and fixed junit errors in adjacey, added to board and boardcell to fix errors
+
+commit 6c767033ae545720058c06987f200318fd858f21
+Author: eebag <gabehohman@hotmail.com>
+Date:   Fri Mar 5 16:16:11 2021 -0700
+
+    Updated testing pdf again
+
+commit 4fbb52e2618dedc76663c960e7e27f1c1161bb7c
+Author: eebag <gabehohman@hotmail.com>
+Date:   Fri Mar 5 16:14:22 2021 -0700
+
+    Drew on PDF to show tests
+
+commit 21b55ad4b151366ce1470c9168ec5f0dc5dc6ad4
+Author: eebag <gabehohman@hotmail.com>
+Date:   Fri Mar 5 15:55:17 2021 -0700
+
+    PDF of testing map
+
+commit 333af904b749f71894e055827a90794e0de432c4
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Mar 4 22:27:01 2021 -0700
+
+    Set up adjacency tests, added some tests on the xlsx
+
+commit 4dad049bb7542e0081f688f7abec3efdc3e69ab1
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Mar 4 18:48:59 2021 -0700
+
+    Worked on junit- saved
+
+commit 2ffdf57ddb7c591bb85eef12beadad039b8be266
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Mar 4 18:48:42 2021 -0700
+
+    Worked on junit
+
+commit b7c25fc76238c7247e73f148cd5b87e7875e4862
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Mar 4 18:25:20 2021 -0700
+
+    Made BoardAdjTargetTest
+
+commit 24ca8f138484204bb2c933aead36d4445bd45f8f
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Mar 4 18:21:51 2021 -0700
+
+    Added a copy of the map with tests
+
+commit 4644d0aa89061bca7829f899632b70e6f029bdfb
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Mar 4 17:55:35 2021 -0700
+
+    Added BoardAdjTargetTest306
+
+commit 29661f49b8750d29a4a4b4905a81813f0e2a74a2
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Mar 4 17:47:58 2021 -0700
+
+    Fixed JUnit tests, made BadConfigFormatException overwrite instead of append
+
+commit 5ac3d50ce3c24bc505b9540dcbe720d458f12256
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Mar 4 16:18:33 2021 -0700
+
+    Editied our jUnit test file that contained incorrect information
+
+commit 14f5fa1d6db661017bf08a30c72a810b0efe4adf
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Mar 4 15:55:34 2021 -0700
+
+    Added EC log
+
+commit cd0cc812b9ae15c6831d27f54fceebac771ace6b
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Mar 4 15:28:34 2021 -0700
+
+    created diff and changed from testboard cell to board cell in  the variable declarations
+
+commit f2166983a4f097816860d56bbcfc544252735984
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Wed Mar 3 18:09:46 2021 -0700
+
+    Refactored code
+
+commit 7911c4d46be8d1d91b0dad16a4396a187ba1652d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Wed Mar 3 17:58:12 2021 -0700
+
+    Finalized tests. All tests run without error
+
+commit 2fc2c59d929b49955af983511cb9f55cfd8cba06
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Wed Mar 3 17:50:57 2021 -0700
+
+    Changed git log
+
+commit 11292f97e5106223d3789c7d2fb2bb1a6190b654
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 2 21:38:08 2021 -0700
+
+    Changed getRoom functions in board and fixed the exception throws
+
+commit 670a0edfd6c51bf3cb6b7ebb83c180b2a423bf41
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 2 20:25:11 2021 -0700
+
+    Updated BadConfigFormatException and BoardCell classes
+
+commit b709ad8c80a3c7e8fce17303b2d6298385d887ab
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 2 20:23:26 2021 -0700
+
+    Added code to classify cell before adding it to the grid
+
+commit 4176e3f2850f195b754c8d29ef7aeb96122725a8
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Mar 2 19:20:43 2021 -0700
+
+    Filled out setupConfigFile method in Board.java, fixed Room.java contstructor
+
+commit daf45daf6f5e5c45a403ce995bbabb6814bdd613
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Mar 2 18:31:48 2021 -0700
+
+    wrote inital file input for load layout config
+
+commit 841d33e44ec2996c17ceba2ae6610863254c00fe
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 21:17:13 2021 -0700
+
+    Set cols and rows variables to numbers larger than the test cases
+
+commit f2281e053dd54157138f8380d3dacbc660059b6f
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 21:12:32 2021 -0700
+
+    flipped row and col in get cell function
+
+commit 9a4cd3f9a14e3cdd6c8335a9d464e99362f4c2cf
+Merge: def33b2 29c2eaf
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 21:08:36 2021 -0700
+
+    Merge branch 'master' of https://github.com/eebag/Clue
+
+commit 29c2eafd9f33d1512eaf5a1a023da486ed12d7bc
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 21:08:30 2021 -0700
+
+    Fixed BoardCell.java and Board.java
+
+commit def33b254ca1d2114ee5c0eab932a4f354936b6e
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 21:08:25 2021 -0700
+
+    Edited order of coordinates in junit tests
+
+commit 5c30bfd0c8f5603b65c885fdd0f553599c8f1de6
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 21:04:39 2021 -0700
+
+    Fixed 2 errors in junit
+
+commit 46d7f8b4b9c7e894d0b10f4f190026507a106803
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 20:29:22 2021 -0700
+
+    Fixed Board contsructor
+
+commit 7614fcf3808cb8b009f2cbc7c394a925e61ecbec
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 20:28:40 2021 -0700
+
+    Added comments to door enum and room class files
+
+commit 504953fd1b960b28408be4144dda83efd97ec95a
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 20:25:33 2021 -0700
+
+    Edit juint Room label test
+
+commit 0a6b31f8be4fd76499d4fd50f95929e232f9e237
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 20:22:43 2021 -0700
+
+    Set up loader methods for files in Board.java
+
+commit 209360dadf39804660facdb70d3bdac672f65683
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 20:07:39 2021 -0700
+
+    Updated BoardCell.java method names
+
+commit ef29111990e946c681fbdbdc36ddaf1f75ca5994
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 20:05:33 2021 -0700
+
+    Finished writing jUnits, need to fix errors
+
+commit 0853092cf362283156e4566ea5a6b8348eb7f665
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 20:00:35 2021 -0700
+
+    More work on Board.java and BoardCell.java
+
+commit 1b4ef78a6a4cfbcb063dfccd39605c3c383c57b1
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 19:50:29 2021 -0700
+
+    Continued work on Board.java and BoardCell.java
+
+commit 922190495fa2e6f43552be62f3237ea7a6963ea2
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:44:45 2021 -0700
+
+    Edited the map to include a down door. Added to the OurTest file
+
+commit 5bc01f6e0f4e356fcdf0fb38240e303077dece2e
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:29:23 2021 -0700
+
+    Renamed files
+
+commit bb9d3d24b754f8b08797cd29f0ad7363f881aeae
+Merge: 58dfa26 8485e74
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:27:42 2021 -0700
+
+    Merge branch 'master' of https://github.com/eebag/Clue
+
+commit 58dfa26ffcb230bb562d136600f07513fac0d484
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:27:38 2021 -0700
+
+    Moved files around and began the FileInitTest
+
+commit 8485e747bb03fcf5a627015a049d12640d3c328a
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 19:17:28 2021 -0700
+
+    Fixed a typo
+
+commit 8baf3b27d47a4cd7328ab85d59dd206741153d2e
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 19:15:03 2021 -0700
+
+    Work on Board.java and BoardCell.java
+
+commit ced2d9d4b3d090a19979bb9e385def62ca40e6b4
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:13:11 2021 -0700
+
+    Wrote door direction enum
+
+commit 576eebd32a7428e1ccb2e2b36dc96af3b0a798c8
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 19:08:19 2021 -0700
+
+    Edited exception test and added room constructors, getters and setters. Can remove unneccesary getters and setters in the future
+
+commit 479d56f23c659cc94228b741d05a2fac4410cc25
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 18:53:50 2021 -0700
+
+    Added needed classes
+
+commit f7e9b7390f796075d073a11a25bf72f97a81f50a
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 18:50:55 2021 -0700
+
+    Fixed file move
+
+commit 6bf3322e5a10d73919ccfc458be74c1a092c5c61
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 18:47:52 2021 -0700
+
+    Moved files into data folder
+
+commit 921f9c8e4f65cf2fd06a925749b8fc08bda0946d
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 18:46:48 2021 -0700
+
+    Board.java added
+
+commit e1e56796891a4d9a198b57225d429531edf576f7
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 18:42:35 2021 -0700
+
+    Files from ClueInitFiles.zip added
+
+commit 120360995363c2328fdea8fd09ef35fbb4779d84
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 18:31:26 2021 -0700
+
+    added section to read me
+
+commit d618571e11f4612a3c5b05fe51300678b71ffd6f
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Mar 1 18:27:34 2021 -0700
+
+    Added comments and adjusted 1 junit test
+
+commit 737d57e807ffeed9590af18691d21bd71e4d2435
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Mar 1 16:41:37 2021 -0700
+
+    Finishing Junit testing and made it work
+
+commit f05003d3f2da5cb214de101d87e24da96b594501
+Author: eebag <gabehohman@hotmail.com>
+Date:   Fri Feb 26 22:55:31 2021 -0700
+
+    Actually fixed the tests this time! :D
+
+commit 210d79652478b45350302e7fee351f899077d67e
+Author: eebag <gabehohman@hotmail.com>
+Date:   Fri Feb 26 22:30:15 2021 -0700
+
+    Log file
+
+commit 6a00af2b7627dcb7814b7e2730077963fcfbab13
+Author: eebag <gabehohman@hotmail.com>
+Date:   Fri Feb 26 19:16:40 2021 -0700
+
+    "Finished tests"
+
+commit bab3bc97b9603de902ba0240f24b2da9af4a914d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 21:45:43 2021 -0700
+
+    forgot to save file
+
+commit e35d1a0c01671cca195618f73de15c2d46b9176d
+Merge: ffc2169 ce6cf53
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 21:38:50 2021 -0700
+
+    Merge branch 'master' of https://github.com/eebag/Clue
+
+commit ffc21694f84752701dd415bbf03009c388f7012d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 21:38:28 2021 -0700
+
+    Added 2 test cases to the junit test
+
+commit ce6cf53e32640546849cc086eed658bfcc202caf
+Merge: f6d9b7d 930d7c9
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Feb 25 19:13:13 2021 -0700
+
+    Merge branch 'master' of https://github.com/eebag/Clue into master
+
+commit f6d9b7db7d3ed9eb860d2e4df77362f05ef6af4b
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Feb 25 19:12:13 2021 -0700
+
+    More work on test cases
+
+commit 930d7c91eedbdfa5311403f79cda91c78bd1795d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 19:10:14 2021 -0700
+
+    Worked on board test exp. added a test for cell 2,1 with 6 moves
+
+commit 8a00ffbfca6420c42886e12a4c429843c49760c0
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 19:04:17 2021 -0700
+
+    Edited boardtestexp for adjacency tests
+
+commit e1b19405722e3ae5df6855ddc8a5a07c4046fa82
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 18:43:56 2021 -0700
+
+    Lost some commits due to a error using git. Renamed test board cell file and added variables
+
+commit 289dc0a5a2ee088c1a8668f7c301c1db0ab05739
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Feb 25 18:25:18 2021 -0700
+
+    Began work on test classes
+
+commit b1ffa62aa126427b218a2bd3fa4dae1d57de9268
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 17:52:54 2021 -0700
+
+    renamed board cell file to be all caps
+
+commit ec285d4c8d3cb9d43d27d3a1641d8832a5621143
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 17:51:22 2021 -0700
+
+    rename of info
+
+commit 4eea5f1527129379a0cf08b92dd7bc30363fefa7
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Feb 25 17:45:33 2021 -0700
+
+    Redid git structure

@@ -289,6 +289,7 @@ public class Board {
 		theAnswer = new Solution(person, room, weapon);
 	}
 	
+	//deals hands to all the players
 	private void dealHands() {
 		Random randNum = new Random();
 		randNum.setSeed(System.currentTimeMillis()); // set seed to current time in millisec
@@ -521,6 +522,20 @@ public class Board {
 			}
 		}
 		visited.remove(startCell);
+	}
+	
+	
+	//Non-initialization methods
+	public boolean checkAccusation(Card person, Card room, Card weapon) {
+		if(theAnswer.getPerson().equals(person) && theAnswer.getRoom().equals(room) && theAnswer.getWeapon().equals(weapon)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public Card handleSuggestion(Player suggestionMaker, Card person, Card room, Card weapon) {
+		return null;
 	}
 	
 	//Getters and setters
