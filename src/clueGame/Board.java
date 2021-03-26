@@ -526,15 +526,15 @@ public class Board {
 		}
 	}
 
-	public Card handleSuggestion(Player suggestionMaker, Card person, Card room, Card weapon) {
+	public Card handleSuggestion(Player suggestionMaker, Solution suggestion) {
 		//get index of suggestion maker in player list
 		//start at index, loop through players, then loop from begginning -> index
 		//shuffle hand for each player
 		//return first card that disproves suggestion
-		Set<Card> suggestion = new HashSet<Card>();
-		suggestion.add(person);
-		suggestion.add(room);
-		suggestion.add(weapon);
+		Set<Card> suggestionCards = new HashSet<Card>();
+		suggestionCards.add(suggestion.getPerson());
+		suggestionCards.add(suggestion.getRoom());
+		suggestionCards.add(suggestion.getWeapon());
 		
 		int index = 0;
 		for(int i = 0; i < players.size(); i++) {
@@ -549,7 +549,7 @@ public class Board {
 				//call computerplayer method here
 			} else {
 				// cast to make sure only human players use this
-				return getSuggestionCard((HumanPlayer) players.get(i), suggestion);
+				return getSuggestionCard((HumanPlayer) players.get(i), suggestionCards);
 			}
 		}
 		
@@ -558,7 +558,7 @@ public class Board {
 				//call computerplayer method here
 			} else {
 				// cast to make sure only human players use this
-				return getSuggestionCard((HumanPlayer) players.get(i), suggestion);
+				return getSuggestionCard((HumanPlayer) players.get(i), suggestionCards);
 			}
 		}
 		
@@ -571,7 +571,7 @@ public class Board {
 		Collections.shuffle(hand);
 		
 		for(Card c : hand) {
-			if(!(suggestion.contains(c))) {
+			if(suggestion.contains(c)) {
 				return c;
 			}
 		}
