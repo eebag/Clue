@@ -17,6 +17,7 @@ public abstract class Player {
 	private String name;
 	private Color color;
 	protected ArrayList<Card> hand;
+	protected ArrayList<Card> seen;
 	protected int row, col;
 	
 	
@@ -38,8 +39,13 @@ public abstract class Player {
 		return (compare.name.equals(this.name));
 	}
 	
-	public void updateHand(Card C) {
-		hand.add(C);
+	public void updateHand(Card c) {
+		hand.add(c);
+		seen.add(c);
+	}
+	
+	public void updateSeen(Card c) {
+		seen.add(c);
 	}
 	
 	//getters and setters
@@ -78,4 +84,13 @@ public abstract class Player {
 	public int getCol() {
 		return col;
 	}
+	
+	//next 2 hould just be used in testing
+	public void setHand(ArrayList<Card> hand) {
+		this.hand=hand;
+	}
+	public void setSeen(ArrayList<Card> seen) {
+		this.seen=seen;
+	}
+	
 }

@@ -1,4 +1,5 @@
 package tests;
+import java.util.ArrayList;
 
 
 /**
@@ -12,6 +13,9 @@ package tests;
 
 
 import static org.junit.Assert.*;
+
+import java.awt.Color;
+
 import org.junit.jupiter.api.*;
 import clueGame.*;
 
@@ -83,5 +87,41 @@ public class PlayerMethodTest {
 		Card fakeCard = new Card("Fake person", CardType.PERSON);
 		board.getPlayers().get(1).updateHand(fakeCard);
 		assertEquals(board.handleSuggestion(testPlayer, card1, card2, card3), fakeCard);
+	}
+	
+	//tests the computer generated suggestions
+	@Test
+	public void testComputerGenSuggestion(){
+		//Get computer player
+		ComputerPlayer testPlayer= new ComputerPlayer("Test player", Color.RED);
+		//set the players hand and pass possible cards
+		testPlayer.setPossibleCardSuggestions(board.getWeaponCards(), board.getPersonCards());
+		ArrayList<Card> hand= new ArrayList<Card>();
+		Card card1 = new Card("CPW", CardType.PERSON);
+		Card card2 = new Card("Text Book", CardType.WEAPON);
+		hand.add(card1);
+		hand.add(card2);
+		testPlayer.setHand(hand);
+		//Set player seen
+		Card card3 = new Card("PCJ", CardType.PERSON);
+		Card card4 = new Card("Pencil", CardType.WEAPON);
+		ArrayList<Card> seen= new ArrayList<Card>();
+		seen.add(card1);
+		seen.add(card2);
+		seen.add(card3);
+		seen.add(card4);
+		testPlayer.setSeen(seen);
+		//Test the generation of the computer suggestion
+		Card card5 = new Card("Hill Hall", CardType.ROOM);
+		Solution testSol= testPlayer.createSuggestion(card5);
+		//Check if right room
+		assertTrue(testSol.getRoom().equals(card5));
+		//Check that the solution is not in seen
+		assertFalse(seen.contains(testSol.getWeapon()));
+		assertFalse(seen.contains(testSol.getPerson()));
+		//Check that the solution is in the allowed cards
+		assertTrue(board.getWeaponCards().contains(testSol.getWeapon()));
+		assertTrue(board.getPersonCards().contains(testSol.getPerson()));
+		
 	}
 }

@@ -33,7 +33,8 @@ public class Board {
 	// Player and game piece variables
 	private ArrayList<Player> players;
 	private Solution theAnswer;
-	private ArrayList<Card> deck;
+	private ArrayList<Card> deck; //Contains all but solution
+	private ArrayList<Card> cardList; //Contains every card
 	private ArrayList<Card> personCards;
 	private ArrayList<Card> roomCards;
 	private ArrayList<Card> weaponCards;
@@ -74,6 +75,7 @@ public class Board {
 
 		gridCreation();
 		generateAdjacency();
+		cardList=deck;
 
 		try {
 			generateSolution();
@@ -96,6 +98,7 @@ public class Board {
 		personCards = new ArrayList<>();
 		weaponCards = new ArrayList<>();
 		roomCards = new ArrayList<>();
+		cardList= new ArrayList<>();
 	}
 
 	// Sets up the grid using the symbols read in from the LayoutConfig file
@@ -279,6 +282,15 @@ public class Board {
 
 		int personIndex = randNum.nextInt(personCards.size());
 		Card person = personCards.get(personIndex);
+		
+		//Add the suggestable cards to the computer players
+		for (Player p: players) {
+			if(!(p instanceof HumanPlayer)) {
+				ComputerPlayer c= (ComputerPlayer) p;
+				c.setPossibleCardSuggestions(weaponCards, personCards);
+			}
+			
+		}
 
 		deck.remove(room);
 		deck.remove(weapon);
@@ -635,5 +647,17 @@ public class Board {
 
 	public ArrayList<Card> getDeck() {
 		return deck;
+	}
+	
+	public ArrayList<Card> getCardList() {
+		return cardList;
+	}
+
+	public ArrayList<Card> getPersonCards() {
+		return personCards;
+	}
+
+	public ArrayList<Card> getWeaponCards() {
+		return weaponCards;
 	}
 }
