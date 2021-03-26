@@ -15,9 +15,6 @@ public class ComputerPlayer extends Player {
 	//The cards in the game
 	ArrayList<Card> possibleWeapons= new ArrayList<>();
 	ArrayList<Card> possiblePlayers= new ArrayList<>();
-	//The cards we haven't seen/ don't have
-	ArrayList<Card> suggestableWeapons= new ArrayList<>();
-	ArrayList<Card> suggestablePlayers= new ArrayList<>();
 		
 	public ComputerPlayer(String name, Color c) {
 		super(name, c);
@@ -35,7 +32,7 @@ public class ComputerPlayer extends Player {
 	}
 	
 	private Card getUnseenPerson() {
-		suggestablePlayers.clear();
+		ArrayList<Card> suggestablePlayers= new ArrayList<>();
 		for (Card c: possiblePlayers) {
 			if(!seen.contains(c)) {
 				suggestablePlayers.add(c);
@@ -46,7 +43,7 @@ public class ComputerPlayer extends Player {
 	}
 	
 	private Card getUnseenWeapon() {
-		suggestableWeapons.clear();
+		ArrayList<Card> suggestableWeapons= new ArrayList<>();
 		for (Card c: possibleWeapons) {
 			if(!seen.contains(c)) {
 				suggestableWeapons.add(c);
