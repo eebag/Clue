@@ -17,7 +17,7 @@ public abstract class Player {
 	private String name;
 	private Color color;
 	protected ArrayList<Card> hand;
-	protected ArrayList<Card> seen;
+	protected ArrayList<Card> seen= new ArrayList<>();
 	protected int row, col;
 	
 	
