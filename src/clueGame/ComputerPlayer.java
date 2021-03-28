@@ -1,8 +1,10 @@
 package clueGame;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.awt.Color;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * ComputerPlayer class
@@ -15,6 +17,9 @@ public class ComputerPlayer extends Player {
 	//The cards in the game
 	ArrayList<Card> possibleWeapons= new ArrayList<>();
 	ArrayList<Card> possiblePlayers= new ArrayList<>();
+	
+	//Visited rooms
+	Set<Room> roomsVisited = new HashSet<>();
 		
 	public ComputerPlayer(String name, Color c) {
 		super(name, c);
@@ -51,5 +56,48 @@ public class ComputerPlayer extends Player {
 		}
 		Collections.shuffle(suggestableWeapons);
 		return suggestableWeapons.get(0);
-	}	
+	}
+	
+	public BoardCell selectTargets(int range) {
+		//get board instance
+		Board board = Board.getInstance();
+		
+		//get the current cell for board.calctargts
+		BoardCell currentCell = board.getCell(this.getRow(), this.getCol());
+		board.calcTargets(currentCell, range);
+		Set<BoardCell> targets = board.getTargets();
+		
+		//initialize as null
+		BoardCell targetCell = null;
+		//find first room that hasn't been visited, and set that as target.  Otherwise do nothing.
+		for(BoardCell b : targets) {
+			if(b.isRoom()) {
+				Room cellRoom = board.getRoom(b);
+				
+				if( !(roomsVisited.contains(cellRoom)) ) {
+					targetCell = b; // set target cell to the room
+					break; // end the loop
+				}	
+			}
+		}
+		
+		//if no target selected, pick random
+		if(targetCell == null) {
+			//makeshift random selection using makeshift index based for loop
+			int index = new Random().nextInt(targets.size());
+			int i = 0;
+			
+			//makeshift index based for loop
+			for(BoardCell b : targets) {
+				if(i == index) {
+					targetCell = b;
+					break; // end the loop
+				}
+				i++;
+			}
+		}
+		
+		
+		return targetCell;
+	}
 }

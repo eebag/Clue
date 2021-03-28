@@ -124,4 +124,16 @@ public class PlayerMethodTest {
 		assertTrue(board.getPersonCards().contains(testSol.getPerson()));
 		
 	}
+	
+	//tests the computer targeting
+	@Test
+	public void testComputerTargeting() {
+		//Make our favorite fake computer ai
+		ComputerPlayer testPlayer= new ComputerPlayer("Test player", Color.RED);
+		testPlayer.setCol(13);
+		testPlayer.setRow(8);
+		BoardCell target = testPlayer.selectTargets(3);
+			
+		assertEquals(target, board.getCell(4, 13));
+	}
 }

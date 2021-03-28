@@ -43,7 +43,6 @@ public class Board {
 	private ArrayList<ArrayList<String>> boardSymbols;
 	private Map<Character, Room> roomMap;
 	private Map<Character, Character> passageMap;
-
 	private BoardCell[][] grid;
 
 	// Singlton method instance of board
