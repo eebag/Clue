@@ -556,28 +556,18 @@ public class Board {
 		}
 		
 		for(int i = index + 1; i < players.size(); i++){ // start at next player, not at current player
-			if(players.get(i) instanceof ComputerPlayer) {
-				//call computerplayer method here
-			} else {
-				// cast to make sure only human players use this
-				return getSuggestionCard((HumanPlayer) players.get(i), suggestionCards);
-			}
+			return getSuggestionCard(players.get(i), suggestionCards);
 		}
 		
 		for(int i = 0; i < index; i++) {
-			if(players.get(i) instanceof ComputerPlayer) {
-				//call computerplayer method here
-			} else {
-				// cast to make sure only human players use this
-				return getSuggestionCard((HumanPlayer) players.get(i), suggestionCards);
-			}
+			return getSuggestionCard(players.get(i), suggestionCards);
 		}
 		
 		
 		return null;
 	}
 	
-	private Card getSuggestionCard(HumanPlayer p, Set<Card> suggestion) {
+	private Card getSuggestionCard(Player p, Set<Card> suggestion) {
 		ArrayList<Card> hand = p.hand;
 		Collections.shuffle(hand);
 		
