@@ -22,6 +22,7 @@ import clueGame.*;
 public class PlayerMethodTest {
 	private static Board board;
 
+	
 	@BeforeEach
 	public void setUp() {
 		// Board is singleton, get the only instance
@@ -31,6 +32,7 @@ public class PlayerMethodTest {
 		// Initialize will load config files 
 		board.initialize();
 	}
+	
 	
 	//Check if cards are equal
 	@Test
@@ -54,6 +56,7 @@ public class PlayerMethodTest {
 		
 	}
 	
+	
 	//tests an accusation
 	@Test
 	public void testAccusation() {
@@ -69,6 +72,7 @@ public class PlayerMethodTest {
 		card3 = board.getAnswer().getWeapon();
 		assertTrue(board.checkAccusation(card1, card2, card3));
 	}
+	
 	
 	//tests handling a suggestion
 	@Test
@@ -90,6 +94,7 @@ public class PlayerMethodTest {
 		Solution suggestion2= new Solution(fakeCard, card2, card3);
 		assertEquals(board.handleSuggestion(testPlayer, suggestion2), fakeCard);
 	}
+	
 	
 	//tests the computer generated suggestions
 	@Test
@@ -124,18 +129,17 @@ public class PlayerMethodTest {
 		//Check that the solution is in the allowed cards
 		assertTrue(board.getWeaponCards().contains(testSol.getWeapon()));
 		assertTrue(board.getPersonCards().contains(testSol.getPerson()));
-		
 	}
 	
 	//tests the computer targeting
 	@Test
 	public void testComputerTargeting() {
-		//Make our favorite fake computer ai
 		ComputerPlayer testPlayer= new ComputerPlayer("Test player", Color.RED);
 		testPlayer.setCol(13);
 		testPlayer.setRow(8);
 		BoardCell target = testPlayer.selectTargets(3);
 			
+		//Test that target is room when close enough to room
 		assertEquals(target, board.getCell(4, 13));
 	}
 }
