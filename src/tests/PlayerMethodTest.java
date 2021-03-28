@@ -87,7 +87,8 @@ public class PlayerMethodTest {
 		//make sure that card is returned
 		Card fakeCard = new Card("Fake person", CardType.PERSON);
 		board.getPlayers().get(1).updateHand(fakeCard);
-		assertEquals(board.handleSuggestion(testPlayer, suggestion), fakeCard);
+		Solution suggestion2= new Solution(fakeCard, card2, card3);
+		assertEquals(board.handleSuggestion(testPlayer, suggestion2), fakeCard);
 	}
 	
 	//tests the computer generated suggestions
