@@ -305,7 +305,7 @@ public class Board {
 		if (players.size() == 0) {
 			return;
 		}
-		int cardsInHand = sizeDeck / players.size();
+		
 		int cardIndex = randNum.nextInt(sizeDeck);
 		Collections.shuffle(deck);
 		for (int i = 0; i < sizeDeck; i++) {
@@ -555,16 +555,28 @@ public class Board {
 			}
 		}
 		
+		Card suggestionCard = null;
+		
 		for(int i = index + 1; i < players.size(); i++){ // start at next player, not at current player
-			return getSuggestionCard(players.get(i), suggestionCards);
+			suggestionCard = getSuggestionCard(players.get(i), suggestionCards);
+			
+			if(suggestionCard != null) {
+				return suggestionCard;
+			}
+			
 		}
 		
 		for(int i = 0; i < index; i++) {
-			return getSuggestionCard(players.get(i), suggestionCards);
+			suggestionCard = getSuggestionCard(players.get(i), suggestionCards);
+			
+			if(suggestionCard != null) {
+				return suggestionCard;
+			}
+			
 		}
 		
 		
-		return null;
+		return suggestionCard;
 	}
 	
 	private Card getSuggestionCard(Player p, Set<Card> suggestion) {
