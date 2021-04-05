@@ -100,7 +100,7 @@ public class GameControlPanel extends JPanel{
 		frame.setContentPane(panel); // put the panel in the frame
 		frame.setSize(SIZE_X, SIZE_Y);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-		frame.setVisible(true); // make it visible
+		frame.setVisible(false); // make it visible
 		
 		panel.setTurn(new ComputerPlayer("Bob", Color.RED));
 		panel.setGuess( "I have no guess!");
