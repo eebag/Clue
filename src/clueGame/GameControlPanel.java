@@ -121,6 +121,5 @@ public class GameControlPanel extends JPanel{
 	public void setRoll(int r) {
 		roll.setText(String.valueOf(r));
 	}
-
 	
 }
