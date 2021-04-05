@@ -92,6 +92,7 @@ public class GameControlPanel extends JPanel{
 		panel.setGuessResult( "So you have nothing?");
 		panel.setRoll(5);
 		panel.repaint();
+		panel.setVisible(true);
 	}
 	
 	public void setTurn(Player p) {
