@@ -20,13 +20,16 @@ public class GameControlPanel extends JPanel{
 	
 	public GameControlPanel() {
 		JPanel upperPanel = new JPanel(); // pannel that contains player, roll, and accusation controls
+		upperPanel.setLayout(new GridLayout(1,4));
 		JPanel lowerPanel = new JPanel(); // pannel that contains guess and guess results
+		lowerPanel.setLayout(new GridLayout(0,2));
 		
 		//UI for upperPanel
 		//Turn information
 		JPanel turnInformation = new JPanel(); // panel to hold information about whose turn it is
 		JLabel turnDisplay = new JLabel("Current turn:"); // Just displays "Whose turn is it?"
 		playerTurn = new JTextField(); // displays the player who's turn it is
+		playerTurn.setEditable(false); // make text field uneditable
 		
 		turnInformation.add(turnDisplay, BorderLayout.NORTH);
 		turnInformation.add(playerTurn, BorderLayout.SOUTH);
@@ -35,6 +38,7 @@ public class GameControlPanel extends JPanel{
 		JPanel rollInformation = new JPanel();
 		JLabel rollDisplay = new JLabel("Roll: ");
 		roll = new JTextField();
+		roll.setEditable(false);
 
 		rollInformation.add(rollDisplay, BorderLayout.WEST);
 		rollInformation.add(roll, BorderLayout.EAST);
@@ -43,10 +47,10 @@ public class GameControlPanel extends JPanel{
 		JButton accusationButton = new JButton("Make Accusation");
 		JButton nextButton = new JButton("Next Turn:");
 		
-		upperPanel.add(turnInformation, BorderLayout.WEST);
-		upperPanel.add(rollInformation, BorderLayout.WEST);
-		upperPanel.add(accusationButton, BorderLayout.WEST);
-		upperPanel.add(nextButton, BorderLayout.WEST);
+		upperPanel.add(turnInformation, 0);
+		upperPanel.add(rollInformation, 1);
+		upperPanel.add(accusationButton, 2);
+		upperPanel.add(nextButton, 3);
 		
 		//Create boarder
 		Border blackline = BorderFactory.createLineBorder(Color.black);
