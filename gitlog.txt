@@ -1,3 +1,81 @@
+commit 33a09c2a49363e02d39ecc07910a893f1c10c09c
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Mar 28 18:39:50 2021 -0500
+
+    refactored/ added comments
+
+commit b59a41f4a21e0eef1e8fa1bebd5097a9c60ddca3
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Mar 28 18:38:37 2021 -0500
+
+    Fixed suggestion test. Added fakeCard to new suggestion
+
+commit eefdae317c94fd2df5e418770662aa0f8e128042
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Mar 28 17:34:40 2021 -0600
+
+    Worked on fixing handlesuggestion
+
+commit a28bfc6c6b78f68b4e178b25ca884706b907b8b0
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Mar 28 17:24:25 2021 -0600
+
+    Fixed handlesuggestion test
+
+commit d7fb78e0b2d1f73497903151feb150e506f7d4b3
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sat Mar 27 22:44:00 2021 -0600
+
+    Finished ComputerPlayer targeting test, and method
+
+commit 680e5b901033131857ea560614419c685c01b4b8
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Fri Mar 26 16:49:58 2021 -0500
+
+    Refactored computer suggestion
+
+commit 869e7c128703a1f62d97fa9d5d6f76cf4fce86d8
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Fri Mar 26 16:45:13 2021 -0500
+
+    Computer suggestion passes test
+
+commit e883022186713911a48b34e7e13c110ac8234ae5
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Fri Mar 26 16:30:19 2021 -0500
+
+    Created the test for checking suggestions
+
+commit 0e1eaf9429d632ae6c3ef3a570bf3d96da1c8e5f
+Author: eebag <gabehohman@hotmail.com>
+Date:   Fri Mar 26 13:10:36 2021 -0600
+
+    Fixed handlesuggestion to take in a solution
+
+commit 29bb24e113165af52e767e5cd23438927192a46e
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Mar 25 14:18:23 2021 -0600
+
+    Worked on handleSuggestion method.  Need to have computerplayer suggestion method finished inorder to finish this method, otherwise it should be complete.  Also changed the player's hand from a set to an arraylist.
+
+commit 5b1c9fa681ea0601efdf95684c1859c4d4771610
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Mar 25 14:34:23 2021 -0500
+
+    Add card type getter to card
+
+commit 89c92def72788f4768a93e2dc7d61a27353d127e
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Thu Mar 25 14:32:45 2021 -0500
+
+    Added .equals test method, then wrote code for .equals
+
+commit 4341950b3cc93ee5ac474174b01b0a8e5e6604a1
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Mar 25 13:25:20 2021 -0600
+
+    Updated gitlog, added handleSuggestion and checkAccusation methods to board, wrote testAccusation and testSuggestion tests in PlayerMethodTest
+
 commit 911b30f0a2eec2f59d8427d5d7bb1e0ecd2f3a3e
 Author: eebag <gabehohman@hotmail.com>
 Date:   Mon Mar 22 20:14:05 2021 -0600
