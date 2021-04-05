@@ -7,6 +7,10 @@ public class GameControlPanel extends JPanel{
 	//Size of the control GUI
 	public final static int SIZE_X = 750;
 	public final static int SIZE_Y = 180;
+	private Player playerTurn;
+	private String guess;
+	private String guessResult;
+	private int rollValue;
 	
 	
 	public GameControlPanel() {
@@ -22,4 +26,19 @@ public class GameControlPanel extends JPanel{
 		frame.setVisible(true); // make it visible
 		
 	}
+	
+	public void setTurn(Player p) {
+		playerTurn= p;
+	}
+	public void setGuess(String g) {
+		guess= g;
+	}
+	public void setGuessResult(String gR) {
+		guessResult= gR;
+	}
+	public void setRoll(int r) {
+		rollValue=r;
+	}
+
+	
 }
