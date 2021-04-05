@@ -52,26 +52,28 @@ public class GameControlPanel extends JPanel{
 		upperPanel.add(accusationButton, 2);
 		upperPanel.add(nextButton, 3);
 		
-		//Create boarder
+		//Create boarders
 		Border blackline = BorderFactory.createLineBorder(Color.black);
+		Border blueline= BorderFactory.createLineBorder(Color.CYAN);
 		
 		//lower pannel setup
 		//GUess setup
 		JPanel guessPanelBorder= new JPanel(); //Displays guess and guess name
-		guessPanelBorder.setBorder(blackline); //Give it a boarder
-		guessPanelBorder.setName("Guess"); //Name it guess
+		guessPanelBorder.setBorder(BorderFactory.createTitledBorder(blackline, "Guess")); //Give it a boarder
 		
 		//Guess result setup
 		JPanel guessResultPanelBorder= new JPanel(); //Displays guess result and the result value
-		guessResultPanelBorder.setBorder(blackline); //Give it a boarder
-		guessResultPanelBorder.setName("Guess Result"); //name it guess result
+		guessResultPanelBorder.setBorder(BorderFactory.createTitledBorder(blackline, "Guess Result")); //Give it a boarder
 		
 		//Add text fields to both
 		guess= new JTextField();
+		guess.setBorder(blueline);
 		guessResult= new JTextField();
+		guessResult.setBorder(blueline);
 		
 		guessPanelBorder.add(guess, BorderLayout.WEST);
-		guessResultPanelBorder.add(guessResult, BorderLayout.EAST);		
+		guessResultPanelBorder.add(guessResult, BorderLayout.EAST);	
+		
 		
 		//Add to lower field
 		lowerPanel.add(guessPanelBorder, BorderLayout.WEST);
@@ -95,8 +97,6 @@ public class GameControlPanel extends JPanel{
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
 		panel.setRoll(5);
-		panel.repaint();
-		panel.setVisible(true);
 	}
 	
 	public void setTurn(Player p) {
