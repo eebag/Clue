@@ -1,3 +1,107 @@
+commit 036a58a43ea40e053153eab99603e02f0257e2cd
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 17:19:12 2021 -0600
+
+    comments
+
+commit 6a567cde368b8e334e213e3b6e564eb45bb56e5d
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 16:26:52 2021 -0600
+
+    fixed visual bug again
+
+commit 4e95f0ee9aa6bf5043f9704c195629cc5ddf66be
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 15:00:32 2021 -0600
+
+    Fixed visualization bug
+
+commit a223dd766f18cd3a04b5d347cf84f0f75df7907e
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Apr 4 21:42:35 2021 -0600
+
+    Fixed layout of bottom pannel and turn information
+
+commit f4f6f9c3103ce2f179481ebf1de2feac12db98d3
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Apr 4 21:10:00 2021 -0600
+
+    Added label to border
+
+commit cbbdd978cbd301b79781d1431f8714435af7a86d
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Apr 4 20:45:09 2021 -0600
+
+    Set up grid layouts for upper panel
+
+commit cb17309d93c093f30dc1c702a850ee5acee1f165
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Apr 4 20:27:42 2021 -0600
+
+    Changed visibility
+
+commit 0b7f44b589224809e9a8da6cce32fece9fe72a70
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Apr 4 20:25:44 2021 -0600
+
+    Added a gird layout to organize the pannels
+
+commit 5f9760b8372ebb0a2802efd2f5176d4f6b8eb5d2
+Merge: 4b79bf1 165186b
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Apr 4 20:12:08 2021 -0600
+
+    Fixed merge conflicts
+
+commit 165186bc82636fad22ba933a4866555ed6e43445
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Apr 4 20:08:38 2021 -0600
+
+    Added lower pannel
+
+commit 4b79bf17e5d59c28eee5adf524da32cc3eca2c47
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Apr 4 20:08:21 2021 -0600
+
+    Added text fields as instance variables, fixed some missing allignments in upper panel
+
+commit fea4faabed00634393a260f1a58e4c8126bee250
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Apr 4 19:59:51 2021 -0600
+
+    Finished UI setup for upper panel of control panel
+
+commit c61f13c452bf715d0f32731bfeb8001abd8468cd
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Apr 4 19:54:06 2021 -0600
+
+    Set up some panels
+
+commit 56d9ff6b836bccad15166fbf1c15542d2107e066
+Merge: db4a20d 1895f66
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Apr 4 19:33:01 2021 -0600
+
+    merged AddSetters
+
+commit db4a20d12770a9227a7f1370c4d464a224c63f5e
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Apr 4 19:32:06 2021 -0600
+
+    Worked on GameControlPanel
+
+commit 1895f6693c57ce01ac6ba652113b029db2cb3f69
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Sun Apr 4 19:26:07 2021 -0600
+
+    added needed variables and setters. May need to add more in the future
+
+commit 429fa549c142ee4e254c28e8125da5f1140f3827
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sun Apr 4 19:13:35 2021 -0600
+
+    Added GameControlPanel class
+
 commit 33a09c2a49363e02d39ecc07910a893f1c10c09c
 Author: OJackson <oliviajackson@mymail.mines.edu>
 Date:   Sun Mar 28 18:39:50 2021 -0500
