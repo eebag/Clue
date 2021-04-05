@@ -8,11 +8,12 @@ public class GameControlPanel extends JPanel{
 	//Size of the control GUI
 	public final static int SIZE_X = 750;
 	public final static int SIZE_Y = 180;
-	private Player playerTurn;
-	private String guess;
-	private String guessResult;
-	private int rollValue;
 	
+	//UI Panels for upper panel
+	private JTextField playerTurn, roll;
+	
+	//UI Panels for lower panel
+	private JTextField guess, guessResult;
 	
 	public GameControlPanel() {
 		JPanel upperPanel = new JPanel(); // pannel that contains player, roll, and accusation controls
@@ -22,7 +23,7 @@ public class GameControlPanel extends JPanel{
 		//Turn information
 		JPanel turnInformation = new JPanel(); // panel to hold information about whose turn it is
 		JLabel turnDisplay = new JLabel("Current turn:"); // Just displays "Whose turn is it?"
-		JTextField playerTurn = new JTextField(); // displays the player who's turn it is
+		playerTurn = new JTextField(); // displays the player who's turn it is
 		
 		turnInformation.add(turnDisplay, BorderLayout.NORTH);
 		turnInformation.add(playerTurn, BorderLayout.SOUTH);
@@ -30,10 +31,10 @@ public class GameControlPanel extends JPanel{
 		//Roll information
 		JPanel rollInformation = new JPanel();
 		JLabel rollDisplay = new JLabel("Roll: ");
-		JTextField roll = new JTextField();
+		roll = new JTextField();
 		
-		rollInformation.add(rollDisplay);
-		rollInformation.add(roll);
+		rollInformation.add(rollDisplay, BorderLayout.WEST);
+		rollInformation.add(roll, BorderLayout.EAST);
 		
 		//Buttons
 		JButton accusationButton = new JButton("Make Accusation");
@@ -62,16 +63,16 @@ public class GameControlPanel extends JPanel{
 	}
 	
 	public void setTurn(Player p) {
-		playerTurn= p;
+		playerTurn.setText(p.getName());
 	}
 	public void setGuess(String g) {
-		guess= g;
+		
 	}
 	public void setGuessResult(String gR) {
-		guessResult= gR;
+		
 	}
 	public void setRoll(int r) {
-		rollValue=r;
+		roll.setText(String.valueOf(r));
 	}
 
 	
