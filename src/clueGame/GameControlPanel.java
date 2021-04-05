@@ -106,6 +106,7 @@ public class GameControlPanel extends JPanel{
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
 		panel.setRoll(3);
+		frame.setVisible(true);
 	}
 	
 	public void setTurn(Player p) {
