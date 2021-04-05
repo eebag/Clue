@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -72,8 +73,9 @@ public class GameControlPanel extends JPanel{
 		lowerPanel.add(guessPanelBorder, BorderLayout.WEST);
 		lowerPanel.add(guessResultPanelBorder, BorderLayout.EAST);
 		
-		add(upperPanel,BorderLayout.NORTH);
-		add(lowerPanel, BorderLayout.SOUTH);
+		setLayout(new GridLayout(2,0));
+		add(upperPanel, 0);
+		add(lowerPanel, 1);
 
 	}
 	
@@ -85,18 +87,21 @@ public class GameControlPanel extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame.setVisible(true); // make it visible
 		
-		
-		
+		panel.setTurn(new ComputerPlayer("Bob", Color.RED));
+		panel.setGuess( "I have no guess!");
+		panel.setGuessResult( "So you have nothing?");
+		panel.setRoll(5);
+		panel.repaint();
 	}
 	
 	public void setTurn(Player p) {
 		playerTurn.setText(p.getName());
 	}
 	public void setGuess(String g) {
-		
+		guess.setText(g);
 	}
 	public void setGuessResult(String gR) {
-		
+		guessResult.setText(gR);
 	}
 	public void setRoll(int r) {
 		roll.setText(String.valueOf(r));
