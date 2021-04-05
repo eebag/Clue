@@ -1,7 +1,8 @@
 package clueGame;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.BorderLayout;
+
+import javax.swing.*;
 
 public class GameControlPanel extends JPanel{
 	//Size of the control GUI
@@ -14,6 +15,24 @@ public class GameControlPanel extends JPanel{
 	
 	
 	public GameControlPanel() {
+		JPanel upperPanel = new JPanel(); // pannel that contains player, roll, and accusation controls
+		JPanel guessPanel = new JPanel(); // pannel that contains guess and guess results
+		
+		//UI for upperPanel
+		JPanel turnInformation = new JPanel(); // panel to hold information about whose turn it is
+		JLabel turnDisplay = new JLabel("Current turn:"); // Just displays "Whose turn is it?"
+		JTextField playerTurn = new JTextField(); // displays the player who's turn it is
+		
+		turnInformation.add(turnDisplay, BorderLayout.NORTH);
+		turnInformation.add(playerTurn, BorderLayout.SOUTH);
+		
+		upperPanel.add(turnInformation, BorderLayout.WEST);
+		
+		add(upperPanel,BorderLayout.NORTH);
+		add(guessPanel, BorderLayout.SOUTH);
+		
+		
+		
 		
 	}
 	
@@ -24,6 +43,8 @@ public class GameControlPanel extends JPanel{
 		frame.setSize(SIZE_X, SIZE_Y);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame.setVisible(true); // make it visible
+		
+		
 		
 	}
 	
