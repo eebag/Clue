@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -27,12 +28,13 @@ public class GameControlPanel extends JPanel{
 		//UI for upperPanel
 		//Turn information
 		JPanel turnInformation = new JPanel(); // panel to hold information about whose turn it is
+		turnInformation.setLayout(new BorderLayout());
 		JLabel turnDisplay = new JLabel("Current turn:"); // Just displays "Whose turn is it?"
 		playerTurn = new JTextField(); // displays the player who's turn it is
 		playerTurn.setEditable(false); // make text field uneditable
 		
-		turnInformation.add(turnDisplay, BorderLayout.NORTH);
-		turnInformation.add(playerTurn, BorderLayout.SOUTH);
+		turnInformation.add(turnDisplay, BorderLayout.NORTH); //add turndisplay to the top
+		turnInformation.add(playerTurn, BorderLayout.CENTER); //add the player's name to the bottom
 		
 		//Roll information
 		JPanel rollInformation = new JPanel();
@@ -47,11 +49,13 @@ public class GameControlPanel extends JPanel{
 		JButton accusationButton = new JButton("Make Accusation");
 		JButton nextButton = new JButton("Next Turn:");
 		
+		//add all the sub panels and buttons to the main panel
 		upperPanel.add(turnInformation, 0);
 		upperPanel.add(rollInformation, 1);
 		upperPanel.add(accusationButton, 2);
 		upperPanel.add(nextButton, 3);
 		
+		//UI for lower panel
 		//Create boarders
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		Border blueline= BorderFactory.createLineBorder(Color.CYAN);
@@ -59,20 +63,25 @@ public class GameControlPanel extends JPanel{
 		//lower pannel setup
 		//GUess setup
 		JPanel guessPanelBorder= new JPanel(); //Displays guess and guess name
+		guessPanelBorder.setLayout(new GridLayout(1,0));
 		guessPanelBorder.setBorder(BorderFactory.createTitledBorder(blackline, "Guess")); //Give it a boarder
 		
 		//Guess result setup
 		JPanel guessResultPanelBorder= new JPanel(); //Displays guess result and the result value
+		guessResultPanelBorder.setLayout(new GridLayout(1,0));
 		guessResultPanelBorder.setBorder(BorderFactory.createTitledBorder(blackline, "Guess Result")); //Give it a boarder
 		
 		//Add text fields to both
 		guess= new JTextField();
 		guess.setBorder(blueline);
+		guess.setEditable(false);
+		
 		guessResult= new JTextField();
 		guessResult.setBorder(blueline);
+		guessResult.setEditable(false);
 		
-		guessPanelBorder.add(guess, BorderLayout.WEST);
-		guessResultPanelBorder.add(guessResult, BorderLayout.EAST);	
+		guessPanelBorder.add(guess, 0);
+		guessResultPanelBorder.add(guessResult, 0);	
 		
 		
 		//Add to lower field
@@ -96,7 +105,7 @@ public class GameControlPanel extends JPanel{
 		panel.setTurn(new ComputerPlayer("Bob", Color.RED));
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
-		panel.setRoll(5);
+		panel.setRoll(3);
 	}
 	
 	public void setTurn(Player p) {
