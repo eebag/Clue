@@ -19,6 +19,7 @@ public class GameControlPanel extends JPanel{
 		JPanel guessPanel = new JPanel(); // pannel that contains guess and guess results
 		
 		//UI for upperPanel
+		//Turn information
 		JPanel turnInformation = new JPanel(); // panel to hold information about whose turn it is
 		JLabel turnDisplay = new JLabel("Current turn:"); // Just displays "Whose turn is it?"
 		JTextField playerTurn = new JTextField(); // displays the player who's turn it is
@@ -26,14 +27,26 @@ public class GameControlPanel extends JPanel{
 		turnInformation.add(turnDisplay, BorderLayout.NORTH);
 		turnInformation.add(playerTurn, BorderLayout.SOUTH);
 		
+		//Roll information
+		JPanel rollInformation = new JPanel();
+		JLabel rollDisplay = new JLabel("Roll: ");
+		JTextField roll = new JTextField();
+		
+		rollInformation.add(rollDisplay);
+		rollInformation.add(roll);
+		
+		//Buttons
+		JButton accusationButton = new JButton("Make Accusation");
+		JButton nextButton = new JButton("Next Turn:");
+		
 		upperPanel.add(turnInformation, BorderLayout.WEST);
+		upperPanel.add(rollInformation, BorderLayout.WEST);
+		upperPanel.add(accusationButton, BorderLayout.WEST);
+		upperPanel.add(nextButton, BorderLayout.WEST);
+		
 		
 		add(upperPanel,BorderLayout.NORTH);
-		add(guessPanel, BorderLayout.SOUTH);
-		
-		
-		
-		
+		add(guessPanel, BorderLayout.SOUTH);		
 	}
 	
 	public static void main(String[] args) {
