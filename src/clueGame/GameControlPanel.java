@@ -4,6 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class GameControlPanel extends JPanel{
+	private Player playerTurn;
+	private String guess;
+	private String guessResult;
+	private int rollValue;
+	
 	
 	public GameControlPanel() {
 		
@@ -18,4 +23,20 @@ public class GameControlPanel extends JPanel{
 		frame.setVisible(true); // make it visible
 		
 	}
+	
+	public void setTurn(Player p) {
+		playerTurn= p;
+	}
+	public void setGuess(String g) {
+		guess= g;
+	}
+	public void setGuessResult(String gR) {
+		guessResult= gR;
+	}
+	public void setRoll(int r) {
+		rollValue=r;
+	}
+	
+	
+	
 }
