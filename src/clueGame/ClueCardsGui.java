@@ -9,23 +9,71 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 public class ClueCardsGui extends JPanel {
+	
+	//Class to hold hand and seen for each type of card
+	public static class ClueCardsGuiData extends JPanel {
+		//None text field for start of seen list
+		private JTextField noneDisplay1 = new JTextField("None");
+		private JTextField noneDisplay2 = new JTextField("None");
+		private JPanel hand, seen;
+		
+		public ClueCardsGuiData() {
+			noneDisplay1.setBackground(Color.WHITE);
+			noneDisplay1.setEditable(false);
+			noneDisplay2.setBackground(Color.WHITE);
+			noneDisplay2.setEditable(false);
+			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+			
+			JLabel handLabel = new JLabel("Hand");
+			JLabel seenLabel = new JLabel("Seen");
+			
+			hand = new JPanel();
+			hand.setLayout(new BoxLayout(hand, BoxLayout.Y_AXIS));
+			hand.add(noneDisplay1);
+			
+			seen = new JPanel();
+			seen.setLayout(new BoxLayout(seen, BoxLayout.Y_AXIS));
+			seen.add(noneDisplay2);
+			
+			add(handLabel);
+			add(hand);
+			add(seenLabel);
+			add(seen);
+		}
+		
+		public void addToHand(Card c, Color Co) {
+			JTextField cardText = new JTextField(c.getCardName());
+			cardText.setEditable(false);
+			cardText.setBackground(Co);
+			
+			hand.remove(noneDisplay1);
+			
+			hand.add(cardText);
+		}
+		
+		public void addToSeen(Card c, Color Co) {
+			JTextField cardText = new JTextField(c.getCardName());
+			cardText.setEditable(false);
+			cardText.setBackground(Co);
+			
+			seen.remove(noneDisplay2);
+			
+			seen.add(cardText);
+		}
+	}
+
 	//Size of the control GUI
 	public final static int SIZE_X = 200;
 	public final static int SIZE_Y = 700;
 	
 	//Room panels to update
 	JPanel roomsInHand;
-	JPanel roomsSeen;
 	
-	//None text field
-	JTextField noneDisplay= new JTextField("None");
-	
+	ClueCardsGuiData data = new ClueCardsGuiData();
 	//Instance pannels for cards seen
 	JPanel peopleSeen, weaponsSeen, roomsSeen;
 	
 	public ClueCardsGui() {
-		//Change color of none
-		noneDisplay.setBackground(Color.WHITE);		
 		Border defaultBorder = BorderFactory.createLineBorder(Color.BLACK); // default border for UI
 		
 		JPanel knownCardsPanel = new JPanel();
@@ -33,55 +81,18 @@ public class ClueCardsGui extends JPanel {
 		knownCardsPanel.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Known Cards"));
 		
 		//UI for people cards
-		JPanel peopleCards = new JPanel();
+		JPanel peopleCards = new ClueCardsGuiData();
 		peopleCards.setBorder(BorderFactory.createTitledBorder(defaultBorder, "People:"));
-		peopleCards.setLayout(new GridLayout(2,1)); // 2 rows, 1 col (row 1 = hand, row 2 = seen)
-		//Maybe change this to a different layout.
-			
-		JPanel cardsInHand = new JPanel();
-		cardsInHand.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Hand"));
 		
-		peopleSeen = new JPanel();
-		peopleSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
-		peopleSeen.setLayout(new BoxLayout(peopleSeen, BoxLayout.Y_AXIS));
-		
-		peopleCards.add(cardsInHand, 0);
-		peopleCards.add(peopleSeen, 1);
 		
 		//UI for room cards
-		JPanel roomCards = new JPanel();
-		roomCards.setLayout(new GridLayout(2,1));
+		JPanel roomCards = new ClueCardsGuiData();
 		roomCards.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Rooms:"));
-		
-		roomsInHand = new JPanel();
-		roomsInHand.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Hand"));
-		roomsInHand.setLayout(new BoxLayout(roomsInHand, BoxLayout.Y_AXIS));
-		
-		roomsSeen = new JPanel();
-		roomsSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
-		roomsSeen.setLayout(new BoxLayout(roomsSeen, BoxLayout.Y_AXIS));
-		
-		roomCards.add(roomsInHand);
-		roomCards.add(roomsSeen);
-		
-		roomsInHand.add(noneDisplay);
-		roomsSeen.add(noneDisplay);
 		
 		
 		//UI for weapon cards
-		JPanel weaponCards = new JPanel();
-		weaponCards.setLayout(new GridLayout(2,1));
+		JPanel weaponCards = new ClueCardsGuiData();
 		weaponCards.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Weapons:"));
-		
-		JPanel weaponsInHand = new JPanel();
-		weaponsInHand.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Hand"));
-		
-		weaponsSeen = new JPanel();
-		weaponsSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
-		weaponsSeen.setLayout(new BoxLayout(weaponsSeen, BoxLayout.Y_AXIS));
-		
-		weaponCards.add(weaponsInHand, 0);
-		weaponCards.add(weaponsSeen, 1);
 		
 		knownCardsPanel.add(peopleCards, 0);
 		knownCardsPanel.add(roomCards, 1);
