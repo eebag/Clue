@@ -13,7 +13,16 @@ public class ClueCardsGui extends JPanel {
 	public final static int SIZE_X = 200;
 	public final static int SIZE_Y = 700;
 	
+	//Room panels to update
+	JPanel roomsInHand;
+	JPanel roomsSeen;
+	
+	//None text field
+	JTextField noneDisplay= new JTextField("None");
+	
 	public ClueCardsGui() {
+		//Change color of none
+		noneDisplay.setBackground(Color.WHITE);		
 		Border defaultBorder = BorderFactory.createLineBorder(Color.BLACK); // default border for UI
 		
 		JPanel knownCardsPanel = new JPanel();
@@ -40,14 +49,20 @@ public class ClueCardsGui extends JPanel {
 		roomCards.setLayout(new GridLayout(2,1));
 		roomCards.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Rooms:"));
 		
-		JPanel roomsInHand = new JPanel();
+		roomsInHand = new JPanel();
 		roomsInHand.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Hand"));
+		roomsInHand.setLayout(new BoxLayout(roomsInHand, BoxLayout.Y_AXIS));
 		
-		JPanel roomsSeen = new JPanel();
+		roomsSeen = new JPanel();
 		roomsSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
+		roomsSeen.setLayout(new BoxLayout(roomsSeen, BoxLayout.Y_AXIS));
 		
-		roomCards.add(roomsInHand, 0);
-		roomCards.add(roomsSeen, 1);
+		roomCards.add(roomsInHand);
+		roomCards.add(roomsSeen);
+		
+		roomsInHand.add(noneDisplay);
+		roomsSeen.add(noneDisplay);
+		
 		
 		//UI for weapon cards
 		JPanel weaponCards = new JPanel();
