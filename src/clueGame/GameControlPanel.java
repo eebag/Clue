@@ -102,15 +102,15 @@ public class GameControlPanel extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame.setVisible(true);
 		
-		panel.setTurn(new ComputerPlayer("Bob", Color.RED));
+		panel.setTurn(new ComputerPlayer("Bob", Color.CYAN));
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
 		panel.setRoll(3);
-		//frame.setVisible(true); // make it visible
 	}
 	
 	public void setTurn(Player p) {
 		playerTurn.setText(p.getName());
+		playerTurn.setBackground(p.getColor());
 	}
 	public void setGuess(String g) {
 		guess.setText(g);
