@@ -1,3 +1,95 @@
+commit 0fd8065ca84773685841481ee9e9228733460ce8
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 5 22:40:47 2021 -0600
+
+    Finishing touches. Added colors to display
+
+commit 9a968fe07a328dcfd3bfbd3f4bda7189b2411c11
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 21:51:32 2021 -0600
+
+    Bugfix
+
+commit fb0b08a1914924c780c09331b9b6fb0872c95311
+Merge: d3cde0c a503c29
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 21:49:29 2021 -0600
+
+    Merge branch 'master' of https://github.com/eebag/Clue into master
+
+commit d3cde0c66b43656fe845ea8017ff8a0cb786f014
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 21:49:15 2021 -0600
+
+    restructured card gui, added subclass to make things easier.  my god i wish i did this a long time ago
+
+commit a503c29212c27fd1cc630712f69d085b8ed4ed60
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 5 21:32:36 2021 -0600
+
+    Added card colors to a map to use for later. Done in board
+
+commit 000caf254036bc47a927d15af9a3d92dcfbbc085
+Merge: dc26434 be141aa
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 21:14:28 2021 -0600
+
+    Merge branch 'GabeBranch' into master
+
+commit be141aacfe688dee55fffcaf595da9c5d31a89fc
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 21:13:51 2021 -0600
+
+    Preparing to restart this file because I did bad code
+
+commit dc264347e6865de3f4d016864a3efdc730119cc2
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 5 21:13:36 2021 -0600
+
+    Edited the rooms displays
+
+commit 7f5db92ecc5c76d62e86144046cac6fcb32fd44b
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 21:06:42 2021 -0600
+
+    same as last commit for peopleSeen
+
+commit fc7d60a5e88ca484c192fea1e708a01432667001
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 21:04:12 2021 -0600
+
+    made rooms and weapons jpanels instance variables, added methods to update them
+
+commit c32572b53296abff5b3c42b167c48b9ea0b6aa08
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 5 20:53:32 2021 -0600
+
+    Changed dimensions
+
+commit 09a9d0cc91f2905242fe142426e936433d16c1f8
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 5 20:49:08 2021 -0600
+
+    Added color to display for names
+
+commit c140e613d04e03b12661a08a99696278fd6a6bdf
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 5 20:47:20 2021 -0600
+
+    editied visibility
+
+commit 3fa760dee76d62d87418c2c45ad7ed133a81aadf
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 20:43:44 2021 -0600
+
+    Set up ClueCardsGui
+
+commit 10077b3f24332a23e272de3c9c704ac0a34b2fe6
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 5 17:22:21 2021 -0600
+
+    gitlog
+
 commit 036a58a43ea40e053153eab99603e02f0257e2cd
 Author: eebag <gabehohman@hotmail.com>
 Date:   Mon Apr 5 17:19:12 2021 -0600
