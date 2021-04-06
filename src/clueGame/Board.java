@@ -44,6 +44,7 @@ public class Board {
 	private Map<Character, Room> roomMap;
 	private Map<Character, Character> passageMap;
 	private BoardCell[][] grid;
+	private Map<Card, Color> cardColor;
 
 	// Singlton method instance of board
 	public static Board boardInstance = new Board();
@@ -98,6 +99,7 @@ public class Board {
 		weaponCards = new ArrayList<>();
 		roomCards = new ArrayList<>();
 		cardList= new ArrayList<>();
+		cardColor= new HashMap<>();
 	}
 
 	// Sets up the grid using the symbols read in from the LayoutConfig file
@@ -310,6 +312,8 @@ public class Board {
 		Collections.shuffle(deck);
 		for (int i = 0; i < sizeDeck; i++) {
 			players.get(i % players.size()).updateHand(deck.get(cardIndex));
+			cardColor.put(deck.get(cardIndex), players.get(i%players.size()).getColor());
+			
 			if (cardIndex == sizeDeck - 1) {
 				cardIndex = 0;
 			} else {
@@ -660,5 +664,9 @@ public class Board {
 
 	public ArrayList<Card> getWeaponCards() {
 		return weaponCards;
+	}
+	
+	public Color getColorOfCard(Card c) {
+		return cardColor.get(c);
 	}
 }
