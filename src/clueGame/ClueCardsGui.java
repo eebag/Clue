@@ -20,6 +20,9 @@ public class ClueCardsGui extends JPanel {
 	//None text field
 	JTextField noneDisplay= new JTextField("None");
 	
+	//Instance pannels for cards seen
+	JPanel peopleSeen, weaponsSeen, roomsSeen;
+	
 	public ClueCardsGui() {
 		//Change color of none
 		noneDisplay.setBackground(Color.WHITE);		
@@ -38,11 +41,12 @@ public class ClueCardsGui extends JPanel {
 		JPanel cardsInHand = new JPanel();
 		cardsInHand.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Hand"));
 		
-		JPanel cardsSeen = new JPanel();
-		cardsSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
+		peopleSeen = new JPanel();
+		peopleSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
+		peopleSeen.setLayout(new BoxLayout(peopleSeen, BoxLayout.Y_AXIS));
 		
 		peopleCards.add(cardsInHand, 0);
-		peopleCards.add(cardsSeen, 1);
+		peopleCards.add(peopleSeen, 1);
 		
 		//UI for room cards
 		JPanel roomCards = new JPanel();
@@ -72,8 +76,9 @@ public class ClueCardsGui extends JPanel {
 		JPanel weaponsInHand = new JPanel();
 		weaponsInHand.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Hand"));
 		
-		JPanel weaponsSeen = new JPanel();
+		weaponsSeen = new JPanel();
 		weaponsSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
+		weaponsSeen.setLayout(new BoxLayout(weaponsSeen, BoxLayout.Y_AXIS));
 		
 		weaponCards.add(weaponsInHand, 0);
 		weaponCards.add(weaponsSeen, 1);
@@ -84,6 +89,20 @@ public class ClueCardsGui extends JPanel {
 		
 		setLayout(new GridLayout(1,0));
 		add(knownCardsPanel, 0);
+	}
+	
+	public void addPersonSeen(Card c) {
+		JTextField roomText = new JTextField();
+		roomText.setText(c.getCardName());
+		
+		roomsSeen.add(roomText);
+	}
+	
+	public void addWeaponSeen(Card c) {
+		JTextField weaponText = new JTextField();
+		weaponText.setText(c.getCardName());
+		
+		weaponsSeen.add(weaponText);
 	}
 	
 	public static void main(String[] args) {
