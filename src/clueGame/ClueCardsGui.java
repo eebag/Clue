@@ -34,6 +34,7 @@ public class ClueCardsGui extends JPanel {
 		
 		peopleSeen = new JPanel();
 		peopleSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
+		peopleSeen.setLayout(new BoxLayout(peopleSeen, BoxLayout.Y_AXIS));
 		
 		peopleCards.add(cardsInHand, 0);
 		peopleCards.add(peopleSeen, 1);
@@ -48,7 +49,6 @@ public class ClueCardsGui extends JPanel {
 		
 		roomsSeen = new JPanel();
 		roomsSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
-		roomsSeen.setLayout(getLayout());
 		
 		roomCards.add(roomsInHand, 0);
 		roomCards.add(roomsSeen, 1);
@@ -63,6 +63,7 @@ public class ClueCardsGui extends JPanel {
 		
 		weaponsSeen = new JPanel();
 		weaponsSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
+		weaponsSeen.setLayout(new BoxLayout(weaponsSeen, BoxLayout.Y_AXIS));
 		
 		weaponCards.add(weaponsInHand, 0);
 		weaponCards.add(weaponsSeen, 1);
