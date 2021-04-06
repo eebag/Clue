@@ -13,6 +13,9 @@ public class ClueCardsGui extends JPanel {
 	public final static int SIZE_X = 200;
 	public final static int SIZE_Y = 800;
 	
+	//Instance pannels for cards seen
+	JPanel roomsSeen, weaponsSeen;
+	
 	public ClueCardsGui() {
 		Border defaultBorder = BorderFactory.createLineBorder(Color.BLACK); // default border for UI
 		
@@ -43,7 +46,7 @@ public class ClueCardsGui extends JPanel {
 		JPanel roomsInHand = new JPanel();
 		roomsInHand.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Hand"));
 		
-		JPanel roomsSeen = new JPanel();
+		roomsSeen = new JPanel();
 		roomsSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
 		
 		roomCards.add(roomsInHand, 0);
@@ -57,7 +60,7 @@ public class ClueCardsGui extends JPanel {
 		JPanel weaponsInHand = new JPanel();
 		weaponsInHand.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Hand"));
 		
-		JPanel weaponsSeen = new JPanel();
+		weaponsSeen = new JPanel();
 		weaponsSeen.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Seen"));
 		
 		weaponCards.add(weaponsInHand, 0);
@@ -69,6 +72,20 @@ public class ClueCardsGui extends JPanel {
 		
 		setLayout(new GridLayout(1,0));
 		add(knownCardsPanel, 0);
+	}
+	
+	public void addRoomSeen(Card c) {
+		JTextField roomText = new JTextField();
+		roomText.setText(c.getCardName());
+		
+		roomsSeen.add(roomText);
+	}
+	
+	public void addWeaponSeen(Card c) {
+		JTextField weaponText = new JTextField();
+		weaponText.setText(c.getCardName());
+		
+		weaponsSeen.add(weaponText);
 	}
 	
 	public static void main(String[] args) {
