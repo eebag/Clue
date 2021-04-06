@@ -39,7 +39,7 @@ public class GameControlPanel extends JPanel{
 		//Roll information
 		JPanel rollInformation = new JPanel();
 		JLabel rollDisplay = new JLabel("Roll: ");
-		roll = new JTextField();
+		roll = new JTextField(5);
 		roll.setEditable(false);
 
 		rollInformation.add(rollDisplay, BorderLayout.WEST);
@@ -100,13 +100,13 @@ public class GameControlPanel extends JPanel{
 		frame.setContentPane(panel); // put the panel in the frame
 		frame.setSize(SIZE_X, SIZE_Y);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-		frame.setVisible(false);
+		frame.setVisible(true);
 		
 		panel.setTurn(new ComputerPlayer("Bob", Color.RED));
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
 		panel.setRoll(3);
-		frame.setVisible(true); // make it visible
+		//frame.setVisible(true); // make it visible
 	}
 	
 	public void setTurn(Player p) {
