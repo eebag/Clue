@@ -17,6 +17,7 @@ public class ClueCardsGui extends JPanel {
 		private JPanel hand, seen;
 		
 		public ClueCardsGuiData() {
+			super();
 			noneDisplay1.setBackground(Color.WHITE);
 			noneDisplay1.setEditable(false);
 			noneDisplay2.setBackground(Color.WHITE);
@@ -40,22 +41,22 @@ public class ClueCardsGui extends JPanel {
 			add(seen);
 		}
 		
-		public void addToHand(Card c, Color Co) {
+		public void addToHand(Card c) {
+			hand.remove(noneDisplay1);
+			
 			JTextField cardText = new JTextField(c.getCardName());
 			cardText.setEditable(false);
-			cardText.setBackground(Co);
-			
-			hand.remove(noneDisplay1);
+			cardText.setBackground(c.getCardColor());
 			
 			hand.add(cardText);
 		}
 		
-		public void addToSeen(Card c, Color Co) {
+		public void addToSeen(Card c) {
+			seen.remove(noneDisplay2);
+			
 			JTextField cardText = new JTextField(c.getCardName());
 			cardText.setEditable(false);
-			cardText.setBackground(Co);
-			
-			seen.remove(noneDisplay2);
+			cardText.setBackground(c.getCardColor());
 			
 			seen.add(cardText);
 		}
@@ -68,29 +69,29 @@ public class ClueCardsGui extends JPanel {
 	//Room panels to update
 	JPanel roomsInHand;
 	
-	ClueCardsGuiData data = new ClueCardsGuiData();
-	//Instance pannels for cards seen
-	JPanel peopleSeen, weaponsSeen, roomsSeen;
+	//Instance panels for cards seen
+	ClueCardsGuiData peopleCards, roomCards, weaponCards;
 	
 	public ClueCardsGui() {
+		super();
 		Border defaultBorder = BorderFactory.createLineBorder(Color.BLACK); // default border for UI
 		
 		JPanel knownCardsPanel = new JPanel();
-		knownCardsPanel.setLayout(new GridLayout(0,1)); // Grid layout with 1 collumn, add rows as needed
+		knownCardsPanel.setLayout(new GridLayout(0,1)); // Grid layout with 1 column, add rows as needed
 		knownCardsPanel.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Known Cards"));
 		
 		//UI for people cards
-		JPanel peopleCards = new ClueCardsGuiData();
+		peopleCards = new ClueCardsGuiData();
 		peopleCards.setBorder(BorderFactory.createTitledBorder(defaultBorder, "People:"));
 		
 		
 		//UI for room cards
-		JPanel roomCards = new ClueCardsGuiData();
+		roomCards = new ClueCardsGuiData();
 		roomCards.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Rooms:"));
 		
 		
 		//UI for weapon cards
-		JPanel weaponCards = new ClueCardsGuiData();
+		weaponCards = new ClueCardsGuiData();
 		weaponCards.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Weapons:"));
 		
 		knownCardsPanel.add(peopleCards, 0);
@@ -101,18 +102,39 @@ public class ClueCardsGui extends JPanel {
 		add(knownCardsPanel, 0);
 	}
 	
-	public void addPersonSeen(Card c) {
-		JTextField roomText = new JTextField();
-		roomText.setText(c.getCardName());
-		
-		roomsSeen.add(roomText);
-	}
-	
-	public void addWeaponSeen(Card c) {
-		JTextField weaponText = new JTextField();
-		weaponText.setText(c.getCardName());
-		
-		weaponsSeen.add(weaponText);
+	public void addCard(Card c, int type) {
+		//1 will add to seen, 0 will add to hand
+		//Switch will determine which function to call
+		if(type== 1) {
+			switch (c.getType()){
+			case PERSON:
+				peopleCards.addToSeen(c);
+				break;
+			case ROOM:
+				roomCards.addToSeen(c);
+				break;
+			case WEAPON:
+				weaponCards.addToSeen(c);
+				break;
+			default:
+				break;
+			}
+		}
+		else if(type== 0) {
+			switch (c.getType()){
+			case PERSON:
+				peopleCards.addToHand(c);
+				break;
+			case ROOM:
+				roomCards.addToHand(c);
+				break;
+			case WEAPON:
+				weaponCards.addToHand(c);
+				break;
+			default:
+				break;
+			}
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -121,7 +143,40 @@ public class ClueCardsGui extends JPanel {
 		frame.setContentPane(panel); // put the panel in the frame
 		frame.setSize(SIZE_X, SIZE_Y);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+		
+		//Add some cards to test
+		Card test1= new Card("Person Card", CardType.PERSON);
+		test1.setCardColor(Color.CYAN);
+		Card test2= new Card("Weapon Card", CardType.WEAPON);
+		test2.setCardColor(Color.CYAN);
+		Card test3= new Card("Room Card", CardType.ROOM);
+		test3.setCardColor(Color.PINK);
+		Card test4= new Card("Person Card 2", CardType.PERSON);
+		test4.setCardColor(Color.PINK);
+		Card test5= new Card("Weapon Card 2", CardType.WEAPON);
+		test5.setCardColor(Color.YELLOW);
+		Card test6= new Card("Weapon Card 3", CardType.WEAPON);
+		test6.setCardColor(Color.PINK);
+		Card test7= new Card("Person Card 3", CardType.PERSON);
+		test7.setCardColor(Color.GREEN);
+		Card test8= new Card("Room Card 2", CardType.ROOM);
+		test8.setCardColor(Color.GREEN);
+		
+		//It is in a hand so it takes 0 as second arg
+		panel.addCard(test1, 0);
+		panel.addCard(test3, 0);
+		
+		//Take 1 to set to seen
+		panel.addCard(test2, 1);
+		panel.addCard(test4, 1);
+		panel.addCard(test6, 1);
+		panel.addCard(test5, 1);
+		panel.addCard(test7, 1);
+		panel.addCard(test8, 1);
+		
+		//Set visible
 		frame.setVisible(true);
+		
 	}
 
 }
