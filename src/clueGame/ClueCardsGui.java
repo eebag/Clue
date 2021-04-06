@@ -11,7 +11,7 @@ import javax.swing.border.Border;
 public class ClueCardsGui extends JPanel {
 	//Size of the control GUI
 	public final static int SIZE_X = 200;
-	public final static int SIZE_Y = 800;
+	public final static int SIZE_Y = 700;
 	
 	public ClueCardsGui() {
 		Border defaultBorder = BorderFactory.createLineBorder(Color.BLACK); // default border for UI
