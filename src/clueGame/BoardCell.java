@@ -1,7 +1,10 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
+import java.applet.Applet;
 
 public class BoardCell {
 	private DoorDirection doorDirection;
@@ -19,11 +22,12 @@ public class BoardCell {
 	private boolean room = false;
 	private boolean occupied = false;
 	private boolean isDoor =false;
+	private boolean isWalkway = false;
 	
-
-	public void setDoor(boolean isDoor) {
-		this.isDoor = isDoor;
-	}
+	//Colors for each cell type
+	Color walkwayColor = new Color(150, 150, 150); // Hallways are gray
+	Color unusedColor = new Color(20, 20, 20); // Unused are black
+	Color roomColor = new Color(20, 20, 200); // Rooms are blue
 
 	public BoardCell(int row, int col) {
 		super();
@@ -34,6 +38,18 @@ public class BoardCell {
 	
 	public void addAdjacency(BoardCell c) {
 		adjacencyList.add(c);
+	}
+	
+	//Draw method
+	public void draw(Graphics g, int h, int w) {
+		if(room) {
+			g.setColor(roomColor);
+		} else if(isWalkway){
+			g.setColor(walkwayColor);
+		} else {
+			g.setColor(unusedColor);
+		}
+		g.fillRect(row * h, column * w, w, h); // row # * size of each row -> position to draw (same with col)
 	}
 	
 	//is methods
@@ -55,6 +71,10 @@ public class BoardCell {
 	
 	public boolean isDoorway() {
 		return isDoor;
+	}
+	
+	public boolean isWalkway() {
+		return isWalkway;
 	}
 	
 	//getters and setters	
@@ -82,7 +102,15 @@ public class BoardCell {
 	public void setDoorDirection(DoorDirection doorDirection) {
 		this.doorDirection = doorDirection;
 	}
-
+	
+	public void setDoor(boolean isDoor) {
+		this.isDoor = isDoor;
+	}
+	
+	public void setWalkway(boolean isWalkway) {
+		this.isWalkway = isWalkway;
+	}
+	
 	public int getRow() {
 		return row;
 	}
