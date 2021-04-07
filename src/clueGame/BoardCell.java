@@ -24,9 +24,9 @@ public class BoardCell {
 	private boolean isDoor =false;
 	private boolean isWalkway = false;
 	
-	//Colors for each cell type
+	//Colors for each cell type (indentifier constants)
 	Color walkwayColor = new Color(150, 150, 150); // Hallways are gray
-	Color unusedColor = new Color(20, 20, 20); // Unused are black
+	Color unusedColor = Color.BLACK; // Unused are black
 	Color roomColor = new Color(20, 20, 200); // Rooms are blue
 
 	public BoardCell(int row, int col) {
@@ -40,16 +40,25 @@ public class BoardCell {
 		adjacencyList.add(c);
 	}
 	
-	//Draw method
+	//Draw method, uses drawCell differently based on cell type
 	public void draw(Graphics g, int h, int w) {
 		if(room) {
-			g.setColor(roomColor);
+			drawCell(g,h,w, roomColor);
 		} else if(isWalkway){
-			g.setColor(walkwayColor);
+			drawCell(g, h, w, walkwayColor);
 		} else {
-			g.setColor(unusedColor);
+			drawCell(g,h,w, unusedColor);
 		}
-		g.fillRect(row * h, column * w, w, h); // row # * size of each row -> position to draw (same with col)
+	}
+	
+	//Draws each cell
+	public void drawCell(Graphics g, int h, int w, Color c) {
+		//Draw cell
+		g.setColor(c);
+		g.fillRect(column*w, row*h, w, h); // row # * size of each row -> position to draw (same with col)
+		//Draw outline
+		g.setColor(Color.BLACK);
+		g.drawRect(column*w, row*h, w, h);
 	}
 	
 	//is methods
