@@ -2,6 +2,9 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -620,9 +623,20 @@ public class Board extends JPanel {
 		//Draw room names by finding room centers
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
-				if(grid[row][col].isRoomCenter()) {
-					String roomName = roomMap.get(grid[row][col].getInitial()).getName();
-					g.drawString(roomName, col*height, row*width);
+				if(grid[row][col].isLabel()) {
+					Room currentSymbol = roomMap.get(grid[row][col].getInitial());
+					String roomName = currentSymbol.getName();
+					//Finds the rectangular bounds of the room name
+					Rectangle2D offset = g.getFontMetrics().getStringBounds(roomName,g);
+					//Set the xVal and yVal based on the width of the word, so it is centered properly
+					int xVal = col*width-(int)(offset.getWidth()/2)+width/2; 
+					int yVal = row*height-(int)(offset.getHeight()/2)+height/2;
+					//Set color
+					g.setColor(Color.WHITE);
+					if(currentSymbol.equals('G')) {
+						//Rotate if here
+					}
+					g.drawString(roomName, xVal, yVal);
 				}
 			}
 		}

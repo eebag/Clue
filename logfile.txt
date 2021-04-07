@@ -1,1 +1,1 @@
-There is a formatting error in ClueSetupBadFormat306.txt in method typeClassification.
+There is a formatting error in null in method generateSolution.
