@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -10,9 +11,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+
+import javax.swing.JPanel;
+
 import java.util.Random;
 
-public class Board {
+public class Board extends JPanel {
 	// Identifier constants
 	private static final String UNUSED = "Unused";
 	private static final String WALKWAY = "Walkway";
@@ -115,6 +119,9 @@ public class Board {
 				String cellRoomName = roomMap.get(firstSymbol).getName();
 				if (!cellRoomName.equals(WALKWAY) && !cellRoomName.equals(UNUSED)) {
 					cell.setRoom(roomMap.containsKey(firstSymbol));
+				}
+				else if(!cellRoomName.equals(UNUSED)) {
+					cell.setWalkway(true);
 				}
 				grid[row][col] = cell;
 			}
@@ -593,7 +600,40 @@ public class Board {
 		
 		return null;
 	}
+	
+	
+	//Panel handling
+	public void paintComponent(Graphics g) {
+		
+		super.paintComponent(g);
+		//Get board height to find cell height
+		int height= getHeight()/numRows;
+		//Get board width to find cell width
+		int width= getWidth()/numCols; 
+		
+		//Loop through grid and have each cell draw
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				grid[row][col].draw(g, height, width); //Need to write draw in cell
+			}
+		}
+		//Draw room names by finding room centers
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				if(grid[row][col].isRoomCenter()) {
+					String roomName = roomMap.get(grid[row][col].getInitial()).getName();
+					g.drawString(roomName, col*height, row*width);
+				}
+			}
+		}
+		//Draw players
+		for (Player p: players) {
+			p.draw(g, height, width);
+		}
 
+	}	
+
+	
 	// Getters and setters
 	public Set<BoardCell> getTargets() {
 		return targets;

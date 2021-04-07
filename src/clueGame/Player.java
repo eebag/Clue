@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.Set;
 import java.util.ArrayList;
 
@@ -46,6 +47,17 @@ public abstract class Player {
 	
 	public void updateSeen(Card c) {
 		seen.add(c);
+	}
+	
+	//Draw function
+	public void draw(Graphics g, int height, int width) {
+		//location: x= #row *height of row
+		//Draw the color oval
+		g.setColor(color);
+		g.fillOval(col*width, row*height, width, height);
+		//Give it a border
+		g.setColor(Color.BLACK);
+		g.drawOval(col*width, row*height, width, height);
 	}
 	
 	//getters and setters
