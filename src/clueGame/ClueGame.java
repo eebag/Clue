@@ -15,22 +15,22 @@ public class ClueGame extends JFrame {
 	//board, control, and card screens
 	private JPanel controlGui, cardGui, boardGui;
 	
-	public ClueGame(JPanel control, JPanel card) {
+	public ClueGame(JPanel control, JPanel card, JPanel board) {
 		setSize(SIZE_X,SIZE_Y);
 		controlGui = control;
 		cardGui = card;
-		//boardGui = board;
+		boardGui = board;
 		
 		add(card, BorderLayout.EAST);
 		add(control, BorderLayout.SOUTH);
-		//add(board, BorderLayout.CENTER);
+		add(board, BorderLayout.CENTER);
 	}
 	
 	public static void main(String[] args) {
 		ClueCardsGui cardTest = new ClueCardsGui();
 		GameControlPanel controlTest = new GameControlPanel();
 		Board boardTest = Board.getInstance();
-		ClueGame test = new ClueGame(controlTest, cardTest);
+		ClueGame test = new ClueGame(controlTest, cardTest, boardTest);
 		
 		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		test.setVisible(true);
