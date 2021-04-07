@@ -56,9 +56,11 @@ public class BoardCell {
 		//Draw cell
 		g.setColor(c);
 		g.fillRect(column*w, row*h, w, h); // row # * size of each row -> position to draw (same with col)
-		//Draw outline
-		g.setColor(Color.BLACK);
-		g.drawRect(column*w, row*h, w, h);
+		//Draw outline if cell isn't a room
+		if (!room) {
+			g.setColor(Color.BLACK);
+			g.drawRect(column*w, row*h, w, h);
+		}
 	}
 	
 	//is methods
