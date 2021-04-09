@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.util.HashSet;
 import java.util.Set;
 import java.applet.Applet;
@@ -23,11 +24,15 @@ public class BoardCell {
 	private boolean occupied = false;
 	private boolean isDoor =false;
 	private boolean isWalkway = false;
+	private boolean isSecretPassage = false;
 	
 	//Colors for each cell type (indentifier constants)
-	Color walkwayColor = new Color(150, 150, 150); // Hallways are gray
-	Color unusedColor = Color.BLACK; // Unused are black
-	Color roomColor = new Color(20, 20, 200); // Rooms are blue
+	private Color walkwayColor = new Color(150, 150, 150); // Hallways are gray
+	private Color unusedColor = Color.BLACK; // Unused are black
+	private Color roomColor = new Color(20, 20, 200); // Rooms are blue
+	private Color doorColor = new Color(0, 225, 250); // doorways are cyan
+	private Color targetedColor = Color.DARK_GRAY; // temporary color assignment for targeted cells
+	
 
 	public BoardCell(int row, int col) {
 		super();
@@ -56,9 +61,67 @@ public class BoardCell {
 		//Draw cell
 		g.setColor(c);
 		g.fillRect(column*w, row*h, w, h); // row # * size of each row -> position to draw (same with col)
-		//Draw outline if cell isn't a room
-		if (!room) {
+		
+		//Draws door direction if cell is a doorway
+		if (isDoor) {
+			//System.out.println();
+			g.setColor(doorColor);
+			switch(doorDirection){
+			case UP:
+				g.fillRect(column*w, row*h, w, h/4);
+				break;
+			case DOWN:
+				g.fillRect(column*w, row*h + (int)(h*(3.0/4.0)), w, h/4);
+				break;
+			case LEFT:
+				g.fillRect(column*w, row*h, w/4, h);
+				break;
+			case RIGHT:
+				g.fillRect(column*w+ (int)(w*(3.0/4.0)), row*h, w/4, h);
+				break;
+			case NONE:
+				break;
+			default:
+				break;
+			}
+		}
+		
+		drawExtras(g, h, w);
+		
+		
+	}
+	
+	//draw targetedColor if cell is targeted, draw outlines and text again
+	public void drawTargeted(Graphics g, int h, int w) {
+		g.setColor(targetedColor);
+		g.fillRect(column*w, row*h, w, h);
+		drawExtras(g, h, w);
+	}
+	
+	//draws outlines, doors and text
+	private void drawExtras(Graphics g, int h, int w) {
+		//Draw initials if secret passage
+		if (isSecretPassage) {
+			g.setColor(Color.WHITE);
+			String passageDirection = "" + this.initial + this.secretPassage;
+			
+			//Same method for drawing a string as used in the gameboard
+			//Finds the rectangular bounds of the room name
+			Rectangle2D offset = g.getFontMetrics().getStringBounds(passageDirection,g);
+			//Set the xVal and yVal based on the width of the word, so it is centered properly
+			int stringX = column*w - (int)(offset.getWidth()/2) + w/2; 
+			int stringY = row*h - (int)(offset.getHeight()/2) + h;
+			g.drawString(passageDirection, stringX, stringY);
+		}
+		
+		//Draw outline if cell is a walkway or is a secret passage
+		if (isWalkway) {
 			g.setColor(Color.BLACK);
+			g.drawRect(column*w, row*h, w, h);
+		}
+		
+		if (isSecretPassage) {
+			g.setColor(Color.WHITE);
 			g.drawRect(column*w, row*h, w, h);
 		}
 	}
@@ -150,8 +213,13 @@ public class BoardCell {
 		return secretPassage;
 	}
 
-	public void setSecretPassage(char secretPassage) {
+	public void setSecretPassage(char secretPassage) { // do not need a seperate setter for bool value
+		this.isSecretPassage = true;
 		this.secretPassage = secretPassage;
+	}
+	
+	public boolean isSecretPassage() {
+		return this.isSecretPassage;
 	}
 	
 	public Set<BoardCell> getAdjList (){

@@ -29,7 +29,15 @@ public class ClueGame extends JFrame {
 	
 	public static void main(String[] args) {
 		ClueCardsGui cardTest = new ClueCardsGui();
+		cardTest.setSize(cardTest.SIZE_X, cardTest.SIZE_Y);
+		
+		/**
+		Card TestCard = new Card("Arthur Lakes Library", CardType.ROOM);
+		cardTest.roomCards.addToSeen(TestCard);*/
+		
 		GameControlPanel controlTest = new GameControlPanel();
+		controlTest.setSize(controlTest.SIZE_X, controlTest.SIZE_Y);
+		
 		Board boardTest = Board.getInstance();
 		boardTest.setConfigFiles("MapOfCampusCLUE.csv", "ClueSetup.txt");
 		boardTest.initialize();
@@ -37,6 +45,7 @@ public class ClueGame extends JFrame {
 		
 		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		test.setVisible(true);
+		
 		
 	}
 }

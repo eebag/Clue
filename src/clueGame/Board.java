@@ -24,7 +24,7 @@ public class Board extends JPanel {
 	private static final String UNUSED = "Unused";
 	private static final String WALKWAY = "Walkway";
 	// used to store the strings for each board cell
-	private static final String SPECIALCHARS = "><^v*#";
+	private static final String SPECIALCHARS = "><^v*#+";
 
 	// Instance variables
 	private String setupConfigFile;
@@ -39,6 +39,7 @@ public class Board extends JPanel {
 
 	// Player and game piece variables
 	private ArrayList<Player> players;
+	private ArrayList<BoardCell> startingLocations;
 	private Solution theAnswer;
 	private ArrayList<Card> deck; //Contains all but solution
 	private ArrayList<Card> cardList; //Contains every card
@@ -82,7 +83,9 @@ public class Board extends JPanel {
 		gridCreation();
 		generateAdjacency();
 		cardList=deck;
-
+		
+		setStartingLocations();
+		
 		try {
 			generateSolution();
 		} catch (BadConfigFormatException e) {
@@ -105,6 +108,7 @@ public class Board extends JPanel {
 		weaponCards = new ArrayList<>();
 		roomCards = new ArrayList<>();
 		cardList= new ArrayList<>();
+		startingLocations = new ArrayList<BoardCell>();
 	}
 
 	// Sets up the grid using the symbols read in from the LayoutConfig file
@@ -160,6 +164,9 @@ public class Board extends JPanel {
 			case '^':
 				cell.setDoorDirection(DoorDirection.UP);
 				cell.setDoor(true);
+				break;
+			case '+':
+				startingLocations.add(cell);
 				break;
 			default:
 				cell.setSecretPassage(secondSymbol);
@@ -273,7 +280,18 @@ public class Board extends JPanel {
 		}
 		// else do nothing
 	}
-
+	
+	//Sets starting locations of all players
+	private void setStartingLocations() {
+		Collections.shuffle(startingLocations);
+		for(int i = 0; i < players.size(); i++) {
+			Player p = players.get(i);
+			BoardCell startingCell = startingLocations.get(i);
+			p.setCol(startingCell.getColumn());
+			p.setRow(startingCell.getRow());
+		}
+	}
+	
 	// Pulls a room, weapon, and person card from the deck
 	private void generateSolution() throws BadConfigFormatException {
 		Random randNum = new Random();
@@ -620,6 +638,7 @@ public class Board extends JPanel {
 				grid[row][col].draw(g, height, width); //Need to write draw in cell
 			}
 		}
+		
 		//Draw room names by finding room centers
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
