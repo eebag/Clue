@@ -22,9 +22,9 @@ public class ClueGame extends JFrame {
 		cardGui = card;
 		boardGui = board;
 		
+		add(board, BorderLayout.CENTER);
 		add(card, BorderLayout.EAST);
 		add(control, BorderLayout.SOUTH);
-		add(board, BorderLayout.CENTER);
 	}
 	
 	public static void main(String[] args) {
@@ -37,5 +37,6 @@ public class ClueGame extends JFrame {
 		
 		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		test.setVisible(true);
+		
 	}
 }

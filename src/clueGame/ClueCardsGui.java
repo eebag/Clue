@@ -35,6 +35,7 @@ public class ClueCardsGui extends JPanel {
 			seen.setLayout(new BoxLayout(seen, BoxLayout.Y_AXIS));
 			seen.add(noneDisplay2);
 			
+			
 			add(handLabel);
 			add(hand);
 			add(seenLabel);
@@ -62,18 +63,19 @@ public class ClueCardsGui extends JPanel {
 		}
 	}
 
-	//Size of the control GUI
+	//Size of the card GUI
 	public final static int SIZE_X = 200;
-	public final static int SIZE_Y = 700;
+	public final static int SIZE_Y = 300;
 	
 	//Room panels to update
-	JPanel roomsInHand;
+	private JPanel roomsInHand;
 	
 	//Instance panels for cards seen
 	ClueCardsGuiData peopleCards, roomCards, weaponCards;
 	
 	public ClueCardsGui() {
 		super();
+		setSize(SIZE_X,SIZE_Y);
 		Border defaultBorder = BorderFactory.createLineBorder(Color.BLACK); // default border for UI
 		
 		JPanel knownCardsPanel = new JPanel();
@@ -89,6 +91,10 @@ public class ClueCardsGui extends JPanel {
 		roomCards = new ClueCardsGuiData();
 		roomCards.setBorder(BorderFactory.createTitledBorder(defaultBorder, "Rooms:"));
 		
+		/**
+		Card testCard = new Card("Test cardTest cardTest cardTest cardTest card", CardType.ROOM);
+		testCard.setCardColor(Color.WHITE);
+		roomCards.addToHand(testCard);*/
 		
 		//UI for weapon cards
 		weaponCards = new ClueCardsGuiData();

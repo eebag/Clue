@@ -10,8 +10,8 @@ import javax.swing.border.Border;
 
 public class GameControlPanel extends JPanel{
 	//Size of the control GUI
-	public final static int SIZE_X = 750;
-	public final static int SIZE_Y = 180;
+	public final static int SIZE_X = 700;
+	public final static int SIZE_Y = 300;
 	
 	//UI Panels for upper panel
 	private JTextField playerTurn, roll;
@@ -20,6 +20,8 @@ public class GameControlPanel extends JPanel{
 	private JTextField guess, guessResult;
 	
 	public GameControlPanel() {
+		super();
+		setSize(SIZE_X, SIZE_Y);
 		JPanel upperPanel = new JPanel(); // pannel that contains player, roll, and accusation controls
 		upperPanel.setLayout(new GridLayout(1,4));
 		JPanel lowerPanel = new JPanel(); // pannel that contains guess and guess results
