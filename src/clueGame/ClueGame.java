@@ -22,6 +22,7 @@ public class ClueGame extends JFrame {
 		cardGui = card;
 		boardGui = board;
 		
+		//adds board display, controls display, and card display to the main frame
 		add(board, BorderLayout.CENTER);
 		add(card, BorderLayout.EAST);
 		add(control, BorderLayout.SOUTH);
@@ -31,20 +32,20 @@ public class ClueGame extends JFrame {
 		ClueCardsGui cardTest = new ClueCardsGui();
 		cardTest.setSize(cardTest.SIZE_X, cardTest.SIZE_Y);
 		
-		/**
-		Card TestCard = new Card("Arthur Lakes Library", CardType.ROOM);
-		cardTest.roomCards.addToSeen(TestCard);*/
-		
 		GameControlPanel controlTest = new GameControlPanel();
 		controlTest.setSize(controlTest.SIZE_X, controlTest.SIZE_Y);
 		
-		Board boardTest = Board.getInstance();
-		boardTest.setConfigFiles("MapOfCampusCLUE.csv", "ClueSetup.txt");
-		boardTest.initialize();
-		ClueGame test = new ClueGame(controlTest, cardTest, boardTest);
+		Board board = Board.getInstance();
+		board.setConfigFiles("MapOfCampusCLUE.csv", "ClueSetup.txt");
+		board.initialize();
+		ClueGame gameGui = new ClueGame(controlTest, cardTest, board);
 		
-		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-		test.setVisible(true);
+		gameGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+		gameGui.setVisible(true);
+		
+		//Show startup dialog box
+		JOptionPane.showMessageDialog(gameGui, "Welcome to Kafadar Clue! \n You are: " + 
+		Board.getInstance().getPlayers().get(0).getName() + "\n Can you find the solution before the computer players?");
 		
 		
 	}

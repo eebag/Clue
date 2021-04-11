@@ -56,11 +56,26 @@ public class BoardCell {
 		}
 	}
 	
-	//Draws each cell
+	//Draws each cell differently based on cell type
 	public void drawCell(Graphics g, int h, int w, Color c) {
 		//Draw cell
 		g.setColor(c);
 		g.fillRect(column*w, row*h, w, h); // row # * size of each row -> position to draw (same with col)
+		
+		//Draws extra components
+		drawExtras(g, h, w);
+	}
+	
+	//Method for drawing cells a different color if they are targeted
+	//TODO: replae with "if targeted -> do this" in draw() if it proves to be a better solution
+	public void drawTargeted(Graphics g, int h, int w) {
+		g.setColor(targetedColor);
+		g.fillRect(column*w, row*h, w, h);
+		drawExtras(g, h, w);
+	}
+	
+	//draws outlines, doors, and text
+	private void drawExtras(Graphics g, int h, int w) {
 		
 		//Draws door direction if cell is a doorway
 		if (isDoor) {
@@ -86,20 +101,6 @@ public class BoardCell {
 			}
 		}
 		
-		drawExtras(g, h, w);
-		
-		
-	}
-	
-	//draw targetedColor if cell is targeted, draw outlines and text again
-	public void drawTargeted(Graphics g, int h, int w) {
-		g.setColor(targetedColor);
-		g.fillRect(column*w, row*h, w, h);
-		drawExtras(g, h, w);
-	}
-	
-	//draws outlines, doors and text
-	private void drawExtras(Graphics g, int h, int w) {
 		//Draw initials if secret passage
 		if (isSecretPassage) {
 			g.setColor(Color.WHITE);

@@ -143,6 +143,7 @@ public class ClueCardsGui extends JPanel {
 		}
 	}
 	
+	/**FOR DEBUGGING
 	public static void main(String[] args) {
 		ClueCardsGui panel = new ClueCardsGui();  // create the panel
 		JFrame frame = new JFrame();  // create the frame
@@ -183,6 +184,6 @@ public class ClueCardsGui extends JPanel {
 		//Set visible
 		frame.setVisible(true);
 		
-	}
+	}*/
 
 }
