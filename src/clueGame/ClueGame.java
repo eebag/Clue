@@ -43,10 +43,10 @@ public class ClueGame extends JFrame {
 		gameGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		gameGui.setVisible(true);
 		
-		//Show startup dialog box
+		//Show startup dialog box - nothing below this runs until the dialogue box is closed
 		JOptionPane.showMessageDialog(gameGui, "Welcome to Kafadar Clue! \n You are: " + 
 		Board.getInstance().getPlayers().get(0).getName() + "\n Can you find the solution before the computer players?");
-		
-		
+		 
+		//Process the first turn here or start the game
 	}
 }
