@@ -778,33 +778,42 @@ public class Board extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		//Press and release
-		//Check if human turn, if not end
-		if(players.get(currentPlayerIndex) instanceof HumanPlayer) {
-			suggestionRequired= false;
-			//Checks if error should be thrown for clicked location
-			boolean validCell=false;
-			//Find where the mouse is clicked
-			Point check= new Point(e.getX(),e.getY());
-			//Loop over targets and see if its contained
-			for (BoardCell b: targets) {
-				System.out.println(check);
-				if(b.isClicked(check)) {
-					validCell=true;
-					players.get(currentPlayerIndex).moveTo(b);
-					if(!b.isRoom()) {
-						//Make suggestion
-						suggestionRequired=true;
+				//Check if human turn, if not end
+				if(players.get(currentPlayerIndex) instanceof HumanPlayer) {
+					suggestionRequired= false;
+					//Checks if error should be thrown for clicked location
+					BoardCell clicked=null;
+					Point p= new Point(e.getX(),e.getY());
+					
+					for(int rows=0; rows<numRows; rows++) {
+						for(int cols=0; cols<numCols; cols++) {
+							BoardCell checkCell = grid[rows][cols];
+							if(checkCell.isClicked(p)) {
+								if(checkCell.isRoom()) {
+									clicked = roomMap.get(checkCell.getInitial()).getCenterCell();
+									
+								} 
+								else {
+									clicked=checkCell;
+								}
+							}
+						}
 					}
-					moveFinished=true;
-					targets.clear();
-					break;
+					if(targets.contains(clicked)) {
+						if(clicked.isRoom()) {
+							suggestionRequired=true;
+						}
+						moveFinished=true;
+						players.get(currentPlayerIndex).moveTo(clicked);
+						targets.clear();
+					}
+					else {
+						showErrorMessage("Invalid Move", "You cannot move to this cell");
+					}
+					
 				}
-			}
-			if(!validCell) {
-				showErrorMessage("Invalid Move", "You cannot move to this cell");
-			}
-		}
-		repaint();
+				repaint();
+
 	}
 
 	@Override
