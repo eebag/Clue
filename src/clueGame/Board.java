@@ -522,11 +522,7 @@ public class Board extends JPanel implements MouseListener{
 
 	// Calculates the targets starting from a given cell recursively
 	public void calcTargets(BoardCell startCell, int distance) {
-
-		// Clear the old targets if there are any
-		for(BoardCell b : targets) {
-			b.setTargeted(false);
-		}
+		//Clear the old targets
 		targets.clear();
 
 		// if the original cell is a room center, call calculate targets on adjacent
@@ -553,14 +549,12 @@ public class Board extends JPanel implements MouseListener{
 		// If a room center is found, movement should stop
 		if (startCell.isRoomCenter()) {
 			targets.add(startCell);
-			startCell.setTargeted(true);
 			return;
 		}
 
 		// otherwise recusively add adjacent cells
 		if (distance == 0) {
 			targets.add(startCell);
-			startCell.setTargeted(true);
 		} else {
 			adjLoop(startCell, distance);
 		}
@@ -707,9 +701,14 @@ public class Board extends JPanel implements MouseListener{
 		//Loop through grid and have each cell draw
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
-				grid[row][col].draw(g, height, width); //Need to write draw in cell
+				BoardCell cell = grid[row][col];
+				if(targets.contains(cell) && (players.get(currentPlayerIndex)) instanceof HumanPlayer) {
+					cell.drawTargeted(g, height, width);
+				} else {
+					cell.draw(g, height, width);
+				}
 			}
-		}		
+		}
 		
 		//Draw room names by finding room centers
 		for (int row = 0; row < numRows; row++) {
