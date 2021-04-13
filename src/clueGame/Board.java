@@ -704,6 +704,23 @@ public class Board extends JPanel implements MouseListener{
 				BoardCell cell = grid[row][col];
 				if(targets.contains(cell) && (players.get(currentPlayerIndex)) instanceof HumanPlayer) {
 					cell.drawTargeted(g, height, width);
+					
+					//Get all cells in the same room, highlight them as targeted
+					if(cell.isRoom()) {						
+						
+						for(int r = 0; r < numRows; r++) {
+							for(int c = 0; c < numCols; c++) {
+								BoardCell roomCell = grid[r][c];
+								
+								if((!cell.isWalkway()) && (roomCell.getInitial() == cell.getInitial()) ) {
+									roomCell.drawTargeted(g, height, width);
+								}
+								
+							}
+						}
+						
+					}
+					
 				} else {
 					cell.draw(g, height, width);
 				}
