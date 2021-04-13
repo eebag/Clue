@@ -10,6 +10,8 @@ import java.util.Set;
 import java.applet.Applet;
 
 public class BoardCell {
+	Board board = Board.getInstance();
+	
 	private DoorDirection doorDirection;
 	private Set<BoardCell> adjacencyList=new HashSet<>();
 	
@@ -53,7 +55,8 @@ public class BoardCell {
 	
 	//Draw method, uses drawCell differently based on cell type
 	public void draw(Graphics g, int h, int w) {
-		if(targeted) {
+		if(targeted && (board.getPlayers().get(board.currentPlayerIndex) instanceof HumanPlayer) ) {
+			//if the current cell is in targets list, and its human player's turn draw them as targeted
 			drawTargeted(g, h, w);
 		}else if(room) {
 			drawCell(g,h,w, roomColor);
