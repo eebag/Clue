@@ -609,12 +609,15 @@ public class Board extends JPanel {
 			}
 			repaint();
 		} else {
+			System.out.println("Computer turn");
 			//Computer player
 			ComputerPlayer currentComputer = (ComputerPlayer) currentPlayer; // Cast so we can use computer player methods
 			
 			//Move to new cell
 			BoardCell targetCell = currentComputer.selectTargets(diceRoll);
 			currentComputer.moveTo(targetCell);
+			repaint();
+			System.out.println(currentComputer.getName() + " moved to: " + targetCell.toString());
 			
 			/**WIP
 			//If in a room, make a suggestion

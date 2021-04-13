@@ -32,7 +32,7 @@ public class GameControlPanel extends JPanel{
 	private class NextListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Button press");
+			board.updateCurrentPlayer();
 			playerTurn.setText(board.getPlayers().get(board.currentPlayerIndex).getName());
 			
 			//Roll dice for the player
@@ -41,7 +41,6 @@ public class GameControlPanel extends JPanel{
 			diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
 			setRoll(diceRoll);
 			board.processTurn(diceRoll);
-			board.updateCurrentPlayer();
 			
 		}
 	}
