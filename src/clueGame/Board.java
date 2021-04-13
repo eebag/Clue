@@ -569,6 +569,9 @@ public class Board extends JPanel {
 	public void processTurn() {
 		
 		if(inTurn) {
+			if(!moveFinished) {
+				//Throw an error or complain
+			}
 			//Throw an error or complain
 		}
 		
@@ -583,7 +586,11 @@ public class Board extends JPanel {
 		Player currentPlayer = players.get(currentPlayerIndex);
 		
 		if(currentPlayer instanceof HumanPlayer) {
-			
+			System.out.println("Human turn");
+			//Calc targets for player
+			BoardCell startCell = getCell(currentPlayer.row, currentPlayer.col);
+			calcTargets(startCell, diceRoll);
+			repaint();
 		} else {
 			//Computer player
 			ComputerPlayer currentComputer = (ComputerPlayer) currentPlayer; // Cast so we can use computer player methods
@@ -685,6 +692,14 @@ public class Board extends JPanel {
 				grid[row][col].draw(g, height, width); //Need to write draw in cell
 			}
 		}
+		
+		//draw targeted cells for human player
+		if(players.get(currentPlayerIndex) instanceof HumanPlayer) {
+			for(BoardCell b : targets) {
+				b.drawTargeted(g, height, width);
+			}
+		}
+		
 		
 		//Draw room names by finding room centers
 		for (int row = 0; row < numRows; row++) {

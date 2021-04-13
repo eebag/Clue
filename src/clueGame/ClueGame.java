@@ -48,6 +48,6 @@ public class ClueGame extends JFrame {
 		Board.getInstance().getPlayers().get(0).getName() + "\n Can you find the solution before the computer players?");
 		 
 		//Process the first turn here or start the game
-		
+		board.processTurn();
 	}
 }
