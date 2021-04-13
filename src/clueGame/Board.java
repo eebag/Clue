@@ -712,31 +712,27 @@ public class Board extends JPanel implements MouseListener{
 		//Get board width to find cell width
 		int width= getWidth()/numCols; 
 		
-		//Loop through grid and have each cell draw
-		for (int row = 0; row < numRows; row++) {
-			for (int col = 0; col < numCols; col++) {
-				BoardCell cell = grid[row][col];
-				if(targets.contains(cell) && (players.get(currentPlayerIndex)) instanceof HumanPlayer) {
-					cell.drawTargeted(g, height, width);
-					
-					//Get all cells in the same room, highlight them as targeted
-					if(cell.isRoom()) {						
-						
-						for(int r = 0; r < numRows; r++) {
-							for(int c = 0; c < numCols; c++) {
-								BoardCell roomCell = grid[r][c];
-								
-								if((!cell.isWalkway()) && (roomCell.getInitial() == cell.getInitial()) ) {
-									roomCell.drawTargeted(g, height, width);
-								}
-								
+		for(int row = 0; row < numRows; row++) {
+			for(int col = 0; col < numCols; col++) {
+				grid[row][col].draw(g, height, width);
+			}
+		}
+		
+		if(players.get(currentPlayerIndex) instanceof HumanPlayer) {
+			for (BoardCell b : targets) {
+				b.drawTargeted(g, height, width);
+
+				if(b.isRoom()) {
+					for(int r = 0; r < numRows; r++) {
+						for(int c = 0; c < numCols; c++) {
+							BoardCell roomCell = grid[r][c];
+
+							if(roomCell.getInitial() == b.getInitial()) {
+								roomCell.drawTargeted(g, height, width);
 							}
+
 						}
-						
 					}
-					
-				} else {
-					cell.draw(g, height, width);
 				}
 			}
 		}
