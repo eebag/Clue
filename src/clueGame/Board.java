@@ -582,7 +582,9 @@ public class Board extends JPanel {
 		if(currentPlayer instanceof HumanPlayer) {
 			
 		} else {
-			
+			ComputerPlayer currentComputer = (ComputerPlayer) currentPlayer; // Cast so we can use computer player methods
+			BoardCell targetCell = currentComputer.selectTargets(diceRoll);
+			currentComputer.moveTo(targetCell);
 		}
 		
 		inTurn = false;

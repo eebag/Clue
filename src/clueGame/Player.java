@@ -97,7 +97,13 @@ public abstract class Player {
 		return col;
 	}
 	
-	//next 2 hould just be used in testing
+	//Sets row and col to a target cell's position
+	public void moveTo(BoardCell b) {
+		col = b.getColumn();
+		row = b.getRow();
+	}
+	
+	//next 2 should just be used in testing
 	public void setHand(ArrayList<Card> hand) {
 		this.hand=hand;
 	}
