@@ -542,8 +542,8 @@ public class Board extends JPanel implements MouseListener{
 	// used by calcTargets to do the recursion to calculate the targets
 	private void calculateTargets(BoardCell startCell, int distance) {
 
-		// previously used return
-		if (visited.contains(startCell)) {
+		// previously used or occupied return
+		if (visited.contains(startCell) ||( startCell.isOccupied() && !startCell.isRoom())) {
 			return;
 		}
 
