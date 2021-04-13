@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -19,6 +21,33 @@ public class GameControlPanel extends JPanel{
 	//UI Panels for lower panel
 	private JTextField guess, guessResult;
 	
+	//Mouse Listeners
+	//Next button listener - on click, call board.processTurn()
+	private class NextListener implements MouseListener{
+		private Board board = Board.getInstance();
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			System.out.println("Button press");
+			board.processTurn();
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+		
+	}
 	public GameControlPanel() {
 		super();
 		setSize(SIZE_X, SIZE_Y);
@@ -50,6 +79,8 @@ public class GameControlPanel extends JPanel{
 		//Buttons
 		JButton accusationButton = new JButton("Make Accusation");
 		JButton nextButton = new JButton("Next Turn:");
+		
+		nextButton.addMouseListener(new NextListener());
 		
 		//add all the sub panels and buttons to the main panel
 		upperPanel.add(turnInformation, 0);

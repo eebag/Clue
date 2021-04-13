@@ -46,6 +46,8 @@ public class Board extends JPanel {
 	private ArrayList<Card> personCards;
 	private ArrayList<Card> roomCards;
 	private ArrayList<Card> weaponCards;
+	private static int currentPlayerIndex; // index of the player for the current turn
+	private static boolean inTurn = false; //boolean for wether or not a turn is currently being played by a player
 
 	// Board layout variables
 	private ArrayList<ArrayList<String>> boardSymbols;
@@ -109,6 +111,7 @@ public class Board extends JPanel {
 		roomCards = new ArrayList<>();
 		cardList= new ArrayList<>();
 		startingLocations = new ArrayList<BoardCell>();
+		currentPlayerIndex = 0;
 	}
 
 	// Sets up the grid using the symbols read in from the LayoutConfig file
@@ -558,6 +561,34 @@ public class Board extends JPanel {
 	}
 
 	// Non-initialization methods
+	
+	//Handles turn
+	public void processTurn() {
+		
+		if(inTurn) {
+			//Throw an error or complain
+		}
+		
+		inTurn = true;
+		
+		//Roll dice for the player
+		Random roll = new Random();
+		int diceRoll = roll.nextInt(5); // picks random number 0 -> 5
+		diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
+		
+		//Get the current player
+		Player currentPlayer = players.get(currentPlayerIndex);
+		
+		if(currentPlayer instanceof HumanPlayer) {
+			
+		} else {
+			
+		}
+		
+		inTurn = false;
+		currentPlayerIndex++;
+		currentPlayerIndex = currentPlayerIndex % players.size();
+	}
 	public boolean checkAccusation(Card person, Card room, Card weapon) {
 		if (theAnswer.getPerson().equals(person) && theAnswer.getRoom().equals(room)
 				&& theAnswer.getWeapon().equals(weapon)) {
