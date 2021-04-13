@@ -58,7 +58,7 @@ public class Board extends JPanel {
 	private boolean moveFinished = false; //boolean for telling wether the player has moved
 	
 	//Variables to pass information to GUI elements
-	protected int roll = 0;
+	protected int roll;
 	
 	// Board layout variables
 	private ArrayList<ArrayList<String>> boardSymbols;
@@ -123,8 +123,8 @@ public class Board extends JPanel {
 		roomCards = new ArrayList<>();
 		cardList= new ArrayList<>();
 		startingLocations = new ArrayList<BoardCell>();
-		//Set to -1 becuase increments before turn
-		currentPlayerIndex = -1;
+		currentPlayerIndex = 0;
+		roll = 0;
 	}
 
 	// Sets up the grid using the symbols read in from the LayoutConfig file
@@ -582,10 +582,6 @@ public class Board extends JPanel {
 	
 	//Handles turn
 	public void processTurn(int diceRoll) {
-
-		//Setup for next turn
-		currentPlayerIndex++;
-		currentPlayerIndex = currentPlayerIndex % players.size();
 		
 		if(inTurn) {
 			if(!moveFinished) {
@@ -599,6 +595,7 @@ public class Board extends JPanel {
 		
 		//Get the current player
 		Player currentPlayer = players.get(currentPlayerIndex);
+		
 		
 		if(currentPlayer instanceof HumanPlayer) {
 			System.out.println("Human turn");
@@ -867,6 +864,11 @@ public class Board extends JPanel {
 
 	public ArrayList<Card> getWeaponCards() {
 		return weaponCards;
+	}
+	
+	public void updateCurrentPlayer() {
+		currentPlayerIndex++;
+		currentPlayerIndex = currentPlayerIndex % players.size();
 	}
 	
 }

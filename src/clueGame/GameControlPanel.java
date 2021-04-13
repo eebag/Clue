@@ -41,6 +41,7 @@ public class GameControlPanel extends JPanel{
 			diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
 			setRoll(diceRoll);
 			board.processTurn(diceRoll);
+			board.updateCurrentPlayer();
 			
 		}
 	}
