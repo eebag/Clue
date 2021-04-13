@@ -51,11 +51,14 @@ public class Board extends JPanel {
 	private ArrayList<Card> personCards;
 	private ArrayList<Card> roomCards;
 	private ArrayList<Card> weaponCards;
-	private int currentPlayerIndex; // index of the player for the current turn
+	protected int currentPlayerIndex; // index of the player for the current turn
 	
 	//Variables for detecting steps of a turn (throwwing different errors for early "next" button presses)
 	private boolean inTurn = false; //boolean for wether or not a turn is currently being played by a player
 	private boolean moveFinished = false; //boolean for telling wether the player has moved
+	
+	//Variables to pass information to GUI elements
+	protected int roll = 0;
 	
 	// Board layout variables
 	private ArrayList<ArrayList<String>> boardSymbols;
@@ -576,7 +579,11 @@ public class Board extends JPanel {
 	// Non-initialization methods
 	
 	//Handles turn
-	public void processTurn() {
+	public void processTurn(int diceRoll) {
+
+		//Setup for next turn
+		currentPlayerIndex++;
+		currentPlayerIndex = currentPlayerIndex % players.size();
 		
 		if(inTurn) {
 			if(!moveFinished) {
@@ -586,12 +593,7 @@ public class Board extends JPanel {
 		}
 		
 		inTurn = true;
-		moveFinished = false;
-		
-		//Roll dice for the player
-		Random roll = new Random();
-		int diceRoll = roll.nextInt(5); // picks random number 0 -> 5
-		diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
+		moveFinished = false;		
 		
 		//Get the current player
 		Player currentPlayer = players.get(currentPlayerIndex);
@@ -606,8 +608,6 @@ public class Board extends JPanel {
 			if(targets.size() == 0) {
 				moveFinished = true;
 			}
-			
-			System.out.println(targets);
 			repaint();
 		} else {
 			//Computer player
@@ -627,8 +627,6 @@ public class Board extends JPanel {
 		}
 		
 		inTurn = false;
-		currentPlayerIndex++;
-		currentPlayerIndex = currentPlayerIndex % players.size();
 	}
 	public boolean checkAccusation(Card person, Card room, Card weapon) {
 		if (theAnswer.getPerson().equals(person) && theAnswer.getRoom().equals(room)

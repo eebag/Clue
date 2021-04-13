@@ -8,11 +8,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Random;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 
 public class GameControlPanel extends JPanel{
+	//Game board
+	private Board board = Board.getInstance();
+	
 	//Size of the control GUI
 	public final static int SIZE_X = 700;
 	public final static int SIZE_Y = 300;
@@ -26,11 +30,18 @@ public class GameControlPanel extends JPanel{
 	//Mouse Listeners
 	//Next button listener - on click, call board.processTurn()
 	private class NextListener implements ActionListener{
-		private Board board = Board.getInstance();
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Button press");			
+			System.out.println("Button press");
+			playerTurn.setText(board.getPlayers().get(board.currentPlayerIndex).getName());
+			
+			//Roll dice for the player
+			Random randomroll = new Random();
+			int diceRoll = randomroll.nextInt(5); // picks random number 0 -> 5
+			diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
+			setRoll(diceRoll);
+			board.processTurn(diceRoll);
+			
 		}
 	}
 	
@@ -50,6 +61,7 @@ public class GameControlPanel extends JPanel{
 		JLabel turnDisplay = new JLabel("Current turn:"); // Just displays "Whose turn is it?"
 		playerTurn = new JTextField(); // displays the player who's turn it is
 		playerTurn.setEditable(false); // make text field uneditable
+		playerTurn.setText(board.getPlayers().get(board.currentPlayerIndex).getName()); // set text to current player's name
 		
 		turnInformation.add(turnDisplay, BorderLayout.NORTH); //add turndisplay to the top
 		turnInformation.add(playerTurn, BorderLayout.CENTER); //add the player's name to the bottom

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.Random;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -29,15 +31,18 @@ public class ClueGame extends JFrame {
 	}
 	
 	public static void main(String[] args) {
+		
+		Board board = Board.getInstance();
+		board.setConfigFiles("MapOfCampusCLUE.csv", "ClueSetup.txt");
+		board.initialize();
+		
+		
 		ClueCardsGui cardTest = new ClueCardsGui();
 		cardTest.setSize(cardTest.SIZE_X, cardTest.SIZE_Y);
 		
 		GameControlPanel controlTest = new GameControlPanel();
 		controlTest.setSize(controlTest.SIZE_X, controlTest.SIZE_Y);
 		
-		Board board = Board.getInstance();
-		board.setConfigFiles("MapOfCampusCLUE.csv", "ClueSetup.txt");
-		board.initialize();
 		ClueGame gameGui = new ClueGame(controlTest, cardTest, board);
 		
 		gameGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
@@ -48,6 +53,11 @@ public class ClueGame extends JFrame {
 		Board.getInstance().getPlayers().get(0).getName() + "\n Can you find the solution before the computer players?");
 		 
 		//Process the first turn here or start the game
-		board.processTurn();
+		//Roll dice for the player
+		Random randomroll = new Random();
+		int diceRoll = randomroll.nextInt(5); // picks random number 0 -> 5
+		diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
+		controlTest.setRoll(diceRoll);
+		board.processTurn(diceRoll);
 	}
 }
