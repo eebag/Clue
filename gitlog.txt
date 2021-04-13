@@ -1,3 +1,84 @@
+commit d66e020d5210b2e57c035f5109774f6786c1573d
+Author: eebag <gabehohman@hotmail.com>
+Date:   Fri Apr 9 17:40:58 2021 -0600
+
+    Made starting locations function using the map files, worked on fixing visiuals with card and control guis, and got doors and secret passages to display
+
+commit b3719f4557f1f30354ad7f3c7711fc409a1a29d6
+Author: eebag <gabehohman@hotmail.com>
+Date:   Thu Apr 8 18:02:11 2021 -0600
+
+    Worked on fixing visuals for control and cards gui
+
+commit 85f558a12eab3e74db7daf425576c373962761f5
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Apr 6 18:59:47 2021 -0600
+
+    Fixed borders being drawn incorrectly
+
+commit f15883cbff97d1f5456e34db773705219cecee4d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Apr 6 18:56:48 2021 -0600
+
+    Minor bug fix
+
+commit c2acf26ae8974ee0c8f96089a36b66f656e0bac2
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Apr 6 18:54:25 2021 -0600
+
+    Edited location of strings for room labels
+
+commit e20fa92488de37499cf71f62871e7145e7c45d3b
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Apr 6 18:20:18 2021 -0600
+
+    Edits to clueGame
+
+commit 6cf1c4e5bc8b5fbe0e02c1aa115956236b8405bb
+Merge: c5d7fa2 902d299
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Apr 6 18:14:47 2021 -0600
+
+    Merge branch 'BoardEdits'
+    This merge will merge the board cell and board branches.
+
+commit 902d2990e0c08e84735d0b86c6b417bf12d55a43
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Apr 6 18:14:28 2021 -0600
+
+    Added to board the loop through cells for drawing, loop to draw room name and loop to draw players
+
+commit c5d7fa2414f4fe032f9f5c0110624d53c568daa9
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Apr 6 18:13:34 2021 -0600
+
+    Refactored draw method
+
+commit 9e58da3f7c1cb848eaa323f0e5824b9908f27a57
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Apr 6 18:00:01 2021 -0600
+
+    Set up draw method for boardcell, added a iswalkway field and related methods
+
+commit af60820cca4381eec87774ed76a9203537dfd60a
+Merge: 28b5bad 0f0920e
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Apr 6 17:39:38 2021 -0600
+
+    Merge branch 'master' of https://github.com/eebag/Clue into master
+
+commit 28b5bad25bd0bdfe4b9e42b9f660fab4652ec9b4
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Apr 6 17:39:17 2021 -0600
+
+    Added ClueGame.java and started setup for the main GUI
+
+commit 0f0920e20eec72572382a8309cbdb4365b65b643
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Apr 6 17:22:51 2021 -0600
+
+    Git log
+
 commit 0fd8065ca84773685841481ee9e9228733460ce8
 Author: OJackson <oliviajackson@mymail.mines.edu>
 Date:   Mon Apr 5 22:40:47 2021 -0600

@@ -2,6 +2,8 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +15,9 @@ public class BoardCell {
 	
 	private int row;
 	private int column;
+	
+	//Will hold the rectanlge so we can check if mouse is in bounds
+	Rectangle bounds;	
 	
 	private char initial; // room initial
 	private char secretPassage; // secret passage initial (2nd initial)
@@ -61,6 +66,9 @@ public class BoardCell {
 	
 	//Draws each cell differently based on cell type
 	public void drawCell(Graphics g, int h, int w, Color c) {
+		//Save rectangle to the cell so we can check if mouse is contained later
+		bounds= new Rectangle(column*w, row*h, w, h);
+		
 		//Draw cell
 		g.setColor(c);
 		g.fillRect(column*w, row*h, w, h); // row # * size of each row -> position to draw (same with col)
@@ -131,6 +139,7 @@ public class BoardCell {
 	}
 	
 	//is methods
+	
 	public boolean isRoom() {
 		return room;
 	}
@@ -153,6 +162,12 @@ public class BoardCell {
 	
 	public boolean isWalkway() {
 		return isWalkway;
+	}
+	
+	//Check if it is clicked
+	public boolean isClicked(Point mouseLoc) {
+		//check mouse location
+		return bounds.contains(mouseLoc);
 	}
 	
 	//getters and setters	
