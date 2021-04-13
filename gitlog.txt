@@ -1,3 +1,146 @@
+commit f3ab665b37a6565481017b05c61b782120894715
+Merge: 962a05e 635042d
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 12 23:53:37 2021 -0600
+
+    Merge branch 'NoMove'
+
+commit 635042dbd78b6b21e2f166ffce44090319c891e0
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 12 23:53:15 2021 -0600
+
+    no move then no turn advance
+
+commit 962a05ed9d2c3519826f18bf0dae0645ad500494
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 23:52:55 2021 -0600
+
+    Worked on getting rooms to be highlighted on target selection
+
+commit 2a52dfeaaed5efaaefdaca47b621eeff0686e3b0
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 23:30:06 2021 -0600
+
+    Reverted to old method of drawing targeted cells
+
+commit bcb503e5c7fcf1a09f9fbcc3670758c2e414dd9f
+Merge: d8cdf8b a3ece44
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 12 23:20:49 2021 -0600
+
+    Merge branch 'master' of https://github.com/eebag/Clue
+
+commit d8cdf8b8fc3e7cf0dc6aa507bc315a54301fd42f
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 12 23:19:34 2021 -0600
+
+    Fixed location of mouse click
+
+commit a3ece4499f83f60b0762c37cc5ea96073d01f91f
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 23:15:48 2021 -0600
+
+    fixed targets being highlighted during computer player turn
+
+commit 3eba28d8a5db64eca4c86b50cadfd198e2d7e655
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 23:09:43 2021 -0600
+
+    Fixed computer players not moving, and a bug where the first player got an extra turn after their first turn
+
+commit 66b495b6be842ede4306b3cb10bc35c4e565337f
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 22:54:03 2021 -0600
+
+    Fixed issues with updating current player, moved it to be called upon press of hte 'next' button
+
+commit 9848b9eaecaea45ecbc32e84254f93b7452dfbac
+Merge: 4840e0e d40e885
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 12 22:46:55 2021 -0600
+
+    Merge branch 'ErrorFix'
+
+commit d40e885f5356e0e7e9faba0d8fb1d6a8f8c2f32e
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 12 22:46:34 2021 -0600
+
+    Changes to mouse listener and player index
+
+commit 4840e0e10dcabdcba19bff0c3b478f351b7949f3
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 22:44:38 2021 -0600
+
+    Worked on updating GUI to show turn information properly
+
+commit 64d77b0f13c6e6cdc2480e34987f2f33a43c335b
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 12 22:17:38 2021 -0600
+
+    Fixed merge error
+
+commit d327da79208b98fb19213856892cab2cb6aa49e9
+Merge: e856ada 088dc32
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 12 22:13:54 2021 -0600
+
+    Merge branch 'BoardClick'
+    Adding the mouse listener to the master branch
+
+commit e856ada56551651dd26ec68877c77ba7fad17812
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 22:12:34 2021 -0600
+
+    removed unused for loop in paintcompontent that I forgot to remove last time
+
+commit defe5dbba80e8152d0e5279083bd882f9c7050e1
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 22:11:48 2021 -0600
+
+    added targeted field to boardcell, and implemented uses of it in board specifically in calcTargets
+
+commit 088dc32cf20b82f03b31e155933316956ef02256
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Mon Apr 12 22:10:08 2021 -0600
+
+    Finished mouse listner for board click processing
+
+commit 576f6b77775fe4850fd8bd0f839bb69df71d59bd
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 21:57:52 2021 -0600
+
+    Worked on human player turn and made ClueGame call first processTurn() after dialogue is closed
+
+commit ca028f1ecb78d96da03a8cd09d40e0fdd131b8f8
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 21:41:04 2021 -0600
+
+    Computer player should move from processTurn(), set up code for suggestion stuff in processTurn()
+
+commit 33d1d2d18fc9bbe8e95b363b481383c265b187c3
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 20:39:32 2021 -0600
+
+    Added moveTo() method in player to move them to a cell, continued work on proccessTurn()
+
+commit 8560935ed5de894c67b44b5a8327f5fa1841e57a
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 20:30:41 2021 -0600
+
+    Added mouse listener to control pannel's next turn button, began work on processTurn() in Board
+
+commit 6fe1c7cf4a45ed21a797d5d71b0eb192b8792cb7
+Author: eebag <gabehohman@hotmail.com>
+Date:   Mon Apr 12 14:44:38 2021 -0600
+
+    Added comments for readability
+
+commit b496cd234b2d652b9a99901093a097ff10607425
+Author: eebag <gabehohman@hotmail.com>
+Date:   Sat Apr 10 22:00:32 2021 -0600
+
+    Refactored code, and added splash gui to startup
+
 commit d66e020d5210b2e57c035f5109774f6786c1573d
 Author: eebag <gabehohman@hotmail.com>
 Date:   Fri Apr 9 17:40:58 2021 -0600

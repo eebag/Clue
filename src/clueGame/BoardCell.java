@@ -54,6 +54,9 @@ public class BoardCell {
 	
 	//Draw method, uses drawCell differently based on cell type
 	public void draw(Graphics g, int h, int w) {
+		//Save rectangle to the cell so we can check if mouse is contained later
+		bounds= new Rectangle(column*w, row*h, w, h);
+				
 		if(room) {
 			drawCell(g,h,w, roomColor);
 		} else if(isWalkway){
@@ -64,10 +67,7 @@ public class BoardCell {
 	}
 	
 	//Draws each cell differently based on cell type
-	public void drawCell(Graphics g, int h, int w, Color c) {
-		//Save rectangle to the cell so we can check if mouse is contained later
-		bounds= new Rectangle(column*w, row*h, w, h);
-		
+	public void drawCell(Graphics g, int h, int w, Color c) {		
 		//Draw cell
 		g.setColor(c);
 		g.fillRect(column*w, row*h, w, h); // row # * size of each row -> position to draw (same with col)
