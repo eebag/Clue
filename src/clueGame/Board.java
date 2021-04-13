@@ -513,6 +513,9 @@ public class Board extends JPanel {
 	public void calcTargets(BoardCell startCell, int distance) {
 
 		// Clear the old targets if there are any
+		for(BoardCell b : targets) {
+			b.setTargeted(false);
+		}
 		targets.clear();
 
 		// if the original cell is a room center, call calculate targets on adjacent
@@ -539,12 +542,14 @@ public class Board extends JPanel {
 		// If a room center is found, movement should stop
 		if (startCell.isRoomCenter()) {
 			targets.add(startCell);
+			startCell.setTargeted(true);
 			return;
 		}
 
 		// otherwise recusively add adjacent cells
 		if (distance == 0) {
 			targets.add(startCell);
+			startCell.setTargeted(true);
 		} else {
 			adjLoop(startCell, distance);
 		}
@@ -576,6 +581,7 @@ public class Board extends JPanel {
 		}
 		
 		inTurn = true;
+		moveFinished = false;
 		
 		//Roll dice for the player
 		Random roll = new Random();
@@ -590,6 +596,13 @@ public class Board extends JPanel {
 			//Calc targets for player
 			BoardCell startCell = getCell(currentPlayer.row, currentPlayer.col);
 			calcTargets(startCell, diceRoll);
+			
+			//if there are no possible moves, set moveFinished to true
+			if(targets.size() == 0) {
+				moveFinished = true;
+			}
+			
+			System.out.println(targets);
 			repaint();
 		} else {
 			//Computer player

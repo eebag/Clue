@@ -25,6 +25,7 @@ public class BoardCell {
 	private boolean isDoor =false;
 	private boolean isWalkway = false;
 	private boolean isSecretPassage = false;
+	private boolean targeted = false;
 	
 	//Colors for each cell type (indentifier constants)
 	private Color walkwayColor = new Color(150, 150, 150); // Hallways are gray
@@ -47,7 +48,9 @@ public class BoardCell {
 	
 	//Draw method, uses drawCell differently based on cell type
 	public void draw(Graphics g, int h, int w) {
-		if(room) {
+		if(targeted) {
+			drawTargeted(g, h, w);
+		}else if(room) {
 			drawCell(g,h,w, roomColor);
 		} else if(isWalkway){
 			drawCell(g, h, w, walkwayColor);
@@ -225,6 +228,10 @@ public class BoardCell {
 	
 	public Set<BoardCell> getAdjList (){
 		return adjacencyList;
+	}
+	
+	public void setTargeted(boolean targeted) {
+		this.targeted = targeted;
 	}
 
 	@Override
