@@ -60,6 +60,17 @@ public abstract class Player {
 		g.drawOval(col*width, row*height, width, height);
 	}
 	
+	//Draw with offset function
+	public void draw(Graphics g, int height, int width, int offset) {
+		//location: x= #row *height of row
+		//Draw the color oval
+		g.setColor(color);
+		g.fillOval(col*width + offset, row*height, width, height);
+		//Give it a border
+		g.setColor(Color.BLACK);
+		g.drawOval(col*width + offset, row*height, width, height);
+	}
+	
 	//getters and setters
 	public ArrayList<Card> getHand(){
 		return hand;

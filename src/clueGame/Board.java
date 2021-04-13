@@ -29,8 +29,8 @@ public class Board extends JPanel implements MouseListener{
 	// Identifier constants
 	private static final String UNUSED = "Unused";
 	private static final String WALKWAY = "Walkway";
-	// used to store the strings for each board cell
-	private static final String SPECIALCHARS = "><^v*#+";
+	private static final String SPECIALCHARS = "><^v*#+"; // used to store the strings for each board cell
+	private static final int OFFSET = 10; //offset for players 
 
 	// Instance variables
 	private String setupConfigFile;
@@ -757,9 +757,54 @@ public class Board extends JPanel implements MouseListener{
 				}
 			}
 		}
+		
 		//Draw players
+		
+		//Make a list of all the locations the players are at
+		Set<BoardCell> locations = new HashSet<>();
 		for (Player p: players) {
-			p.draw(g, height, width);
+			//p.draw(g, height, width);
+			locations.add(grid[p.row][p.col]);
+		}
+		
+		//Make a map for mapping location to a list of players
+		Map<BoardCell, ArrayList<Player>> playerLocations = new HashMap<>();
+		for(BoardCell b : locations) {
+			ArrayList<Player> tempList = new ArrayList<>();
+			playerLocations.put(b, tempList);
+		}
+		
+		//Add all players to their positions on the map
+		for(Player p: players) {
+			playerLocations.get(grid[p.row][p.col]).add(p);
+		}
+		
+		//Loop through all the array lists, and draw the players
+		for(BoardCell b : playerLocations.keySet()) {
+			ArrayList<Player> playersAtLocation = playerLocations.get(b);
+			
+			//If only one player, draw them
+			if(playersAtLocation.size() == 1) {
+				playersAtLocation.get(0).draw(g, height, width);
+			} else {
+				//even # of players = no player at center
+				if(playersAtLocation.size() % 2 == 0) {
+					int i = 1; // counter for adjusting offset
+					for(Player p : playersAtLocation) {
+						int tempOffset = OFFSET * (playersAtLocation.size() - i);
+						p.draw(g, height, width, tempOffset);
+						i++;
+					}
+				//else odd number of players, one is at the center
+				} else {
+					int i = 1; // counter for adjusting offset
+					for(Player p : playersAtLocation) {
+						int tempOffset = OFFSET * (playersAtLocation.size() - i);
+						p.draw(g, height, width, tempOffset);
+						i++;
+					}
+				}
+			}
 		}
 
 	}	
