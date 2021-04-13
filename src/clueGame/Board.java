@@ -95,6 +95,7 @@ public class Board extends JPanel {
 		cardList=deck;
 		
 		setStartingLocations();
+		addMouseListener(new MouseClick()); //Add listener to panel
 		
 		try {
 			generateSolution();
@@ -119,7 +120,8 @@ public class Board extends JPanel {
 		roomCards = new ArrayList<>();
 		cardList= new ArrayList<>();
 		startingLocations = new ArrayList<BoardCell>();
-		currentPlayerIndex = 0;
+		//Set to -1 becuase increments before turn
+		currentPlayerIndex = -1;
 	}
 
 	// Sets up the grid using the symbols read in from the LayoutConfig file
@@ -742,17 +744,20 @@ public class Board extends JPanel {
 		JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
 	}
 	
-	private class NextListener implements MouseListener{
+	private class MouseClick implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			//Press and release
 			//Check if human turn, if not end
+			System.out.println(currentPlayerIndex);
 			if(players.get(currentPlayerIndex) instanceof HumanPlayer) {
 				//Checks if error should be thrown for clicked location
 				boolean validCell=false;
+				PointerInfo a = MouseInfo.getPointerInfo();
 				//Loop over targets and see if its contained
+				System.out.println(targets.size());
 				for (BoardCell b: targets) {
-					PointerInfo a = MouseInfo.getPointerInfo();
+					System.out.println(a.getLocation());
 					if(b.isClicked(a.getLocation())) {
 						validCell=true;
 						players.get(currentPlayerIndex).moveTo(b);
@@ -766,6 +771,7 @@ public class Board extends JPanel {
 					}
 				}
 			}
+			repaint();
 		}
 
 		@Override
