@@ -617,7 +617,6 @@ public class Board extends JPanel {
 			BoardCell targetCell = currentComputer.selectTargets(diceRoll);
 			currentComputer.moveTo(targetCell);
 			repaint();
-			System.out.println(currentComputer.getName() + " moved to: " + targetCell.toString());
 			
 			/**WIP
 			//If in a room, make a suggestion
