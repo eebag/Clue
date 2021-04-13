@@ -32,15 +32,25 @@ public class GameControlPanel extends JPanel{
 	private class NextListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			board.updateCurrentPlayer();
-			playerTurn.setText(board.getPlayers().get(board.currentPlayerIndex).getName());
-			
-			//Roll dice for the player
-			Random randomroll = new Random();
-			int diceRoll = randomroll.nextInt(5); // picks random number 0 -> 5
-			diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
-			setRoll(diceRoll);
-			board.processTurn(diceRoll);
+			if(board.isInTurn()|| !board.isMoveFinished()) {
+				if(!board.isMoveFinished()) {
+					board.showErrorMessage("Move First", "You must move to advance turns");
+				}
+				//Throw an error or complain
+			}
+			else {
+				
+				board.updateCurrentPlayer();
+				playerTurn.setText(board.getPlayers().get(board.currentPlayerIndex).getName());
+				
+				//Roll dice for the player
+				Random randomroll = new Random();
+				randomroll.setSeed(System.currentTimeMillis());
+				int diceRoll = randomroll.nextInt(5); // picks random number 0 -> 5
+				diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
+				setRoll(diceRoll);
+				board.processTurn(diceRoll);
+			}
 			
 		}
 	}

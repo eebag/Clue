@@ -57,6 +57,7 @@ public class Board extends JPanel implements MouseListener{
 	//Variables for detecting steps of a turn (throwwing different errors for early "next" button presses)
 	private boolean inTurn = false; //boolean for wether or not a turn is currently being played by a player
 	private boolean moveFinished = false; //boolean for telling wether the player has moved
+	private boolean suggestionRequired= false; //boolean for checking if suggestion is needed
 	
 	//Variables to pass information to GUI elements
 	protected int roll;
@@ -578,13 +579,6 @@ public class Board extends JPanel implements MouseListener{
 	//Handles turn
 	public void processTurn(int diceRoll) {
 		
-		if(inTurn) {
-			if(!moveFinished) {
-				//Throw an error or complain
-			}
-			//Throw an error or complain
-		}
-		
 		inTurn = true;
 		moveFinished = false;		
 		
@@ -601,12 +595,16 @@ public class Board extends JPanel implements MouseListener{
 			//if there are no possible moves, set moveFinished to true
 			if(targets.size() == 0) {
 				moveFinished = true;
+				JOptionPane.showMessageDialog(this, "You have no available moves!", "No Moves!", JOptionPane.DEFAULT_OPTION);
 			}
 			repaint();
 		} else {
 			System.out.println("Computer turn");
 			//Computer player
 			ComputerPlayer currentComputer = (ComputerPlayer) currentPlayer; // Cast so we can use computer player methods
+			
+			//set moveFinished to ture
+			moveFinished= true;
 			
 			//Move to new cell
 			BoardCell targetCell = currentComputer.selectTargets(diceRoll);
@@ -624,6 +622,22 @@ public class Board extends JPanel implements MouseListener{
 		
 		inTurn = false;
 	}
+	public boolean isInTurn() {
+		return inTurn;
+	}
+
+	public void setInTurn(boolean inTurn) {
+		this.inTurn = inTurn;
+	}
+
+	public boolean isMoveFinished() {
+		return moveFinished;
+	}
+
+	public void setMoveFinished(boolean moveFinished) {
+		this.moveFinished = moveFinished;
+	}
+
 	public boolean checkAccusation(Card person, Card room, Card weapon) {
 		if (theAnswer.getPerson().equals(person) && theAnswer.getRoom().equals(room)
 				&& theAnswer.getWeapon().equals(weapon)) {
@@ -736,7 +750,8 @@ public class Board extends JPanel implements MouseListener{
 		}
 
 	}	
-	private void showErrorMessage(String title, String message) {
+	
+	public void showErrorMessage(String title, String message) {
 		//Print the error
 		JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
 	}
@@ -748,21 +763,22 @@ public class Board extends JPanel implements MouseListener{
 		//Press and release
 		//Check if human turn, if not end
 		if(players.get(currentPlayerIndex) instanceof HumanPlayer) {
+			suggestionRequired= false;
 			//Checks if error should be thrown for clicked location
 			boolean validCell=false;
 			//Find where the mouse is clicked
 			Point check= new Point(e.getX(),e.getY());
 			//Loop over targets and see if its contained
-			System.out.println(targets.size());
 			for (BoardCell b: targets) {
 				System.out.println(check);
 				if(b.isClicked(check)) {
 					validCell=true;
 					players.get(currentPlayerIndex).moveTo(b);
 					if(!b.isRoom()) {
-						//move finished true
-						moveFinished=true;							
+						//Make suggestion
+						suggestionRequired=true;
 					}
+					moveFinished=true;
 					targets.clear();
 					break;
 				}
