@@ -1,3 +1,29 @@
+commit 0ad64407f80758a18d680a989e02e1f5ff78bcaf
+Merge: 99a3bff cba699e
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Apr 13 01:02:44 2021 -0600
+
+    Merge branch 'RoomEdit'
+
+commit 99a3bffaabb7e37b3c0f810a38289d18317f6b92
+Merge: f3ab665 4649dab
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Apr 13 01:02:24 2021 -0600
+
+    Merge branch 'master' of https://github.com/eebag/Clue
+
+commit cba699efc53ecc73663f2b6ff23feb50b5f0fa99
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Apr 13 01:02:14 2021 -0600
+
+    Edits to allow whole room to be clicked
+
+commit 4649daba15f4a30257951cbe8451b518d37285be
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Apr 13 00:15:31 2021 -0600
+
+    Fixed bug where targeted rooms were not being highlighted correctly
+
 commit f3ab665b37a6565481017b05c61b782120894715
 Merge: 962a05e 635042d
 Author: OJackson <oliviajackson@mymail.mines.edu>

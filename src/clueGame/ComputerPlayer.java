@@ -75,6 +75,7 @@ public class ComputerPlayer extends Player {
 				Room cellRoom = board.getRoom(b);
 				
 				if( !(roomsVisited.contains(cellRoom)) ) {
+					roomsVisited.add(cellRoom);
 					targetCell = b; // set target cell to the room
 					break; // end the loop
 				}	
