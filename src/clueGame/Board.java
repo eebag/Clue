@@ -3,6 +3,10 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.PointerInfo;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.io.FileNotFoundException;
@@ -15,6 +19,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.util.Random;
@@ -732,6 +737,62 @@ public class Board extends JPanel {
 		}
 
 	}	
+	private void showErrorMessage(String title, String message) {
+		//Print the error
+		JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private class NextListener implements MouseListener{
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			//Press and release
+			//Check if human turn, if not end
+			if(players.get(currentPlayerIndex) instanceof HumanPlayer) {
+				//Checks if error should be thrown for clicked location
+				boolean validCell=false;
+				//Loop over targets and see if its contained
+				for (BoardCell b: targets) {
+					PointerInfo a = MouseInfo.getPointerInfo();
+					if(b.isClicked(a.getLocation())) {
+						validCell=true;
+						players.get(currentPlayerIndex).moveTo(b);
+						if(!b.isRoom()) {
+							//move finished true
+							moveFinished=true;							
+						}
+					}
+					if(!validCell) {
+						showErrorMessage("Invalid Move", "You cannot move to this cell");
+					}
+				}
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			//if mouse is pressed
+			//do nothing	
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			//if mouse is released
+			//do nothing				
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			//if mouse enters frame
+			//do nothing			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// if mouse outside the frame
+			//do nothing
+		}
+	}
+
 
 	
 	// Getters and setters
