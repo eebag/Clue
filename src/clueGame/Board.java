@@ -704,15 +704,7 @@ public class Board extends JPanel {
 			for (int col = 0; col < numCols; col++) {
 				grid[row][col].draw(g, height, width); //Need to write draw in cell
 			}
-		}
-		
-		//draw targeted cells for human player
-		if(players.get(currentPlayerIndex) instanceof HumanPlayer) {
-			for(BoardCell b : targets) {
-				b.drawTargeted(g, height, width);
-			}
-		}
-		
+		}		
 		
 		//Draw room names by finding room centers
 		for (int row = 0; row < numRows; row++) {
