@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.PointerInfo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,7 +25,7 @@ import javax.swing.JPanel;
 
 import java.util.Random;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements MouseListener{
 	// Identifier constants
 	private static final String UNUSED = "Unused";
 	private static final String WALKWAY = "Walkway";
@@ -98,7 +99,7 @@ public class Board extends JPanel {
 		cardList=deck;
 		
 		setStartingLocations();
-		addMouseListener(new MouseClick()); //Add listener to panel
+		addMouseListener(this); //Add listener to panel
 		
 		try {
 			generateSolution();
@@ -742,59 +743,61 @@ public class Board extends JPanel {
 		JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
 	}
 	
-	private class MouseClick implements MouseListener{
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			//Press and release
-			//Check if human turn, if not end
-			System.out.println(currentPlayerIndex);
-			if(players.get(currentPlayerIndex) instanceof HumanPlayer) {
-				//Checks if error should be thrown for clicked location
-				boolean validCell=false;
-				PointerInfo a = MouseInfo.getPointerInfo();
-				//Loop over targets and see if its contained
-				System.out.println(targets.size());
-				for (BoardCell b: targets) {
-					System.out.println(a.getLocation());
-					if(b.isClicked(a.getLocation())) {
-						validCell=true;
-						players.get(currentPlayerIndex).moveTo(b);
-						if(!b.isRoom()) {
-							//move finished true
-							moveFinished=true;							
-						}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		//Press and release
+		//Check if human turn, if not end
+		if(players.get(currentPlayerIndex) instanceof HumanPlayer) {
+			//Checks if error should be thrown for clicked location
+			boolean validCell=false;
+			//Find where the mouse is clicked
+			Point check= new Point(e.getX(),e.getY());
+			//Loop over targets and see if its contained
+			System.out.println(targets.size());
+			for (BoardCell b: targets) {
+				System.out.println(check);
+				if(b.isClicked(check)) {
+					validCell=true;
+					players.get(currentPlayerIndex).moveTo(b);
+					if(!b.isRoom()) {
+						//move finished true
+						moveFinished=true;							
 					}
-					if(!validCell) {
-						showErrorMessage("Invalid Move", "You cannot move to this cell");
-					}
+					targets.clear();
+					break;
 				}
 			}
-			repaint();
+			if(!validCell) {
+				showErrorMessage("Invalid Move", "You cannot move to this cell");
+			}
 		}
+		repaint();
+	}
 
-		@Override
-		public void mousePressed(MouseEvent e) {
-			//if mouse is pressed
-			//do nothing	
-		}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		//if mouse is pressed
+		//do nothing	
+	}
 
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			//if mouse is released
-			//do nothing				
-		}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		//if mouse is released
+		//do nothing				
+	}
 
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			//if mouse enters frame
-			//do nothing			
-		}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		//if mouse enters frame
+		//do nothing			
+	}
 
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// if mouse outside the frame
-			//do nothing
-		}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// if mouse outside the frame
+		//do nothing
 	}
 
 
