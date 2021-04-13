@@ -46,9 +46,12 @@ public class Board extends JPanel {
 	private ArrayList<Card> personCards;
 	private ArrayList<Card> roomCards;
 	private ArrayList<Card> weaponCards;
-	private static int currentPlayerIndex; // index of the player for the current turn
-	private static boolean inTurn = false; //boolean for wether or not a turn is currently being played by a player
-
+	private int currentPlayerIndex; // index of the player for the current turn
+	
+	//Variables for detecting steps of a turn (throwwing different errors for early "next" button presses)
+	private boolean inTurn = false; //boolean for wether or not a turn is currently being played by a player
+	private boolean moveFinished = false; //boolean for telling wether the player has moved
+	
 	// Board layout variables
 	private ArrayList<ArrayList<String>> boardSymbols;
 	private Map<Character, Room> roomMap;
@@ -582,9 +585,20 @@ public class Board extends JPanel {
 		if(currentPlayer instanceof HumanPlayer) {
 			
 		} else {
+			//Computer player
 			ComputerPlayer currentComputer = (ComputerPlayer) currentPlayer; // Cast so we can use computer player methods
+			
+			//Move to new cell
 			BoardCell targetCell = currentComputer.selectTargets(diceRoll);
 			currentComputer.moveTo(targetCell);
+			
+			/**WIP
+			//If in a room, make a suggestion
+			if(targetCell.isRoom()) {
+				Room currentRoom = roomMap.get(targetCell.getInitial());
+				Card currentRoomCard = new Card(currentRoom.getName(), CardType.ROOM);
+				Solution computerSuggestion = currentComputer.createSuggestion(currentRoomCard);
+			}*/
 		}
 		
 		inTurn = false;
