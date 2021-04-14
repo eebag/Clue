@@ -21,7 +21,7 @@ public abstract class Player {
 	protected ArrayList<Card> seen= new ArrayList<>();
 	protected int row, col;
 	
-	
+	private Board board = Board.getInstance();
 	
 	
 	public Player(String name, Color color) {
@@ -109,9 +109,13 @@ public abstract class Player {
 	}
 	
 	//Sets row and col to a target cell's position
-	public void moveTo(BoardCell b) {
+	public void moveTo(BoardCell b) {		
+		//Update position
 		col = b.getColumn();
 		row = b.getRow();
+		
+		//Set new cell to occupied
+		b.setOccupied(true);
 	}
 	
 	//next 2 should just be used in testing

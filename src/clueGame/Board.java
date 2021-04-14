@@ -26,6 +26,9 @@ import javax.swing.JPanel;
 import java.util.Random;
 
 public class Board extends JPanel implements MouseListener{
+	//Debug mode
+	public static final boolean DEBUG = false;
+	
 	// Identifier constants
 	private static final String UNUSED = "Unused";
 	private static final String WALKWAY = "Walkway";
@@ -305,6 +308,7 @@ public class Board extends JPanel implements MouseListener{
 		for(int i = 0; i < players.size(); i++) {
 			Player p = players.get(i);
 			BoardCell startingCell = startingLocations.get(i);
+			startingCell.setOccupied(true); //set starting cell to occupied
 			p.setCol(startingCell.getColumn());
 			p.setRow(startingCell.getRow());
 		}
@@ -543,7 +547,11 @@ public class Board extends JPanel implements MouseListener{
 	private void calculateTargets(BoardCell startCell, int distance) {
 
 		// previously used or occupied return
-		if (visited.contains(startCell) ||( startCell.isOccupied() && !startCell.isRoom())) {
+		if (visited.contains(startCell)) {
+			return;
+		}
+		
+		if(startCell.isOccupied() && startCell.isWalkway()) {
 			return;
 		}
 
@@ -567,7 +575,7 @@ public class Board extends JPanel implements MouseListener{
 
 		// continue calculating targets from each adjacent cell with 1 less distance
 		for (BoardCell c : startCell.getAdjList()) {
-			if (c.isRoom() || !c.isOccupied()) {
+			if (c.isRoom() || !c.isOccupied()) { //c.isRoom() || !c.isOccupied()
 				calculateTargets(c, distance - 1);
 			}
 		}
@@ -585,6 +593,8 @@ public class Board extends JPanel implements MouseListener{
 		//Get the current player
 		Player currentPlayer = players.get(currentPlayerIndex);
 		
+		//Set their current cell to unnocupied
+		grid[currentPlayer.row][currentPlayer.col].setOccupied(false);
 		
 		if(currentPlayer instanceof HumanPlayer) {
 			System.out.println("Human turn");

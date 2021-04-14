@@ -84,6 +84,12 @@ public class ComputerPlayer extends Player {
 		
 		//if no target selected, pick random
 		if(targetCell == null) {
+			
+			//If there are no targets, stand still
+			if(targets.size() == 0) {
+				return currentCell;
+			}
+			
 			//makeshift random selection using makeshift index based for loop
 			int index = new Random().nextInt(targets.size());
 			int i = 0;

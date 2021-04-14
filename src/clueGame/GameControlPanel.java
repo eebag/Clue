@@ -46,9 +46,12 @@ public class GameControlPanel extends JPanel{
 				//Roll dice for the player
 				Random randomroll = new Random();
 				randomroll.setSeed(System.currentTimeMillis());
-				int diceRoll = randomroll.nextInt(5); // picks random number 0 -> 5
+				int diceRoll = randomroll.nextInt(6); // picks random number 0 -> 5
 				diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
 				setRoll(diceRoll);
+				
+				System.out.println(diceRoll);
+				
 				board.processTurn(diceRoll);
 			}
 			

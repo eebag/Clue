@@ -56,8 +56,10 @@ public class BoardCell {
 	public void draw(Graphics g, int h, int w) {
 		//Save rectangle to the cell so we can check if mouse is contained later
 		bounds= new Rectangle(column*w, row*h, w, h);
-				
-		if(room) {
+		
+		if(occupied && Board.DEBUG) {
+			drawCell(g,h,w,Color.RED); // draws occupied cells red if debugging
+		}else if(room) {
 			drawCell(g,h,w, roomColor);
 		} else if(isWalkway){
 			drawCell(g, h, w, walkwayColor);
