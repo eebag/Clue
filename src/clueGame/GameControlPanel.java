@@ -42,7 +42,7 @@ public class GameControlPanel extends JPanel{
 				
 				board.updateCurrentPlayer();
 				playerTurn.setText(board.getPlayers().get(board.currentPlayerIndex).getName());
-				
+				playerTurn.setBackground(board.getPlayers().get(board.currentPlayerIndex).getColor());
 				//Roll dice for the player
 				Random randomroll = new Random();
 				randomroll.setSeed(System.currentTimeMillis());

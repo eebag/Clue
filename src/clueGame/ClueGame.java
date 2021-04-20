@@ -58,6 +58,8 @@ public class ClueGame extends JFrame {
 		int diceRoll = randomroll.nextInt(5); // picks random number 0 -> 5
 		diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
 		controlTest.setRoll(diceRoll);
+		controlTest.setTurn(board.getPlayers().get(board.currentPlayerIndex));
+		
 		board.processTurn(diceRoll);
 	}
 }
