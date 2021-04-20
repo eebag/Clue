@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.*;
@@ -32,20 +33,33 @@ public class ClueGame extends JFrame {
 	
 	public static void main(String[] args) {
 		
+		//initialize the board
 		Board board = Board.getInstance();
 		board.setConfigFiles("MapOfCampusCLUE.csv", "ClueSetup.txt");
 		board.initialize();
 		
+		//initialize the game (starting hands, solutions, ect.)
 		
-		ClueCardsGui cardTest = new ClueCardsGui();
-		cardTest.setSize(cardTest.SIZE_X, cardTest.SIZE_Y);
 		
-		GameControlPanel controlTest = new GameControlPanel();
-		controlTest.setSize(controlTest.SIZE_X, controlTest.SIZE_Y);
 		
-		ClueGame gameGui = new ClueGame(controlTest, cardTest, board);
+		//Set up GUI
+		ClueCardsGui cardGui = new ClueCardsGui();
+		cardGui.setSize(cardGui.SIZE_X, cardGui.SIZE_Y);
+		
+		GameControlPanel controlGui = new GameControlPanel();
+		controlGui.setSize(controlGui.SIZE_X, controlGui.SIZE_Y);
+		
+		ClueGame gameGui = new ClueGame(controlGui, cardGui, board);
 		
 		gameGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+		
+		ArrayList<Card> hand = board.getPlayers().get(board.currentPlayerIndex).getHand();
+		
+		//add each card in hand to display
+		for(Card C : hand) {
+			cardGui.addCard(C, 1);
+		}
+		
 		gameGui.setVisible(true);
 		
 		//Show startup dialog box - nothing below this runs until the dialogue box is closed
@@ -57,8 +71,8 @@ public class ClueGame extends JFrame {
 		Random randomroll = new Random();
 		int diceRoll = randomroll.nextInt(5); // picks random number 0 -> 5
 		diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
-		controlTest.setRoll(diceRoll);
-		controlTest.setTurn(board.getPlayers().get(board.currentPlayerIndex));
+		controlGui.setRoll(diceRoll);
+		controlGui.setTurn(board.getPlayers().get(board.currentPlayerIndex));
 		
 		board.processTurn(diceRoll);
 	}
