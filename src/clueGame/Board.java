@@ -26,8 +26,9 @@ import javax.swing.JPanel;
 import java.util.Random;
 
 public class Board extends JPanel implements MouseListener{
-	//Debug mode
+	//Debug mode and ai stuff
 	public static final boolean DEBUG = false;
+	public static boolean COMPUTER_ONLY = false; //effects setup only.
 	
 	// Identifier constants
 	private static final String UNUSED = "Unused";
@@ -428,7 +429,7 @@ public class Board extends JPanel implements MouseListener{
 			return;
 		} else if (type.equals("Player")) {
 			Color color = symbolToColor(symbol);
-			if (players.isEmpty()) {
+			if (players.isEmpty() && (!COMPUTER_ONLY) ) {
 				// If no players have been added yet, add a human
 				Player newPlayer = new HumanPlayer(name, color);
 				newPlayer.hand = new ArrayList<Card>();

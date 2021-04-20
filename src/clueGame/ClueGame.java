@@ -33,12 +33,13 @@ public class ClueGame extends JFrame {
 	
 	public static void main(String[] args) {
 		
+		//Determine if the game is CPU only
+		
+		
 		//initialize the board
 		Board board = Board.getInstance();
 		board.setConfigFiles("MapOfCampusCLUE.csv", "ClueSetup.txt");
 		board.initialize();
-		
-		//initialize the game (starting hands, solutions, ect.)
 		
 		
 		
