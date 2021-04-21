@@ -608,6 +608,7 @@ public class Board extends JPanel implements MouseListener{
 				moveFinished = true;
 				JOptionPane.showMessageDialog(this, "You have no available moves!", "No Moves!", JOptionPane.DEFAULT_OPTION);
 			}
+			
 			repaint();
 		} else {
 			System.out.println("Computer turn");
@@ -622,13 +623,14 @@ public class Board extends JPanel implements MouseListener{
 			currentComputer.moveTo(targetCell);
 			repaint();
 			
-			/**WIP
+			
 			//If in a room, make a suggestion
 			if(targetCell.isRoom()) {
 				Room currentRoom = roomMap.get(targetCell.getInitial());
 				Card currentRoomCard = new Card(currentRoom.getName(), CardType.ROOM);
 				Solution computerSuggestion = currentComputer.createSuggestion(currentRoomCard);
-			}*/
+				handleSuggestion(currentPlayer, computerSuggestion);
+			}
 		}
 		
 		inTurn = false;

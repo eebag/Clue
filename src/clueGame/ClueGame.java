@@ -18,6 +18,12 @@ public class ClueGame extends JFrame {
 	//board, control, and card screens
 	private JPanel controlGui, cardGui, boardGui;
 	
+	//Refrence to the board instnace
+	private static Board board = Board.getInstance();
+	
+	//static refrence to the current GUI being used
+	private static ClueGame currentGui;
+	
 	public ClueGame(JPanel control, JPanel card, JPanel board) {
 		super("Kafadar Clue");
 		setSize(SIZE_X,SIZE_Y);
@@ -31,13 +37,17 @@ public class ClueGame extends JFrame {
 		add(control, BorderLayout.SOUTH);
 	}
 	
+	//returns refrence to the current display
+	public static ClueGame getCurrentDisplay() {
+		return currentGui;
+	}
+	
 	public static void main(String[] args) {
 		
 		//Determine if the game is CPU only
 		
 		
 		//initialize the board
-		Board board = Board.getInstance();
 		board.setConfigFiles("MapOfCampusCLUE.csv", "ClueSetup.txt");
 		board.initialize();
 		
