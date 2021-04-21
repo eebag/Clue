@@ -629,7 +629,12 @@ public class Board extends JPanel implements MouseListener{
 				Room currentRoom = roomMap.get(targetCell.getInitial());
 				Card currentRoomCard = new Card(currentRoom.getName(), CardType.ROOM);
 				Solution computerSuggestion = currentComputer.createSuggestion(currentRoomCard);
-				handleSuggestion(currentPlayer, computerSuggestion);
+				//get suggestion
+				Card suggestCard = handleSuggestion(currentPlayer, computerSuggestion);
+				
+				if(suggestCard != null) {
+					currentPlayer.seen.add(suggestCard);
+				}
 			}
 		}
 		
