@@ -1,3 +1,27 @@
+commit effa49f35f95d817be22e689cf7c2413c0eb1809
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Apr 13 18:13:28 2021 -0600
+
+    Fixed bug where multiple players could sometimes occupy the same walkway
+
+commit 45debfd7e3bd6271d90e0ff54344d4841b16b797
+Author: OJackson <oliviajackson@mymail.mines.edu>
+Date:   Tue Apr 13 16:54:42 2021 -0600
+
+    Fixed ocsillaion of computer players
+
+commit 3d7459c1bc1f1bd99afea5e375b74d534772e4e4
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Apr 13 16:46:27 2021 -0600
+
+    Got player stacking working, barely
+
+commit 8494c1c28c8add56fa779069b5ec33f3bc0a3e01
+Author: eebag <gabehohman@hotmail.com>
+Date:   Tue Apr 13 01:14:07 2021 -0600
+
+    Fixed bug where you could move to occupied cells
+
 commit 0ad64407f80758a18d680a989e02e1f5ff78bcaf
 Merge: 99a3bff cba699e
 Author: OJackson <oliviajackson@mymail.mines.edu>

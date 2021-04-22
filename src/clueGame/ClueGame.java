@@ -42,6 +42,10 @@ public class ClueGame extends JFrame {
 		return currentGui;
 	}
 	
+	public static void closeGUI() {
+		System.exit(0);
+	}
+	
 	public static void main(String[] args) {
 		
 		//Determine if the game is CPU only

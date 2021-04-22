@@ -50,13 +50,30 @@ public class GameControlPanel extends JPanel{
 				diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
 				setRoll(diceRoll);
 				
-				System.out.println(diceRoll);
+				//System.out.println(diceRoll);
 				
 				board.processTurn(diceRoll);
 			}
 			
 		}
 	}
+	
+	//Next button listener - on click, call board.processTurn()
+		private class AccListener implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(board.isInTurn()|| board.getPlayers().get(board.currentPlayerIndex) instanceof HumanPlayer) {
+					//If its the human players turn make a frame, print it and let them enter it
+					Solution accusation= board.accusationSolution();
+					board.checkAccusation(accusation.getPerson(),accusation.getRoom(), accusation.getWeapon());
+				}
+				else {
+					//If its not their turn yell at them
+					board.showErrorMessage("Chill", "Wait your turn. You're not passing the vibe check, homie.");
+				}
+				
+			}
+		}
 	
 	
 	public GameControlPanel() {
@@ -93,6 +110,8 @@ public class GameControlPanel extends JPanel{
 		JButton nextButton = new JButton("Next Turn:");
 		
 		nextButton.addActionListener(new NextListener());
+		accusationButton.addActionListener(new AccListener());
+		
 		
 		//add all the sub panels and buttons to the main panel
 		upperPanel.add(turnInformation, 0);

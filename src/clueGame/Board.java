@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -71,6 +72,7 @@ public class Board extends JPanel implements MouseListener{
 	private Map<Character, Room> roomMap;
 	private Map<Character, Character> passageMap;
 	private BoardCell[][] grid;
+	private JDialog dialog;
 
 	// Singlton method instance of board
 	public static Board boardInstance = new Board();
@@ -703,7 +705,7 @@ public class Board extends JPanel implements MouseListener{
 			
 		}
 		
-		
+		//TODO: Move player, update panel with guesss
 		return suggestionCard;
 	}
 	
@@ -899,7 +901,37 @@ public class Board extends JPanel implements MouseListener{
 		//do nothing
 	}
 
-
+	public Solution accusationSolution() {
+		JPanel suggestionPanel= new SuggestionGui();
+		dialog = new JDialog(ClueGame.getCurrentDisplay(), "Make Accusation", true);
+		dialog.setResizable(false);
+		dialog.getContentPane().add(suggestionPanel);
+		dialog.pack();
+		dialog.setLocation((getWidth()-dialog.getWidth())/2, (getHeight()-dialog.getHeight())/2);
+		
+		dialog.setVisible(true);
+		
+		return new Solution(null, null, null);
+	}
+	
+	public void win(boolean isWin) {
+		closeDialog();
+		if(isWin) {
+			JOptionPane.showMessageDialog(this, "You Win! Yayyyyyy", "Winner Winner", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "You lost. :(", "Better Luck Next Time", JOptionPane.INFORMATION_MESSAGE);
+		}
+		ClueGame.closeGUI();
+	}
+	
+	public void processSuggestion(Card resultCard, String playerName) {
+		Player currentPlayer=players.get(currentPlayerIndex);
+		closeDialog();
+		//TODO:::::
+		//Add resultcard to hand
+		//Redraw
+	}
 	
 	// Getters and setters
 	public Set<BoardCell> getTargets() {
@@ -917,6 +949,11 @@ public class Board extends JPanel implements MouseListener{
 
 	public void setNumRows(int r) {
 		numRows = r;
+	}
+	
+	public void closeDialog() {
+		dialog.dispose();
+		dialog.setVisible(false);
 	}
 
 	public int getNumRows() {
