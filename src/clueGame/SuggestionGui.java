@@ -162,7 +162,7 @@ public class SuggestionGui extends JPanel {
 				//Make suggestion
 				Card resultCard=board.handleSuggestion(board.getPlayers().get(board.currentPlayerIndex), suggest);
 				//process suggestion
-				board.processSuggestion(resultCard,(String)personOptions.getSelectedItem() );
+				board.processSuggestion(resultCard);
 			}
 		}
 	}

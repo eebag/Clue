@@ -632,10 +632,10 @@ public class Board extends JPanel implements MouseListener{
 				Card currentRoomCard = new Card(currentRoom.getName(), CardType.ROOM);
 				Solution computerSuggestion = currentComputer.createSuggestion(currentRoomCard);
 				//get suggestion
-				Card suggestCard = handleSuggestion(currentPlayer, computerSuggestion);
+				Card suggestCard = handleSuggestion(currentComputer, computerSuggestion);
 				
 				if(suggestCard != null) {
-					currentPlayer.seen.add(suggestCard);
+					currentComputer.seen.add(suggestCard);
 				}
 			}
 		}
@@ -705,10 +705,19 @@ public class Board extends JPanel implements MouseListener{
 			
 		}
 		
-		//TODO: Move player, update panel with guesss
+		//Move accused to the room
+		for(Player p : players) { //get the player from the player accused card
+			if(p.getName() == suggestion.getPerson().getCardName()) {
+				grid[p.getRow()][p.getCol()].setOccupied(false);
+				p.moveTo(grid[suggestionMaker.getRow()][suggestionMaker.getCol()]);
+			}
+		}
+		
+		
 		return suggestionCard;
 	}
 	
+	//gets card to disprove suggestion
 	private Card getSuggestionCard(Player p, Set<Card> suggestion) {
 		ArrayList<Card> hand = p.hand;
 		Collections.shuffle(hand);
@@ -914,6 +923,7 @@ public class Board extends JPanel implements MouseListener{
 		return new Solution(null, null, null);
 	}
 	
+	//ends the game with a win/loss
 	public void win(boolean isWin) {
 		closeDialog();
 		if(isWin) {
@@ -925,12 +935,16 @@ public class Board extends JPanel implements MouseListener{
 		ClueGame.closeGUI();
 	}
 	
-	public void processSuggestion(Card resultCard, String playerName) {
+	//adds result card to seen
+	public void processSuggestion(Card resultCard) {
 		Player currentPlayer=players.get(currentPlayerIndex);
 		closeDialog();
-		//TODO:::::
-		//Add resultcard to hand
-		//Redraw
+		currentPlayer.seen.add(resultCard);
+		
+		if(currentPlayer instanceof HumanPlayer) {
+			ClueGame display = ClueGame.getCurrentDisplay();
+			display.updateSeen(resultCard);
+		}
 	}
 	
 	// Getters and setters

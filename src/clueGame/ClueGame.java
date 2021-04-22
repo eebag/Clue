@@ -16,7 +16,9 @@ public class ClueGame extends JFrame {
 	public static final int SIZE_Y = 700;
 	
 	//board, control, and card screens
-	private JPanel controlGui, cardGui, boardGui;
+	private ClueCardsGui cardGui;
+	private GameControlPanel controlGui;
+	private JPanel boardGui;
 	
 	//Refrence to the board instnace
 	private static Board board = Board.getInstance();
@@ -24,7 +26,7 @@ public class ClueGame extends JFrame {
 	//static refrence to the current GUI being used
 	private static ClueGame currentGui;
 	
-	public ClueGame(JPanel control, JPanel card, JPanel board) {
+	public ClueGame(GameControlPanel control, ClueCardsGui card, JPanel board) {
 		super("Kafadar Clue");
 		setSize(SIZE_X,SIZE_Y);
 		controlGui = control;
@@ -35,6 +37,14 @@ public class ClueGame extends JFrame {
 		add(board, BorderLayout.CENTER);
 		add(card, BorderLayout.EAST);
 		add(control, BorderLayout.SOUTH);
+	}
+	
+	public void updateHand(Card c) {
+		cardGui.addCard(c, 1);
+	}
+	
+	public void updateSeen(Card c) {
+		cardGui.addCard(c, 0);
 	}
 	
 	//returns refrence to the current display
