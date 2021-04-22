@@ -184,6 +184,6 @@ public class ClueCardsGui extends JPanel {
 		//Set visible
 		frame.setVisible(true);
 		
-	}*/
+	}//*/
 
 }

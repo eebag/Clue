@@ -141,6 +141,10 @@ public class GameControlPanel extends JPanel{
 	
 	/**FOR DEBUGGING
 	public static void main(String[] args) {
+		Board board = Board.getInstance();
+		board.setConfigFiles("MapOfCampusCLUE.csv", "ClueSetup.txt");
+		board.initialize();
+		
 		GameControlPanel panel = new GameControlPanel();  // create the panel
 		JFrame frame = new JFrame();  // create the frame
 		frame.setContentPane(panel); // put the panel in the frame
@@ -152,7 +156,7 @@ public class GameControlPanel extends JPanel{
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
 		panel.setRoll(3);
-	}*/
+	}//*/
 	
 	public void setTurn(Player p) {
 		playerTurn.setText(p.getName());

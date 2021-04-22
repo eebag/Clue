@@ -53,9 +53,9 @@ public class Board extends JPanel implements MouseListener{
 	private Solution theAnswer;
 	private ArrayList<Card> deck; //Contains all but solution
 	private ArrayList<Card> cardList; //Contains every card
-	private ArrayList<Card> personCards;
-	private ArrayList<Card> roomCards;
-	private ArrayList<Card> weaponCards;
+	private ArrayList<Card> personCards; // array list of person cards
+	private ArrayList<Card> roomCards; // array list of room cards
+	private ArrayList<Card> weaponCards; // array list of weapon cards
 	protected int currentPlayerIndex; // index of the player for the current turn
 	
 	//Variables for detecting steps of a turn (throwwing different errors for early "next" button presses)
@@ -969,6 +969,10 @@ public class Board extends JPanel implements MouseListener{
 
 	public ArrayList<Card> getWeaponCards() {
 		return weaponCards;
+	}
+	
+	public ArrayList<Card> getRoomCards() {
+		return roomCards;
 	}
 	
 	public void updateCurrentPlayer() {
