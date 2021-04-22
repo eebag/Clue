@@ -677,6 +677,7 @@ public class Board extends JPanel implements MouseListener{
 		suggestionCards.add(suggestion.getRoom());
 		suggestionCards.add(suggestion.getWeapon());
 		
+		
 		int index = 0;
 		for(int i = 0; i < players.size(); i++) {
 			if(players.get(i).equals(suggestionMaker)) {
@@ -713,6 +714,17 @@ public class Board extends JPanel implements MouseListener{
 			}
 		}
 		
+		//update control gui
+		GameControlPanel controlGui = ClueGame.getCurrentDisplay().getControlGui();
+		String guessString = suggestionMaker.getName() + " accused " + suggestion.getPerson().getCardName() +
+				" using " + suggestion.getWeapon().getCardName() + " in " + suggestion.getRoom().getCardName();
+		controlGui.updateGuess(guessString);
+		
+		if(suggestionCard == null) { // not disproven
+			controlGui.updateGuessResult(true);
+		} else { // disproven
+			controlGui.updateGuessResult(false);
+		}
 		
 		return suggestionCard;
 	}

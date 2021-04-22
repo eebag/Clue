@@ -47,6 +47,10 @@ public class ClueGame extends JFrame {
 		cardGui.addCard(c, 0);
 	}
 	
+	public GameControlPanel getControlGui() {
+		return controlGui;
+	}
+	
 	//returns refrence to the current display
 	public static ClueGame getCurrentDisplay() {
 		return currentGui;
