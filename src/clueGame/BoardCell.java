@@ -36,8 +36,8 @@ public class BoardCell {
 	//Colors for each cell type (indentifier constants)
 	private Color walkwayColor = new Color(150, 150, 150); // Hallways are gray
 	private Color unusedColor = Color.BLACK; // Unused are black
-	private Color roomColor = new Color(20, 20, 200); // Rooms are blue
-	private Color doorColor = new Color(0, 225, 250); // doorways are cyan
+	private Color roomColor = new Color(60, 78, 254); // Rooms are blue
+	private Color doorColor = new Color(133, 241, 252); // doorways are darker blue
 	private Color targetedColor = Color.DARK_GRAY; // temporary color assignment for targeted cells
 	
 

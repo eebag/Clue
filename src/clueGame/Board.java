@@ -460,19 +460,19 @@ public class Board extends JPanel implements MouseListener{
 		// Create a switch statement to find correct color
 		switch (symbol) {
 		case 'R':
-			return Color.red;
+			return (new Color (253, 97, 95));
 		case 'B':
-			return Color.blue;
+			return (new Color (120, 255, 150));
 		case 'M':
-			return Color.magenta;
+			return (new Color (229, 186, 254));
 		case 'O':
-			return Color.orange;
+			return (new Color (255, 158, 98));
 		case 'P':
 			return Color.pink;
 		case 'Y':
-			return Color.yellow;
+			return (new Color (255, 245, 98));
 		default:
-			return Color.black;
+			return Color.white;
 		}
 	}
 
