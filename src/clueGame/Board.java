@@ -647,12 +647,11 @@ public class Board extends JPanel implements MouseListener{
 				if(suggestCard != null) {
 					currentComputer.seen.add(suggestCard);
 				}
-				
-				suggestionRequired = false;
 			}
 		}
 		
 		inTurn = false;
+		suggestionRequired = false;
 	}
 	public boolean isInTurn() {
 		return inTurn;

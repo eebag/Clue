@@ -40,7 +40,7 @@ public class GameControlPanel extends JPanel{
 			}
 			else {
 				if(board.isSuggestionRequired()) {
-					SuggestionGui suggest= new suggestionGui(board.getCurrentPlayerLocation().getRoom());
+					SuggestionGui suggest= new SuggestionGui(board.getCurrentPlayerLocation());
 					board.accusationSolution(suggest);
 				}
 				else {
