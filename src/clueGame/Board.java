@@ -1082,4 +1082,8 @@ public class Board extends JPanel implements MouseListener{
 		return currentRoom;
 	}
 	
+	public void setSuggestionRequired(boolean sugg) {
+		suggestionRequired=sugg;
+	}
+	
 }
