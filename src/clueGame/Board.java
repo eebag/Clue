@@ -591,7 +591,7 @@ public class Board extends JPanel implements MouseListener{
 	public void processTurn(int diceRoll) {
 		
 		inTurn = true;
-		moveFinished = false;		
+		moveFinished = false;
 		
 		//Get the current player
 		Player currentPlayer = players.get(currentPlayerIndex);

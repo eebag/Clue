@@ -52,6 +52,7 @@ public class GameControlPanel extends JPanel{
 				
 				guess.setText("");
 				guessResult.setText("");
+				guessResult.setBackground(null);
 				
 				board.processTurn(diceRoll);
 			}
@@ -166,10 +167,10 @@ public class GameControlPanel extends JPanel{
 	public void updateGuessResult(boolean result) {
 		if(result) {
 			guessResult.setText("Not disproven");
-			guessResult.setBackground(Color.GREEN);
+			guessResult.setBackground(new Color (130, 255, 160));
 		} else {
 			guessResult.setText("Disproven");
-			guessResult.setBackground(Color.RED);
+			guessResult.setBackground((new Color (253, 97, 95)));
 		}	
 	}
 	
