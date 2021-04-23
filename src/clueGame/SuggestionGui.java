@@ -163,6 +163,10 @@ public class SuggestionGui extends JPanel {
 				Card resultCard=board.handleSuggestion(board.getPlayers().get(board.currentPlayerIndex), suggest);
 				//process suggestion
 				board.processSuggestion(resultCard);
+				
+				GameControlPanel gui = ClueGame.getCurrentDisplay().getControlGui();
+				gui.nextTurn();
+				
 			}
 		}
 	}
