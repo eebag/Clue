@@ -64,9 +64,10 @@ public class GameControlPanel extends JPanel{
 		private class AccListener implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(board.isInTurn()|| board.getPlayers().get(board.currentPlayerIndex) instanceof HumanPlayer) {
+				if(board.isInTurn() || board.getPlayers().get(board.currentPlayerIndex) instanceof HumanPlayer) {
 					//If its the human players turn make a frame, print it and let them enter it
-					Solution accusation= board.accusationSolution();
+					JPanel suggestionPanel= new SuggestionGui();
+					Solution accusation= board.accusationSolution(suggestionPanel);
 					board.checkAccusation(accusation.getPerson(),accusation.getRoom(), accusation.getWeapon());
 				}
 				else {
