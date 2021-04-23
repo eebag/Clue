@@ -635,6 +635,8 @@ public class Board extends JPanel implements MouseListener{
 			if(targetCell.isRoom()) {
 				System.out.println("In a room");
 				
+				//suggestionRequired = true;
+				
 				Room currentRoom = roomMap.get(targetCell.getInitial());
 				Card currentRoomCard = new Card(currentRoom.getName(), CardType.ROOM);
 				Solution computerSuggestion = currentComputer.createSuggestion(currentRoomCard);
@@ -645,6 +647,8 @@ public class Board extends JPanel implements MouseListener{
 				if(suggestCard != null) {
 					currentComputer.seen.add(suggestCard);
 				}
+				
+				suggestionRequired = false;
 			}
 		}
 		
@@ -945,8 +949,7 @@ public class Board extends JPanel implements MouseListener{
 		//do nothing
 	}
 
-	public Solution accusationSolution() {
-		JPanel suggestionPanel= new SuggestionGui();
+	public Solution accusationSolution(JPanel suggestionPanel) {
 		dialog = new JDialog(ClueGame.getCurrentDisplay(), "Make Accusation", true);
 		dialog.setResizable(false);
 		dialog.getContentPane().add(suggestionPanel);
@@ -1068,6 +1071,14 @@ public class Board extends JPanel implements MouseListener{
 	
 	public boolean isSuggestionRequired() {
 		return suggestionRequired;
+	}
+	
+	public BoardCell getCurrentPlayerLocation() {
+		Player currentPlayer = players.get(currentPlayerIndex);
+		
+		BoardCell location = grid[currentPlayer.getRow()][currentPlayer.getCol()];
+		
+		return location;
 	}
 	
 }
