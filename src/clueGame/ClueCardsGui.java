@@ -50,6 +50,8 @@ public class ClueCardsGui extends JPanel {
 			cardText.setBackground(c.getCardColor());
 			
 			hand.add(cardText);
+			
+			repaint();
 		}
 		
 		public void addToSeen(Card c) {
@@ -60,6 +62,8 @@ public class ClueCardsGui extends JPanel {
 			cardText.setBackground(c.getCardColor());
 			
 			seen.add(cardText);
+			
+			repaint();
 		}
 	}
 
