@@ -1,6 +1,7 @@
 package tests;
 import java.util.ArrayList;
-
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 
@@ -103,7 +104,7 @@ public class PlayerMethodTest {
 		ComputerPlayer testPlayer= new ComputerPlayer("Test player", Color.RED);
 		//set the players hand and pass possible cards
 		testPlayer.setPossibleCardSuggestions(board.getWeaponCards(), board.getPersonCards());
-		ArrayList<Card> hand= new ArrayList<Card>();
+		Set<Card> hand= new HashSet<Card>();
 		Card card1 = new Card("CPW", CardType.PERSON);
 		Card card2 = new Card("Text Book", CardType.WEAPON);
 		hand.add(card1);
@@ -112,7 +113,7 @@ public class PlayerMethodTest {
 		//Set player seen
 		Card card3 = new Card("PCJ", CardType.PERSON);
 		Card card4 = new Card("Pencil", CardType.WEAPON);
-		ArrayList<Card> seen= new ArrayList<Card>();
+		Set<Card> seen= new HashSet<Card>();
 		seen.add(card1);
 		seen.add(card2);
 		seen.add(card3);

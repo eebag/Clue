@@ -64,6 +64,7 @@ public class Board extends JPanel implements MouseListener{
 	private boolean inTurn = false; //boolean for wether or not a turn is currently being played by a player
 	private boolean moveFinished = false; //boolean for telling wether the player has moved
 	private boolean suggestionRequired= false; //boolean for checking if suggestion is needed
+	private boolean added= false;
 	
 	//Variables to pass information to GUI elements
 	protected int roll;
@@ -1014,7 +1015,7 @@ public class Board extends JPanel implements MouseListener{
 	public void processSuggestion(Card resultCard) {
 		Player currentPlayer=players.get(currentPlayerIndex);
 		closeDialog();
-		currentPlayer.seen.add(resultCard);
+		added= currentPlayer.seen.add(resultCard);
 	}
 	
 	// Getters and setters
@@ -1117,6 +1118,14 @@ public class Board extends JPanel implements MouseListener{
 	
 	public void setSuggestionRequired(boolean sugg) {
 		suggestionRequired=sugg;
+	}
+	
+	public void setAdded(boolean add) {
+		added=add;
+	}
+	
+	public boolean isAdded() {
+		return added;
 	}
 	
 }

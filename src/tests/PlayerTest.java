@@ -78,7 +78,7 @@ public class PlayerTest {
 			int cardsRemaining = 18; // TODO: actually get a value for this
 			int handSize = cardsRemaining / numPlayers;
 			for(Player p : board.getPlayers()) {
-				ArrayList<Card> hand = p.getHand();
+				Set<Card> hand = p.getHand();
 				assertEquals(hand.size(), handSize); // temporary value until we figure out how to re-calculate based on # of players
 			}
 		}
