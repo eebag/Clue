@@ -301,7 +301,7 @@ public class BoardAdjTargetTest {
 		// test a roll of 6
 		board.calcTargets(board.getCell(8,16), 6);
 		targets= board.getTargets();
-		assertEquals(30, targets.size());
+		assertEquals(29, targets.size()); // updated from 30->29 to account for player starting positions
 		//Test extremes
 		assertTrue(targets.contains(board.getCell(8,10)));
 		assertTrue(targets.contains(board.getCell(14,16)));
@@ -310,7 +310,8 @@ public class BoardAdjTargetTest {
 		//Test close
 		assertTrue(targets.contains(board.getCell(6,16)));
 		assertTrue(targets.contains(board.getCell(9,15)));
-		assertTrue(targets.contains(board.getCell(11,15)));
+		//assertTrue(targets.contains(board.getCell(11,15))); starting position
+		
 		//Test room centers
 		assertTrue(targets.contains(board.getCell(4,13)));
 		assertTrue(targets.contains(board.getCell(4,20)));

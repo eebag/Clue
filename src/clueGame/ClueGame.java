@@ -37,6 +37,9 @@ public class ClueGame extends JFrame {
 		add(board, BorderLayout.CENTER);
 		add(card, BorderLayout.EAST);
 		add(control, BorderLayout.SOUTH);
+		
+		//update currentGui
+		currentGui = this;
 	}
 	
 	public void updateHand(Card c) {
@@ -87,6 +90,13 @@ public class ClueGame extends JFrame {
 		//add each card in hand to display
 		for(Card C : hand) {
 			cardGui.addCard(C, 1);
+		}
+		
+		
+		if(board.DEBUG) {
+			if(gameGui.getControlGui() == null) {
+				System.out.println("CONTROL GUI WEIRD");
+			}
 		}
 		
 		gameGui.setVisible(true);

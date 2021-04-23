@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class Board extends JPanel implements MouseListener{
 	//Debug mode and ai stuff
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	public static boolean COMPUTER_ONLY = false; //effects setup only.
 	
 	// Identifier constants
@@ -600,7 +600,10 @@ public class Board extends JPanel implements MouseListener{
 		grid[currentPlayer.row][currentPlayer.col].setOccupied(false);
 		
 		if(currentPlayer instanceof HumanPlayer) {
-			System.out.println("Human turn");
+			if(DEBUG) {
+				System.out.println("Human turn");
+			}
+			
 			//Calc targets for player
 			BoardCell startCell = getCell(currentPlayer.row, currentPlayer.col);
 			calcTargets(startCell, diceRoll);
@@ -613,7 +616,10 @@ public class Board extends JPanel implements MouseListener{
 			
 			repaint();
 		} else {
-			System.out.println("Computer turn");
+			if(DEBUG) {
+				System.out.println("Computer turn");
+			}
+			
 			//Computer player
 			ComputerPlayer currentComputer = (ComputerPlayer) currentPlayer; // Cast so we can use computer player methods
 			
@@ -628,9 +634,12 @@ public class Board extends JPanel implements MouseListener{
 			
 			//If in a room, make a suggestion
 			if(targetCell.isRoom()) {
+				System.out.println("In a room");
+				
 				Room currentRoom = roomMap.get(targetCell.getInitial());
 				Card currentRoomCard = new Card(currentRoom.getName(), CardType.ROOM);
 				Solution computerSuggestion = currentComputer.createSuggestion(currentRoomCard);
+				
 				//get suggestion
 				Card suggestCard = handleSuggestion(currentComputer, computerSuggestion);
 				
@@ -667,11 +676,20 @@ public class Board extends JPanel implements MouseListener{
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public Card handleSuggestion(Player suggestionMaker, Solution suggestion) {
 		//get index of suggestion maker in player list
 		//start at index, loop through players, then loop from begginning -> index
 		//shuffle hand for each player
 		//return first card that disproves suggestion
+		
+		if(DEBUG) {
+			System.out.println("SUGGESTION MADE");
+			String guessString = suggestionMaker.getName() + " accused " + suggestion.getPerson().getCardName() +
+					" using " + suggestion.getWeapon().getCardName() + " in " + suggestion.getRoom().getCardName();
+			System.out.println(guessString);
+		}
+		
 		Set<Card> suggestionCards = new HashSet<Card>();
 		suggestionCards.add(suggestion.getPerson());
 		suggestionCards.add(suggestion.getRoom());
@@ -692,23 +710,27 @@ public class Board extends JPanel implements MouseListener{
 			suggestionCard = getSuggestionCard(players.get(i), suggestionCards);
 			
 			if(suggestionCard != null) {
-				return suggestionCard;
+				break;
 			}
 			
 		}
 		
 		for(int i = 0; i < index; i++) {
-			suggestionCard = getSuggestionCard(players.get(i), suggestionCards);
-			
 			if(suggestionCard != null) {
-				return suggestionCard;
+				break;
 			}
 			
+			suggestionCard = getSuggestionCard(players.get(i), suggestionCards);
 		}
 		
 		//Move accused to the room
 		for(Player p : players) { //get the player from the player accused card
 			if(p.getName() == suggestion.getPerson().getCardName()) {
+				
+				if(DEBUG) {
+					System.out.println("Moving " + p.getName());
+				}
+				
 				grid[p.getRow()][p.getCol()].setOccupied(false);
 				p.moveTo(grid[suggestionMaker.getRow()][suggestionMaker.getCol()]);
 			}
@@ -725,6 +747,8 @@ public class Board extends JPanel implements MouseListener{
 		} else { // disproven
 			controlGui.updateGuessResult(false);
 		}
+		
+		repaint();
 		
 		return suggestionCard;
 	}
