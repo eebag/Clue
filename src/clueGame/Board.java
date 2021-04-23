@@ -1067,4 +1067,8 @@ public class Board extends JPanel implements MouseListener{
 		currentPlayerIndex = currentPlayerIndex % players.size();
 	}
 	
+	public boolean isSuggestionRequired() {
+		return suggestionRequired;
+	}
+	
 }
