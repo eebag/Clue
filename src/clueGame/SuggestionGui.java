@@ -157,7 +157,11 @@ public class SuggestionGui extends JPanel {
 			}
 			else {
 				//get person and weapon
-				Card roomCard =new Card(roomSave.getName(), CardType.ROOM);		
+				Card roomCard =new Card(roomSave.getName(), CardType.ROOM);	
+				
+				weaponCard = findWeapon(weaponCard);
+				personCard = findPerson(personCard);
+				roomCard = findRoom(roomCard);
 				
 				Solution suggest= new Solution(personCard, roomCard, weaponCard);
 				//Make suggestion
@@ -171,6 +175,36 @@ public class SuggestionGui extends JPanel {
 //				gui.nextTurn();
 				
 			}
+		}
+
+		private Card findRoom(Card roomCard) {
+			ArrayList<Card> roomArray= board.getRoomCards();
+			for(Card c: roomArray) {
+				if(c.equals(roomCard)) {
+					roomCard=c;
+				}
+			}
+			return roomCard;
+		}
+
+		private Card findPerson(Card personCard) {
+			ArrayList<Card> personArray= board.getPersonCards();
+			for(Card c: personArray) {
+				if(c.equals(personCard)) {
+					personCard=c;
+				}
+			}
+			return personCard;
+		}
+
+		private Card findWeapon(Card weaponCard) {
+			ArrayList<Card> weaponArray= board.getWeaponCards();				
+			for(Card c: weaponArray) {
+				if(c.equals(weaponCard)) {
+					weaponCard=c;
+				}
+			}
+			return weaponCard;
 		}
 	}
 	

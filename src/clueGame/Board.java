@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class Board extends JPanel implements MouseListener{
 	//Debug mode and ai stuff
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	public static boolean COMPUTER_ONLY = false; //effects setup only.
 	
 	// Identifier constants
@@ -754,6 +754,12 @@ public class Board extends JPanel implements MouseListener{
 			System.out.println("This card:");
 			System.out.println(suggestionCard.getCardName());
 		}
+			
+//		update the hand gui if its the human player turn and current card isn't null
+		if(suggestionMaker instanceof HumanPlayer && suggestionCard != null) {
+			ClueGame.getCurrentDisplay().updateSeen(suggestionCard);
+			ClueGame.getCurrentDisplay().repaint();
+		}
 		
 		repaint();
 		
@@ -980,13 +986,6 @@ public class Board extends JPanel implements MouseListener{
 		Player currentPlayer=players.get(currentPlayerIndex);
 		closeDialog();
 		currentPlayer.seen.add(resultCard);
-		
-		if(currentPlayer instanceof HumanPlayer) {
-			ClueGame display = ClueGame.getCurrentDisplay();
-			if(resultCard != null) {
-				display.updateSeen(resultCard);
-			}
-		}
 	}
 	
 	// Getters and setters
