@@ -56,6 +56,7 @@ public class ClueGame extends JFrame {
 			}
 		}
 		if(add) {
+
 			cardGui.addCard(c, 1);
 		}
 	}

@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class Board extends JPanel implements MouseListener{
 	//Debug mode and ai stuff
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	public static final boolean COMPUTER_DEBUG = false; // debug for computer winning
 	public static boolean COMPUTER_ONLY = false; //effects setup only.
 	
@@ -770,8 +770,8 @@ public class Board extends JPanel implements MouseListener{
 			closeDialog();
 		}
 		
-		if(true && suggestionCard!=null) {
-			System.out.println("This card:");
+		if(DEBUG && suggestionCard != null) {
+			System.out.print("This card: ");
 			System.out.println(suggestionCard.getCardName());
 		}
 			
