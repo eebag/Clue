@@ -1074,12 +1074,14 @@ public class Board extends JPanel implements MouseListener{
 		return suggestionRequired;
 	}
 	
-	public BoardCell getCurrentPlayerLocation() {
+	public Room getCurrentPlayerLocation() {
 		Player currentPlayer = players.get(currentPlayerIndex);
 		
 		BoardCell location = grid[currentPlayer.getRow()][currentPlayer.getCol()];
 		
-		return location;
+		Room currentRoom = roomMap.get(location.getInitial());
+		
+		return currentRoom;
 	}
 	
 }
