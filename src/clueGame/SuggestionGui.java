@@ -166,8 +166,10 @@ public class SuggestionGui extends JPanel {
 				
 				board.getPlayers().get(board.currentPlayerIndex).updateHand(resultCard);
 				
-				GameControlPanel gui = ClueGame.getCurrentDisplay().getControlGui();
-				gui.nextTurn();
+				board.setSuggestionRequired(false);
+//				
+//				GameControlPanel gui = ClueGame.getCurrentDisplay().getControlGui();
+//				gui.nextTurn();
 				
 			}
 		}
