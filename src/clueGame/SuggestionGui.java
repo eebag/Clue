@@ -164,6 +164,8 @@ public class SuggestionGui extends JPanel {
 				//process suggestion
 				board.processSuggestion(resultCard);
 				
+				board.getPlayers().get(board.currentPlayerIndex).updateHand(resultCard);
+				
 				GameControlPanel gui = ClueGame.getCurrentDisplay().getControlGui();
 				gui.nextTurn();
 				

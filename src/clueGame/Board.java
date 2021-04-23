@@ -948,16 +948,14 @@ public class Board extends JPanel implements MouseListener{
 		//do nothing
 	}
 
-	public Solution accusationSolution(JPanel suggestionPanel) {
-		dialog = new JDialog(ClueGame.getCurrentDisplay(), "Make Accusation", true);
+	public void accusationSolution(JPanel suggestionPanel, String label) {
+		dialog = new JDialog(ClueGame.getCurrentDisplay(), label, true);
 		dialog.setResizable(false);
 		dialog.getContentPane().add(suggestionPanel);
 		dialog.pack();
 		dialog.setLocation((getWidth()-dialog.getWidth())/2, (getHeight()-dialog.getHeight())/2);
 		
 		dialog.setVisible(true);
-		
-		return new Solution(null, null, null);
 	}
 	
 	//ends the game with a win/loss
@@ -980,7 +978,9 @@ public class Board extends JPanel implements MouseListener{
 		
 		if(currentPlayer instanceof HumanPlayer) {
 			ClueGame display = ClueGame.getCurrentDisplay();
-			display.updateSeen(resultCard);
+			if(resultCard != null) {
+				display.updateSeen(resultCard);
+			}
 		}
 	}
 	

@@ -41,7 +41,7 @@ public class GameControlPanel extends JPanel{
 			else {
 				if(board.isSuggestionRequired()) {
 					SuggestionGui suggest= new SuggestionGui(board.getCurrentPlayerLocation());
-					board.accusationSolution(suggest);
+					board.accusationSolution(suggest, "Make Suggestion");
 				}
 				else {
 					nextTurn();
@@ -49,24 +49,24 @@ public class GameControlPanel extends JPanel{
 			}
 			
 		}
+	}
+	
+	public void nextTurn() {
+		board.updateCurrentPlayer();
+		playerTurn.setText(board.getPlayers().get(board.currentPlayerIndex).getName());
+		playerTurn.setBackground(board.getPlayers().get(board.currentPlayerIndex).getColor());
+		//Roll dice for the player
+		Random randomroll = new Random();
+		randomroll.setSeed(System.currentTimeMillis());
+		int diceRoll = randomroll.nextInt(6); // picks random number 0 -> 5
+		diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
+		setRoll(diceRoll);
 
-		public void nextTurn() {
-			board.updateCurrentPlayer();
-			playerTurn.setText(board.getPlayers().get(board.currentPlayerIndex).getName());
-			playerTurn.setBackground(board.getPlayers().get(board.currentPlayerIndex).getColor());
-			//Roll dice for the player
-			Random randomroll = new Random();
-			randomroll.setSeed(System.currentTimeMillis());
-			int diceRoll = randomroll.nextInt(6); // picks random number 0 -> 5
-			diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
-			setRoll(diceRoll);
+		guess.setText("");
+		guessResult.setText("");
+		guessResult.setBackground(null);
 
-			guess.setText("");
-			guessResult.setText("");
-			guessResult.setBackground(null);
-
-			board.processTurn(diceRoll);
-		}
+		board.processTurn(diceRoll);
 	}
 	
 	//Accusation button listener - on click, call board.processTurn()
@@ -76,8 +76,7 @@ public class GameControlPanel extends JPanel{
 				if(board.isInTurn() || board.getPlayers().get(board.currentPlayerIndex) instanceof HumanPlayer) {
 					//If its the human players turn make a frame, print it and let them enter it
 					JPanel suggestionPanel= new SuggestionGui();
-					Solution accusation= board.accusationSolution(suggestionPanel);
-					board.checkAccusation(accusation.getPerson(),accusation.getRoom(), accusation.getWeapon());
+					board.accusationSolution(suggestionPanel, "Make Accusation");
 				}
 				else {
 					//If its not their turn yell at them
