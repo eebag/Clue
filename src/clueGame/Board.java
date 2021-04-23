@@ -681,7 +681,7 @@ public class Board extends JPanel implements MouseListener{
 	@SuppressWarnings("unused")
 	public Card handleSuggestion(Player suggestionMaker, Solution suggestion) {
 		//get index of suggestion maker in player list
-		//start at index, loop through players, then loop from begginning -> index
+		//start at index, loop through players, then loop from beginning -> index
 		//shuffle hand for each player
 		//return first card that disproves suggestion
 		
@@ -704,7 +704,7 @@ public class Board extends JPanel implements MouseListener{
 				index = i;
 				break;
 			}
-		}
+		}		
 		
 		Card suggestionCard = null;
 		
@@ -748,6 +748,11 @@ public class Board extends JPanel implements MouseListener{
 			controlGui.updateGuessResult(true);
 		} else { // disproven
 			controlGui.updateGuessResult(false);
+		}
+		
+		if(DEBUG) {
+			System.out.println("This card:");
+			System.out.println(suggestionCard.getCardName());
 		}
 		
 		repaint();

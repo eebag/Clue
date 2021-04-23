@@ -158,13 +158,12 @@ public class SuggestionGui extends JPanel {
 			else {
 				//get person and weapon
 				Card roomCard =new Card(roomSave.getName(), CardType.ROOM);		
+				
 				Solution suggest= new Solution(personCard, roomCard, weaponCard);
 				//Make suggestion
 				Card resultCard=board.handleSuggestion(board.getPlayers().get(board.currentPlayerIndex), suggest);
 				//process suggestion
 				board.processSuggestion(resultCard);
-				
-				board.getPlayers().get(board.currentPlayerIndex).updateHand(resultCard);
 				
 				board.setSuggestionRequired(false);
 //				
