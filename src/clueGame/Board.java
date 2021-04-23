@@ -434,12 +434,12 @@ public class Board extends JPanel implements MouseListener{
 			if (players.isEmpty() && (!COMPUTER_ONLY) ) {
 				// If no players have been added yet, add a human
 				Player newPlayer = new HumanPlayer(name, color);
-				newPlayer.hand = new ArrayList<Card>();
+				newPlayer.hand = new HashSet<Card>();
 				players.add(newPlayer);
 			} else {
 				// If players have been added, add a new computer player
 				Player newPlayer = new ComputerPlayer(name, color);
-				newPlayer.hand = new ArrayList<Card>();
+				newPlayer.hand = new HashSet<Card>();
 				players.add(newPlayer);
 			}
 			typeOfCard = CardType.PERSON;
@@ -781,17 +781,13 @@ public class Board extends JPanel implements MouseListener{
 	
 	//gets card to disprove suggestion
 	private Card getSuggestionCard(Player p, Set<Card> suggestion) {
-		ArrayList<Card> hand = p.hand;
-		ArrayList<Card> check= hand;
-		Collections.shuffle(check);
-		for(Card c: players.get(currentPlayerIndex).getHand()) {
-			for(Card a :check) {
-				if(c.equals(a)) {
-					check.remove(a);
-				}
-			}
-		}
-		for(Card c : check) {
+		//Get the players hand
+		ArrayList<Card> hand = (ArrayList)(p.hand);
+		//Shuffle it
+		Collections.shuffle(hand);
+		
+		//Find if suggestion is possible
+		for(Card c : hand) {
 			if(suggestion.contains(c)) {
 				return c;
 			}

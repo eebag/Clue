@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -89,7 +90,7 @@ public class ClueGame extends JFrame {
 		
 		gameGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		
-		ArrayList<Card> hand = board.getPlayers().get(board.currentPlayerIndex).getHand();
+		Set<Card> hand = board.getPlayers().get(board.currentPlayerIndex).getHand();
 		
 		//add each card in hand to display
 		for(Card C : hand) {

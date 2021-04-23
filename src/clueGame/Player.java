@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Player abstract class (to be implemented by Human and Computer player classes)
@@ -17,8 +18,8 @@ public abstract class Player {
 	//instance variables
 	private String name;
 	private Color color;
-	protected ArrayList<Card> hand;
-	protected ArrayList<Card> seen= new ArrayList<>();
+	protected Set<Card> hand= new HashSet();
+	protected Set<Card> seen= new HashSet<>();
 	protected int row, col;
 	
 	private Board board = Board.getInstance();
@@ -72,7 +73,7 @@ public abstract class Player {
 	}
 	
 	//getters and setters
-	public ArrayList<Card> getHand(){
+	public Set<Card> getHand(){
 		return hand;
 	}
 	
@@ -119,10 +120,10 @@ public abstract class Player {
 	}
 	
 	//next 2 should just be used in testing
-	public void setHand(ArrayList<Card> hand) {
+	public void setHand(Set<Card> hand) {
 		this.hand=hand;
 	}
-	public void setSeen(ArrayList<Card> seen) {
+	public void setSeen(Set<Card> seen) {
 		this.seen=seen;
 	}
 	
