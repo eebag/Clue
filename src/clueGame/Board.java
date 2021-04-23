@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class Board extends JPanel implements MouseListener{
 	//Debug mode and ai stuff
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	public static boolean COMPUTER_ONLY = false; //effects setup only.
 	
 	// Identifier constants
@@ -617,10 +617,16 @@ public class Board extends JPanel implements MouseListener{
 		} else {
 			if(DEBUG) {
 				System.out.println("Computer turn");
-			}
-			
+			}			
 			//Computer player
 			ComputerPlayer currentComputer = (ComputerPlayer) currentPlayer; // Cast so we can use computer player methods
+			
+			//if they have seen all the cards in the game, make the accusation
+			if((currentComputer.hand.size() + currentComputer.seen.size() == deck.size()) || DEBUG) {
+				boolean winner = checkAccusation(theAnswer.getPerson(), theAnswer.getRoom(), theAnswer.getWeapon());
+				win(winner);
+			}
+			
 			
 			//set moveFinished to ture
 			moveFinished= true;
@@ -633,7 +639,10 @@ public class Board extends JPanel implements MouseListener{
 			
 			//If in a room, make a suggestion
 			if(targetCell.isRoom()) {
-				System.out.println("In a room");
+				
+				if(DEBUG) {
+					System.out.println("In a room");
+				}
 				
 				//suggestionRequired = true;
 				
