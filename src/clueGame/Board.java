@@ -782,9 +782,16 @@ public class Board extends JPanel implements MouseListener{
 	//gets card to disprove suggestion
 	private Card getSuggestionCard(Player p, Set<Card> suggestion) {
 		ArrayList<Card> hand = p.hand;
-		Collections.shuffle(hand);
-		
-		for(Card c : hand) {
+		ArrayList<Card> check= hand;
+		Collections.shuffle(check);
+		for(Card c: players.get(currentPlayerIndex).getHand()) {
+			for(Card a :check) {
+				if(c.equals(a)) {
+					check.remove(a);
+				}
+			}
+		}
+		for(Card c : check) {
 			if(suggestion.contains(c)) {
 				return c;
 			}
@@ -989,13 +996,18 @@ public class Board extends JPanel implements MouseListener{
 			closeDialog();			
 		}
 		
-		
-		isWin=((players.get(currentPlayerIndex) instanceof HumanPlayer) && isWin);
-		if(isWin) {
+		if((players.get(currentPlayerIndex) instanceof HumanPlayer) && isWin) {
 			JOptionPane.showMessageDialog(this, "You Win! Yayyyyyy :)", "Winner Winner", JOptionPane.INFORMATION_MESSAGE);
 		}
-		else {
+		else if((players.get(currentPlayerIndex) instanceof HumanPlayer) && !isWin) {
 			JOptionPane.showMessageDialog(this, "You lost. :(", "Better Luck Next Time", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else if((players.get(currentPlayerIndex) instanceof ComputerPlayer) && isWin) {
+			String sadness= "You lost to an AI. And not even a good one. Now the robots are going to take over the world.";
+			JOptionPane.showMessageDialog(this, sadness, "What a shame", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "How did you get here?", "spooky", JOptionPane.QUESTION_MESSAGE);
 		}
 		
 		
