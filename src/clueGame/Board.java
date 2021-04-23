@@ -984,8 +984,9 @@ public class Board extends JPanel implements MouseListener{
 	//ends the game with a win/loss
 	public void win(boolean isWin) {
 		closeDialog();
+		isWin=((players.get(currentPlayerIndex) instanceof HumanPlayer) && isWin);
 		if(isWin) {
-			JOptionPane.showMessageDialog(this, "You Win! Yayyyyyy", "Winner Winner", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "You Win! Yayyyyyy :)", "Winner Winner", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else {
 			JOptionPane.showMessageDialog(this, "You lost. :(", "Better Luck Next Time", JOptionPane.INFORMATION_MESSAGE);
