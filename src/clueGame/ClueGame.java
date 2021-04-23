@@ -43,11 +43,11 @@ public class ClueGame extends JFrame {
 	}
 	
 	public void updateHand(Card c) {
-		cardGui.addCard(c, 1);
+		cardGui.addCard(c, 0);
 	}
 	
 	public void updateSeen(Card c) {
-		cardGui.addCard(c, 0);
+		cardGui.addCard(c, 1);
 	}
 	
 	public GameControlPanel getControlGui() {
@@ -89,7 +89,7 @@ public class ClueGame extends JFrame {
 		
 		//add each card in hand to display
 		for(Card C : hand) {
-			cardGui.addCard(C, 1);
+			cardGui.addCard(C, 0);
 		}
 		
 		
