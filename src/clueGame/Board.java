@@ -661,7 +661,7 @@ public class Board extends JPanel implements MouseListener{
 		}
 		
 		inTurn = false;
-		suggestionRequired = false;
+		//suggestionRequired = false;
 	}
 	public boolean isInTurn() {
 		return inTurn;
@@ -781,8 +781,12 @@ public class Board extends JPanel implements MouseListener{
 	
 	//gets card to disprove suggestion
 	private Card getSuggestionCard(Player p, Set<Card> suggestion) {
-		//Get the players hand
-		ArrayList<Card> hand = (ArrayList)(p.hand);
+		//Get the players hand into an arraylist
+		ArrayList<Card> hand = new ArrayList<>();
+		for(Card c : p.hand) {
+			hand.add(c);
+		}
+		
 		//Shuffle it
 		Collections.shuffle(hand);
 		
