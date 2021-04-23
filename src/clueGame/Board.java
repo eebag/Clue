@@ -28,7 +28,8 @@ import java.util.Random;
 
 public class Board extends JPanel implements MouseListener{
 	//Debug mode and ai stuff
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
+	public static final boolean COMPUTER_DEBUG = false; // debug for computer winning
 	public static boolean COMPUTER_ONLY = false; //effects setup only.
 	
 	// Identifier constants
@@ -622,7 +623,7 @@ public class Board extends JPanel implements MouseListener{
 			ComputerPlayer currentComputer = (ComputerPlayer) currentPlayer; // Cast so we can use computer player methods
 			
 			//if they have seen all the cards in the game, make the accusation
-			if((currentComputer.hand.size() + currentComputer.seen.size() == deck.size()) || DEBUG) {
+			if((currentComputer.hand.size() + currentComputer.seen.size() == deck.size()) || COMPUTER_DEBUG) {
 				boolean winner = checkAccusation(theAnswer.getPerson(), theAnswer.getRoom(), theAnswer.getWeapon());
 				win(winner);
 			}
@@ -983,7 +984,12 @@ public class Board extends JPanel implements MouseListener{
 	
 	//ends the game with a win/loss
 	public void win(boolean isWin) {
-		closeDialog();
+		
+		if(players.get(currentPlayerIndex) instanceof HumanPlayer) {
+			closeDialog();			
+		}
+		
+		
 		isWin=((players.get(currentPlayerIndex) instanceof HumanPlayer) && isWin);
 		if(isWin) {
 			JOptionPane.showMessageDialog(this, "You Win! Yayyyyyy :)", "Winner Winner", JOptionPane.INFORMATION_MESSAGE);
@@ -991,6 +997,8 @@ public class Board extends JPanel implements MouseListener{
 		else {
 			JOptionPane.showMessageDialog(this, "You lost. :(", "Better Luck Next Time", JOptionPane.INFORMATION_MESSAGE);
 		}
+		
+		
 		ClueGame.closeGUI();
 	}
 	
