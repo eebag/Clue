@@ -39,24 +39,33 @@ public class GameControlPanel extends JPanel{
 				//Throw an error or complain
 			}
 			else {
-				
-				board.updateCurrentPlayer();
-				playerTurn.setText(board.getPlayers().get(board.currentPlayerIndex).getName());
-				playerTurn.setBackground(board.getPlayers().get(board.currentPlayerIndex).getColor());
-				//Roll dice for the player
-				Random randomroll = new Random();
-				randomroll.setSeed(System.currentTimeMillis());
-				int diceRoll = randomroll.nextInt(6); // picks random number 0 -> 5
-				diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
-				setRoll(diceRoll);
-				
-				guess.setText("");
-				guessResult.setText("");
-				guessResult.setBackground(null);
-				
-				board.processTurn(diceRoll);
+				if(board.isSuggestionRequired()) {
+					SuggestionGui suggest= new suggestionGui(board.getCurrentPlayerLocation().getRoom());
+					board.accusationSolution(suggest);
+				}
+				else {
+					nextTurn();
+				}
 			}
 			
+		}
+
+		public void nextTurn() {
+			board.updateCurrentPlayer();
+			playerTurn.setText(board.getPlayers().get(board.currentPlayerIndex).getName());
+			playerTurn.setBackground(board.getPlayers().get(board.currentPlayerIndex).getColor());
+			//Roll dice for the player
+			Random randomroll = new Random();
+			randomroll.setSeed(System.currentTimeMillis());
+			int diceRoll = randomroll.nextInt(6); // picks random number 0 -> 5
+			diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
+			setRoll(diceRoll);
+
+			guess.setText("");
+			guessResult.setText("");
+			guessResult.setBackground(null);
+
+			board.processTurn(diceRoll);
 		}
 	}
 	
