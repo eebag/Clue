@@ -48,10 +48,16 @@ public class ClueGame extends JFrame {
 	}
 	
 	public void updateSeen(Card c) {
-		if(board.isAdded()) {
+		Set<Card> validateCard= board.getPlayers().get(board.currentPlayerIndex).seen;
+		boolean add=true;
+		for (Card v: validateCard) {
+			if(c.equals(v)) {
+				add=false;
+			}
+		}
+		if(add) {
 			cardGui.addCard(c, 1);
 		}
-		board.setAdded(false);
 	}
 	
 	public GameControlPanel getControlGui() {

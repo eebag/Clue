@@ -44,7 +44,7 @@ public class Card {
 	}
 	
 	public String toString() {
-		return cardName + ": " + type;
+		return cardName;
 	}
 
 	public Color getCardColor() {

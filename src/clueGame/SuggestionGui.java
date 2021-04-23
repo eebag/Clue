@@ -151,8 +151,14 @@ public class SuggestionGui extends JPanel {
 			if(accusation) {
 				//Get room, person and weapon
 				Card roomCard =new Card((String)roomOptions.getSelectedItem(), CardType.ROOM);
+				
+				//Find the equivilent card
+				weaponCard = findWeapon(weaponCard);
+				personCard = findPerson(personCard);
+				roomCard = findRoom(roomCard);
+				
 				//check if they win or lose
-				boolean isWin=board.checkAccusation(personCard, weaponCard, roomCard);
+				boolean isWin=board.checkAccusation(personCard, roomCard, weaponCard);
 				board.win(isWin);
 			}
 			else {
@@ -165,9 +171,7 @@ public class SuggestionGui extends JPanel {
 				
 				Solution suggest= new Solution(personCard, roomCard, weaponCard);
 				//Make suggestion
-				Card resultCard=board.handleSuggestion(board.getPlayers().get(board.currentPlayerIndex), suggest);
-				//process suggestion
-				board.processSuggestion(resultCard);
+				board.handleSuggestion(board.getPlayers().get(board.currentPlayerIndex), suggest);
 				
 				board.setSuggestionRequired(false);
 //				

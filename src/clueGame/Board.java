@@ -64,7 +64,6 @@ public class Board extends JPanel implements MouseListener{
 	private boolean inTurn = false; //boolean for wether or not a turn is currently being played by a player
 	private boolean moveFinished = false; //boolean for telling wether the player has moved
 	private boolean suggestionRequired= false; //boolean for checking if suggestion is needed
-	private boolean added= false;
 	
 	//Variables to pass information to GUI elements
 	protected int roll;
@@ -349,6 +348,14 @@ public class Board extends JPanel implements MouseListener{
 		deck.remove(weapon);
 		deck.remove(person);
 		theAnswer = new Solution(person, room, weapon);
+		if(DEBUG) {
+			System.out.print("The solution: ");
+			System.out.print(person);
+			System.out.print(" ");
+			System.out.print(room);
+			System.out.print(" ");
+			System.out.println(weapon);
+		}
 	}
 
 	// deals hands to all the players
@@ -757,22 +764,20 @@ public class Board extends JPanel implements MouseListener{
 		
 		if(suggestionCard == null) { // not disproven
 			controlGui.updateGuessResult(true);
+			closeDialog();
 		} else { // disproven
 			controlGui.updateGuessResult(false);
+			closeDialog();
 		}
 		
-		if(DEBUG) {
+		if(true && suggestionCard!=null) {
 			System.out.println("This card:");
 			System.out.println(suggestionCard.getCardName());
 		}
 			
 //		update the hand gui if its the human player turn and current card isn't null
 		if(suggestionMaker instanceof HumanPlayer && suggestionCard != null) {
-			ClueGame.getCurrentDisplay().updateSeen(suggestionCard);
-			ClueGame.getCurrentDisplay().getCardGui().invalidate();
-			ClueGame.getCurrentDisplay().getCardGui().repaint();
-			ClueGame.getCurrentDisplay().validate();
-			ClueGame.getCurrentDisplay().repaint();
+			processSuggestion(suggestionCard);
 		}
 		
 		repaint();
@@ -1001,7 +1006,9 @@ public class Board extends JPanel implements MouseListener{
 			JOptionPane.showMessageDialog(this, "You Win! Yayyyyyy :)", "Winner Winner", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if((players.get(currentPlayerIndex) instanceof HumanPlayer) && !isWin) {
-			JOptionPane.showMessageDialog(this, "You lost. :(", "Better Luck Next Time", JOptionPane.INFORMATION_MESSAGE);
+			String print= "You lost :(" + '\n'+ "It was " +theAnswer.getPerson() + " with a " 
+					+theAnswer.getWeapon() +" in the "+ theAnswer.getRoom()+ ".";
+			JOptionPane.showMessageDialog(this, print, "Better Luck Next Time", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if((players.get(currentPlayerIndex) instanceof ComputerPlayer) && isWin) {
 			String sadness= "You lost to an AI. And not even a good one. Now the robots are going to take over the world.";
@@ -1019,7 +1026,12 @@ public class Board extends JPanel implements MouseListener{
 	public void processSuggestion(Card resultCard) {
 		Player currentPlayer=players.get(currentPlayerIndex);
 		closeDialog();
-		added= currentPlayer.seen.add(resultCard);
+		ClueGame.getCurrentDisplay().updateSeen(resultCard);
+		ClueGame.getCurrentDisplay().getCardGui().invalidate();
+		ClueGame.getCurrentDisplay().getCardGui().repaint();
+		ClueGame.getCurrentDisplay().validate();
+		ClueGame.getCurrentDisplay().repaint();
+		currentPlayer.seen.add(resultCard);
 	}
 	
 	// Getters and setters
@@ -1124,12 +1136,5 @@ public class Board extends JPanel implements MouseListener{
 		suggestionRequired=sugg;
 	}
 	
-	public void setAdded(boolean add) {
-		added=add;
-	}
-	
-	public boolean isAdded() {
-		return added;
-	}
 	
 }
