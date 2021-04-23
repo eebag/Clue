@@ -49,6 +49,11 @@ public class ClueGame extends JFrame {
 	
 	public void updateSeen(Card c) {
 		if(board.isAdded()) {
+			
+			if(board.DEBUG) {
+				System.out.println("New card aquired: " + c.getCardName());
+			}
+			
 			cardGui.addCard(c, 1);
 		}
 		board.setAdded(false);

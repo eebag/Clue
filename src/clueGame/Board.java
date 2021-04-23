@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class Board extends JPanel implements MouseListener{
 	//Debug mode and ai stuff
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	public static final boolean COMPUTER_DEBUG = false; // debug for computer winning
 	public static boolean COMPUTER_ONLY = false; //effects setup only.
 	
@@ -761,8 +761,8 @@ public class Board extends JPanel implements MouseListener{
 			controlGui.updateGuessResult(false);
 		}
 		
-		if(DEBUG) {
-			System.out.println("This card:");
+		if(DEBUG && suggestionCard != null) {
+			System.out.print("This card: ");
 			System.out.println(suggestionCard.getCardName());
 		}
 			
@@ -1019,7 +1019,17 @@ public class Board extends JPanel implements MouseListener{
 	public void processSuggestion(Card resultCard) {
 		Player currentPlayer=players.get(currentPlayerIndex);
 		closeDialog();
-		added= currentPlayer.seen.add(resultCard);
+		
+		added = currentPlayer.seen.contains(resultCard);
+		
+		if(DEBUG && players.get(currentPlayerIndex) instanceof HumanPlayer) {
+			if(resultCard != null) {
+				System.out.println(resultCard.getCardName() + " is new");
+			} else {
+				System.out.println("result null");
+			}
+		}
+		currentPlayer.seen.add(resultCard);
 	}
 	
 	// Getters and setters
