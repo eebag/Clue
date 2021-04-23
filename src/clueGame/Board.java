@@ -750,6 +750,12 @@ public class Board extends JPanel implements MouseListener{
 			controlGui.updateGuessResult(false);
 		}
 		
+		//update the hand gui if its the human player turn and current card isn't null
+		if(suggestionMaker instanceof HumanPlayer && suggestionCard != null) {
+			ClueGame.getCurrentDisplay().updateSeen(suggestionCard);
+			ClueGame.getCurrentDisplay().repaint();
+		}
+		
 		repaint();
 		
 		return suggestionCard;
