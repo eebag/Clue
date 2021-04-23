@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class Board extends JPanel implements MouseListener{
 	//Debug mode and ai stuff
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	public static boolean COMPUTER_ONLY = false; //effects setup only.
 	
 	// Identifier constants
