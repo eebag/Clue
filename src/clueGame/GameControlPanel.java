@@ -50,6 +50,9 @@ public class GameControlPanel extends JPanel{
 				diceRoll++; //increment dice roll by 1 so it becomes 1 -> 6
 				setRoll(diceRoll);
 				
+				guess.setText("");
+				guessResult.setText("");
+				
 				board.processTurn(diceRoll);
 			}
 			
@@ -154,6 +157,20 @@ public class GameControlPanel extends JPanel{
 		add(upperPanel, 0);
 		add(lowerPanel, 1);
 
+	}
+	
+	public void updateGuess(String s) {
+		guess.setText(s);
+	}
+	
+	public void updateGuessResult(boolean result) {
+		if(result) {
+			guessResult.setText("Not disproven");
+			guessResult.setBackground(Color.GREEN);
+		} else {
+			guessResult.setText("Disproven");
+			guessResult.setBackground(Color.RED);
+		}	
 	}
 	
 	/**FOR DEBUGGING
