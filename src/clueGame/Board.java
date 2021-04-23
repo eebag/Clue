@@ -258,7 +258,6 @@ public class Board extends JPanel implements MouseListener{
 			break;
 		case NONE:
 			// It shouldn't enter here. If it does, break and do nothing (throw error?)
-			// TODO: Throw error?
 			break;
 		}
 	}

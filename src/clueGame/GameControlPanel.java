@@ -60,7 +60,7 @@ public class GameControlPanel extends JPanel{
 		}
 	}
 	
-	//Next button listener - on click, call board.processTurn()
+	//Accusation button listener - on click, call board.processTurn()
 		private class AccListener implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
