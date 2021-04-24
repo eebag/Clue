@@ -69,6 +69,11 @@ public class GameControlPanel extends JPanel{
 		private class AccListener implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(board.wasSuggestionMade()) {
+					board.showErrorMessage("Chill", "You already made a suggestion");
+					return;
+				}
+				
 				if(board.isInTurn() || board.getPlayers().get(board.currentPlayerIndex) instanceof HumanPlayer) {
 					//If its the human players turn make a frame, print it and let them enter it
 					JPanel suggestionPanel= new SuggestionGui();

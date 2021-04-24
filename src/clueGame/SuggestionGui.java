@@ -33,6 +33,7 @@ public class SuggestionGui extends JPanel {
 		setLayout(new GridLayout(4,2)); // 4 rows, 2 collumns
 		
 		accusation=false;
+		board.updateSuggetionMade(true);
 		roomSave=r;
 		
 		//JLabels to display what each input is for
