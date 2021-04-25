@@ -531,6 +531,7 @@ public class Board extends JPanel implements MouseListener{
 
 	// Read in file
 	private Scanner fileInput(String fileName) throws FileNotFoundException {
+		System.out.println(System.getProperty("user.dir"));
 		String file = "data/" + fileName;
 		FileReader reader = new FileReader(file); // creates a new filein, will be passed into a scanner
 		// put into scanner and return
